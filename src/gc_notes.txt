@@ -1,0 +1,38 @@
+My implementation of a  Garbage Collector:
+
+Description:
+
+There 2 main structures that guide the garbage collection, which is an array of pointers to lists and a linked list structure specifically for the garbage. Those two structures are manipulated via the functions below so you may store memory allocated at runtime more efficiently.
+
+Installation:
+
+To install simply clone this repo and edit the Makefile to include your source code. You must also edit the setup.h so you have all your code tracked correctly.
+
+prototypes:
+
+Internal to the GC only:
+
+t_gc_node	*gc_create_node(void *p);
+void		*gc_findptr(void *p, t_gc *gc)
+void		*gc_findptr_tag(void *p, t_gc *gc, t_gc_tag tag)
+
+Made for the user:
+
+t_gc		*gc_init(void);
+void		*gc_free_all(t_gc *gc);
+void		*gc_free_tag(t_gc *gc, t_gc_tag tag);
+void		*gc_malloc(size_t size, t_gc *gc, t_gc_tag tag)
+void		*gc_calloc(size_t size, t_gc *gc, t_gc_tag tag)
+void		*gc_addptr(void *p, t_gc *gc, t_gc_tag tag)
+void		*gc_addmtx(void *mtx, t_gc *gc, t_gc_tag tag)
+void		*gc_addlst(void *head, t_gc *gc, t_gc_tag tag)
+void		*gc_addbtree(void *root, t_gc *gc, t_gc_tag tag)
+
+You can use, but probably should not
+void		gc_delptr(void *p, t_gc *gc, t_gc_tag tag)
+void		gc_dellst(void *head, int index, t_gc *gc, t_gc_tag tag)
+void		gc_delbtree(void *root, t_gc *gc, t_gc_tag tag)
+
+Observation 1: aside from gc_free_all and gc_free_tag, no NULL gc instance will be tolerated.
+
+Observation 1: aside from gc_free_all and gc_free_tag, no NULL gc instance will be tolerated.
