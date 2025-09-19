@@ -4,7 +4,7 @@ CC= cc
 CFLAGS= -Wall -Wextra -Werror -Wpedantic -Iincludes
 SRC= src/main.c
 OBJ= $(SRC:.c=.o)
-NAME= program
+NAME= minishell
 LIBFT_DIR= libft
 LIBFT= $(LIBFT_DIR)/libft.a
 

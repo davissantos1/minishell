@@ -1,4 +1,4 @@
-#include "setup.h"
+#include "minishell.h"
 #include <unistd.h>
 
 int	main(void)
