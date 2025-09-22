@@ -1,21 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   btree_create_node.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dasimoes <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/21 13:32:47 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/09/21 13:33:23 by dasimoes         ###   ########.fr       */
+/*   Created: 2025/08/05 15:47:40 by dasimoes          #+#    #+#             */
+/*   Updated: 2025/08/05 15:47:42 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int	main(int ac, char **av, char **env)
+t_btree	*btree_create_node(void *item)
 {
-	
-	
-	return (0);
+	t_btree	*node;
+
+	node = malloc(sizeof(t_btree));
+	if (!node)
+		return (NULL);
+	node->right = 0;
+	node->left = 0;
+	node->item = item;
+	return (node);
 }
-	

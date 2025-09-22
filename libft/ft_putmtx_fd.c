@@ -1,21 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_putmtx_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dasimoes <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/21 13:32:47 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/09/21 13:33:23 by dasimoes         ###   ########.fr       */
+/*   Created: 2025/08/13 13:41:22 by dasimoes          #+#    #+#             */
+/*   Updated: 2025/08/13 13:50:56 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int	main(int ac, char **av, char **env)
+void	ft_putmtx_fd(char **mtx, int fd)
 {
-	
-	
-	return (0);
+	int	i;
+
+	i = -1;
+	while (mtx[++i])
+	{
+		ft_putstr_fd(mtx[i], fd);
+		ft_putchar_fd('\n', fd);
+	}
 }
-	

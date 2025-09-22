@@ -1,21 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_striteri.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dasimoes <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/21 13:32:47 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/09/21 13:33:23 by dasimoes         ###   ########.fr       */
+/*   Created: 2025/07/13 14:36:55 by dasimoes          #+#    #+#             */
+/*   Updated: 2025/07/23 12:41:52 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int	main(int ac, char **av, char **env)
+void	ft_striteri(char *s, void (*f)(unsigned int, char*))
 {
-	
-	
-	return (0);
+	size_t	i;
+
+	i = 0;
+	while (s[i])
+	{
+		f(i, &s[i]);
+		i++;
+	}
 }
-	

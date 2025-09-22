@@ -1,21 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_lstdelone_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dasimoes <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/21 13:32:47 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/09/21 13:33:23 by dasimoes         ###   ########.fr       */
+/*   Created: 2025/07/13 17:07:46 by dasimoes          #+#    #+#             */
+/*   Updated: 2025/07/22 20:21:52 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int	main(int ac, char **av, char **env)
+void	ft_lstdelone(t_list *lst, void (*del)(void*))
 {
-	
-	
-	return (0);
+	del(lst->content);
+	free(lst);
 }
-	

@@ -1,21 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dasimoes <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/21 13:32:47 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/09/21 13:33:23 by dasimoes         ###   ########.fr       */
+/*   Created: 2025/07/10 21:35:40 by dasimoes          #+#    #+#             */
+/*   Updated: 2025/07/13 21:33:51 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int	main(int ac, char **av, char **env)
+char	*ft_strdup(const char *s)
 {
-	
-	
-	return (0);
+	char	*s_malloc;
+	size_t	i;	
+
+	i = 0;
+	s_malloc = (char *)malloc((ft_strlen(s) + 1) * sizeof(char));
+	if (s_malloc == (void *)0)
+		return ((void *)0);
+	while (s[i])
+	{
+		s_malloc[i] = s[i];
+		i++;
+	}
+	s_malloc[i] = '\0';
+	return (s_malloc);
 }
-	

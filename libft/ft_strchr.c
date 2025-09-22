@@ -1,21 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dasimoes <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/21 13:32:47 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/09/21 13:33:23 by dasimoes         ###   ########.fr       */
+/*   Created: 2025/07/09 22:51:56 by dasimoes          #+#    #+#             */
+/*   Updated: 2025/07/22 21:22:43 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
-
-int	main(int ac, char **av, char **env)
+char	*ft_strchr(const char *s, int c)
 {
-	
-	
-	return (0);
+	int		i;
+
+	i = 0;
+	while (s[i])
+	{
+		if ((unsigned char) s[i] == (unsigned char)c)
+			return ((char *)&s[i]);
+		i++;
+	}
+	if ((unsigned char)c == '\0')
+		return ((char *) &s[i]);
+	return ((void *)0);
 }
-	

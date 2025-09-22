@@ -1,21 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dasimoes <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/21 13:32:47 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/09/21 13:33:23 by dasimoes         ###   ########.fr       */
+/*   Created: 2025/07/09 22:51:56 by dasimoes          #+#    #+#             */
+/*   Updated: 2025/07/13 22:19:21 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int	main(int ac, char **av, char **env)
+char	*ft_strrchr(const char *s, int c)
 {
-	
-	
-	return (0);
+	int		size;
+
+	size = ft_strlen(s);
+	if ((unsigned char)c == '\0')
+		return ((char *) &s[size]);
+	while (size >= 0)
+	{
+		if ((unsigned char) s[size] == (unsigned char)c)
+			return ((char *)&s[size]);
+		size--;
+	}
+	return ((void *)0);
 }
-	

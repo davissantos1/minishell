@@ -1,21 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_mtxfree.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dasimoes <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/21 13:32:47 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/09/21 13:33:23 by dasimoes         ###   ########.fr       */
+/*   Created: 2025/08/12 17:27:49 by dasimoes          #+#    #+#             */
+/*   Updated: 2025/08/12 18:27:52 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int	main(int ac, char **av, char **env)
+void	*ft_mtxfree(char **mtx)
 {
-	
-	
-	return (0);
+	int	i;
+
+	if (mtx)
+	{
+		i = -1;
+		while (mtx[++i])
+			mtx[i] = ft_free(mtx[i]);
+		free(mtx);
+	}
+	return (NULL);
 }
-	

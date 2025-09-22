@@ -1,21 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dasimoes <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/21 13:32:47 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/09/21 13:33:23 by dasimoes         ###   ########.fr       */
+/*   Created: 2025/07/13 14:38:29 by dasimoes          #+#    #+#             */
+/*   Updated: 2025/07/22 21:17:00 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include <unistd.h>
 
-int	main(int ac, char **av, char **env)
+void	ft_putnbr_fd(int n, int fd)
 {
-	
-	
-	return (0);
+	if (n == -2147483648)
+	{
+		write(fd, "-2147483648", 11);
+		return ;
+	}
+	if (n < 0)
+	{
+		n = -n;
+		write(fd, "-", 1);
+	}
+	if (n >= 10)
+		ft_putnbr_fd(n / 10, fd);
+	write(fd, &"0123456789"[n % 10], 1);
 }
-	

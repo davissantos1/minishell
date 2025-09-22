@@ -1,21 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_memset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dasimoes <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: dasimoes <dasimoes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/21 13:32:47 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/09/21 13:33:23 by dasimoes         ###   ########.fr       */
+/*   Created: 2025/07/09 13:36:40 by dasimoes          #+#    #+#             */
+/*   Updated: 2025/07/22 21:06:12 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int	main(int ac, char **av, char **env)
+void	*ft_memset(void *s, int c, size_t n)
 {
-	
-	
-	return (0);
+	size_t			i;
+	unsigned char	*ptr;
+	unsigned char	uc;
+
+	i = 0;
+	ptr = (unsigned char *)s;
+	uc = (unsigned char)c;
+	while (i < n)
+	{
+		ptr[i] = uc;
+		i++;
+	}
+	return (s);
 }
-	

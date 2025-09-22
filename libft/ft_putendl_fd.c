@@ -1,21 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_putendl_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dasimoes <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/21 13:32:47 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/09/21 13:33:23 by dasimoes         ###   ########.fr       */
+/*   Created: 2025/07/13 14:38:08 by dasimoes          #+#    #+#             */
+/*   Updated: 2025/07/22 21:10:26 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include <unistd.h>
 
-int	main(int ac, char **av, char **env)
+void	ft_putendl_fd(char *s, int fd)
 {
-	
-	
-	return (0);
+	size_t	i;
+
+	i = 0;
+	if (!s)
+		return ;
+	while (s[i])
+	{
+		write(fd, &s[i], 1);
+		i++;
+	}
+	write(fd, "\n", 1);
 }
-	

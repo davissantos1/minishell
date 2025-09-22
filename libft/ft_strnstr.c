@@ -1,21 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dasimoes <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/21 13:32:47 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/09/21 13:33:23 by dasimoes         ###   ########.fr       */
+/*   Created: 2025/07/10 11:56:24 by dasimoes          #+#    #+#             */
+/*   Updated: 2025/07/10 13:29:27 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int	main(int ac, char **av, char **env)
+char	*ft_strnstr(const char *big, const char *little, size_t len)
 {
-	
-	
-	return (0);
+	size_t	i;
+	size_t	j;
+
+	i = 0;
+	j = 0;
+	if (little[0] == '\0')
+		return ((char *)big);
+	while (big[i] && (i < len))
+	{
+		j = 0;
+		while (little[j] && (i + j < len) && (big[i + j] == little[j]))
+			j++;
+		if (little[j] == '\0')
+			return ((char *)&big[i]);
+		i++;
+	}
+	return ((void *)0);
 }
-	

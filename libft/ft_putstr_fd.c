@@ -1,21 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dasimoes <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/21 13:32:47 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/09/21 13:33:23 by dasimoes         ###   ########.fr       */
+/*   Created: 2025/07/13 14:37:36 by dasimoes          #+#    #+#             */
+/*   Updated: 2025/08/13 13:42:58 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include <unistd.h>
 
-int	main(int ac, char **av, char **env)
+void	ft_putstr_fd(char *s, int fd)
 {
-	
-	
-	return (0);
+	size_t	i;
+
+	i = 0;
+	while (s[i])
+	{
+		write(fd, &s[i], 1);
+		i++;
+	}
 }
-	
