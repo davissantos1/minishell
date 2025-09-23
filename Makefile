@@ -1,12 +1,13 @@
 # Variables
 
 CC= cc
-CFLAGS= -Wall -Wextra -Werror -Wpedantic -Iincludes
+CFLAGS= -Wall -Wextra -Werror -Wpedantic -Iincludes -Ilibft
 SRC= src/main.c
 OBJ= $(SRC:.c=.o)
 NAME= minishell
 LIBFT_DIR= libft
 LIBFT= $(LIBFT_DIR)/libft.a
+LIBRL= -lreadline
 
 # Makeflags
 MAKEFLAGS += --no-print-directory
@@ -27,7 +28,7 @@ $(LIBFT):
 
 $(NAME): $(OBJ) $(LIBFT)
 	@echo "💻 ${GREEN}Building:${RESET} ${NAME}"
-	@$(CC) $(CFLAGS) $(OBJ) $(LIBFT) -o $(NAME)
+	@$(CC) $(CFLAGS) $(OBJ) $(LIBFT) -o $(NAME) $(LIBRL)
 
 %.o: %.c
 	@echo "🛠️  ${BLUE}Compiling:${RESET} $< to $@"
