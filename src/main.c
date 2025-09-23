@@ -6,7 +6,7 @@
 /*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 13:32:47 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/09/23 08:10:58 by vitosant         ###   ########.fr       */
+/*   Updated: 2025/09/23 08:26:24 by vitosant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ int	main(int ac, char **av, char **env)
 		if (*str != '\0')
 			add_history(str);
 		printf("voce digitou: %s\n", str);
+		free(str);
 	}
 	rl_clear_history();
 	return (0);
