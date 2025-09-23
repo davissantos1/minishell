@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dasimoes <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 16:02:56 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/09/19 16:41:01 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/09/23 08:16:41 by vitosant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@
 # include <signal.h>
 # include <string.h>
 # include <dirent.h>
-# include <stropts.h>
 # include <termios.h>
 # include <fcntl.h>
+# include <sys/ioctl.h>
 # include <sys/stat.h>
 # include <sys/wait.h>
 # include <sys/types.h>
