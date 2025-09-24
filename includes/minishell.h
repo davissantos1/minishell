@@ -34,29 +34,86 @@
 
 // Macros
 
-// Structs
-typedef struct s_minishell
+// Enums
+typedef enum e_token_type
 {
-	// add more?
-	unsigned int flags;
-	struct	s_gc *gc;
-}	t_minishell;
+	TOKEN_WORD,
+	TOKEN_PIPE,
+	TOKEN_REDIR_IN,
+	TOKEN_REDIR_OUT,
+	TOKEN_HEREDOC,
+	TOKEN_REDIR_APPEND,
+	TOKEN_EOF,
+	TOKEN_AND,
+	TOKEN_OR,
+	TOKEN_LPAREN,
+	TOKEN_RPAREN,
+	TOKEN_WILDCARD
+}	t_token_type;
 
+typedef enum e_node_type
+{
+	NODE_CMD,
+	NODE_PIPE,
+	NODE_REDIR,
+	NODE_HEREDOC,
+	NODE_LOGIC
+}	t_node_type;
+
+// Lexer and parser structs
 typedef struct s_token
 {
-	enum e_type	type;
-	char		*value;
+	t_token_type	type;
+	char			*value;
 }
 
 typedef struct s_ast
 {
-	enum e_type 	type;
+	t_node_type		type;
 	struct s_ast	*left;
 	struct s_ast	*right;
-	struct s_token	*token;
+	void			*data;
 }	t_ast;
 
-	
+typedef struct s_minishell
+{
+	unsigned int 	flags;
+	struct	s_gc 	*gc;
+	struct s_list	*tokens;
+	struct s_ast	*root;
+	char 			**env;
+	int				exit;
+	int				fd0;
+	int				fd1;
+	int				fd2;
+}	t_minishell;
+
+//Execution structs 
+typedef struct s_cmd
+{
+	char	**argv;
+	char 	*path;
+	int		argc;
+	int		is_builtin;
+}	t_cmd;
+
+typedef struct s_redir
+{
+	t_node_type	type;
+	char		*file;
+	int			fd;
+	int			options;
+}	t_redir;
+
+typedef struct s_pipe
+{
+	// to be defined
+}	t_pipe;
+
+typedef struct s_logic
+{
+	// to be defined
+}	t_logic;
 
 //Prototypes
 
