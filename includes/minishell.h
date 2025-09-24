@@ -6,7 +6,7 @@
 /*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 16:02:56 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/09/23 08:16:41 by vitosant         ###   ########.fr       */
+/*   Updated: 2025/09/24 14:49:35 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,31 @@
 // Local includes
 # include "libft.h"
 
-
 // Macros
 
-
 // Structs
+typedef struct s_minishell
+{
+	// add more?
+	unsigned int flags;
+	struct	s_gc *gc;
+}	t_minishell;
+
+typedef struct s_token
+{
+	enum e_type	type;
+	char		*value;
+}
+
+typedef struct s_ast
+{
+	enum e_type 	type;
+	struct s_ast	*left;
+	struct s_ast	*right;
+	struct s_token	*token;
+}	t_ast;
+
+	
 
 //Prototypes
 
