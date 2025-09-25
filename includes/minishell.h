@@ -15,6 +15,7 @@
 
 // External includes
 # include <stdio.h>
+# include <errno.h>
 # include <unistd.h>
 # include <stdlib.h>
 # include <signal.h>
@@ -65,7 +66,7 @@ typedef struct s_token
 {
 	t_token_type	type;
 	char			*value;
-}
+} t_token;
 
 typedef struct s_ast
 {
@@ -77,10 +78,10 @@ typedef struct s_ast
 
 typedef struct s_minishell
 {
-	unsigned int 	flags;
 	struct	s_gc 	*gc;
 	struct s_list	*tokens;
 	struct s_ast	*root;
+	unsigned int 	flags;
 	char 			**env;
 	int				exit;
 	int				fd0;
@@ -105,15 +106,15 @@ typedef struct s_redir
 	int			options;
 }	t_redir;
 
-typedef struct s_pipe
-{
-	// to be defined
-}	t_pipe;
-
-typedef struct s_logic
-{
-	// to be defined
-}	t_logic;
+//typedef struct s_pipe
+//{
+//	// to be defined
+//}	t_pipe;
+//
+//typedef struct s_logic
+//{
+//	// to be defined
+//}	t_logic;
 
 //Prototypes
 
