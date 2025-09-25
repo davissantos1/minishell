@@ -30,6 +30,7 @@ int	main(int ac, char **av, char **env)
 		if (*str != '\0')
 			add_history(str);
 		printf("voce digitou: %s\n", str);
+		free(str);
 	}
 	rl_clear_history();
 	return (0);
