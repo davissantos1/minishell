@@ -2,7 +2,11 @@
 
 CC= cc
 CFLAGS= -Wall -Wextra -Werror -Wpedantic -Iincludes -Ilibft
-SRC= src/main.c
+SRC= \
+	src/main.c \
+	src/utils/struct.c \
+	src/utils/error.c \
+
 OBJ= $(SRC:.c=.o)
 NAME= minishell
 LIBFT_DIR= libft

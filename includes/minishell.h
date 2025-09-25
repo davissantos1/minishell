@@ -83,6 +83,7 @@ typedef struct s_minishell
 	struct s_ast	*root;
 	unsigned int 	flags;
 	char 			**env;
+	char 			*input;
 	int				exit;
 	int				fd0;
 	int				fd1;
@@ -117,6 +118,8 @@ typedef struct s_redir
 //}	t_logic;
 
 //Prototypes
+t_minishell	*shell_init(char **env);
+void	exit_code(t_minishell *shell, int code);
 
 
 #endif
