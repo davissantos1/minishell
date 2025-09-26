@@ -6,7 +6,7 @@
 /*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 16:02:56 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/09/24 14:49:35 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/09/26 11:27:47 by vitosant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,12 @@ typedef enum e_node_type
 {
 	NODE_CMD,
 	NODE_PIPE,
-	NODE_REDIR,
+	NODE_REDIN,
+	NODE_REDOUT,
+	NODE_APPEND,
 	NODE_HEREDOC,
-	NODE_LOGIC
+	NODE_AND,
+	NODE_OR
 }	t_node_type;
 
 // Lexer and parser structs
@@ -66,7 +69,7 @@ typedef struct s_token
 {
 	t_token_type	type;
 	char			*value;
-} t_token;
+}	t_token;
 
 typedef struct s_ast
 {
@@ -78,34 +81,33 @@ typedef struct s_ast
 
 typedef struct s_minishell
 {
-	struct	s_gc 	*gc;
+	struct s_gc		*gc;
 	struct s_list	*tokens;
 	struct s_ast	*root;
-	unsigned int 	flags;
-	char 			**env;
-	char 			*input;
+	unsigned int	flags;
+	char			**env;
+	char			*input;
 	int				exit;
-	int				fd0;
-	int				fd1;
-	int				fd2;
+	int				std_in;
+	int				std_out;
+	int				std_err;
 }	t_minishell;
+
+typedef struct s_redir
+{
+	t_node_type		type;
+	char			*file;
+}	t_redir;
 
 //Execution structs 
 typedef struct s_cmd
 {
-	char	**argv;
-	char 	*path;
-	int		argc;
-	int		is_builtin;
+	char		**argv;
+	int			is_builtin;
+	int			std_in;
+	int			std_out;
+	t_list		*redir;
 }	t_cmd;
-
-typedef struct s_redir
-{
-	t_node_type	type;
-	char		*file;
-	int			fd;
-	int			options;
-}	t_redir;
 
 //typedef struct s_pipe
 //{
@@ -119,7 +121,6 @@ typedef struct s_redir
 
 //Prototypes
 t_minishell	*shell_init(char **env);
-void	exit_code(t_minishell *shell, int code);
-
+void		exit_code(t_minishell *shell, int code);
 
 #endif

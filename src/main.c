@@ -6,7 +6,7 @@
 /*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 13:32:47 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/09/23 08:10:58 by vitosant         ###   ########.fr       */
+/*   Updated: 2025/09/26 11:18:40 by vitosant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ int	main(int ac, char **av, char **env)
 	shell = shell_init(env);
 	while (1)
 	{
-		if(shell_process(shell) == -1)
-			break;
+		if (shell_process(shell) == -1)
+			break ;
 	}
 	rl_clear_history();
 	gc_free_all(shell->gc);

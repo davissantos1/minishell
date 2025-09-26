@@ -3,13 +3,11 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dasimoes <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 16:25:22 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/09/19 16:25:54 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/09/26 11:19:42 by vitosant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.c"
-
-
+#include "minishell.h"
