@@ -6,7 +6,7 @@
 /*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/26 11:16:48 by vitosant          #+#    #+#             */
-/*   Updated: 2025/09/26 11:20:08 by vitosant         ###   ########.fr       */
+/*   Updated: 2025/09/26 16:03:10 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ t_minishell	*shell_init(char **env)
 	shell->tokens = NULL;
 	shell->root = NULL;
 	shell->env = env;
+	shell->signal = 0;
 	shell->std_in = dup(STDIN_FILENO);
 	shell->std_out = dup(STDOUT_FILENO);
 	shell->std_err = dup(STDERR_FILENO);

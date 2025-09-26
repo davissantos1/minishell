@@ -6,7 +6,7 @@
 /*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 16:02:56 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/09/26 11:27:47 by vitosant         ###   ########.fr       */
+/*   Updated: 2025/09/26 14:51:15 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ typedef struct s_minishell
 	unsigned int	flags;
 	char			**env;
 	char			*input;
+	int				signal;
 	int				exit;
 	int				std_in;
 	int				std_out;

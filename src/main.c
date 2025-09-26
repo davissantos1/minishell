@@ -6,7 +6,7 @@
 /*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 13:32:47 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/09/26 11:18:40 by vitosant         ###   ########.fr       */
+/*   Updated: 2025/09/26 16:02:22 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	shell_process(t_minishell *shell)
 {
 	errno = 0;
-	shell->input = readline("minishell$ ");
+	shell->input = readline("\033[091m minishell$ \033[0m");
 	if (!shell->input)
 	{
 		if (errno != 0)
@@ -34,6 +34,7 @@ int	shell_process(t_minishell *shell)
 int	main(int ac, char **av, char **env)
 {
 	t_minishell	*shell;
+	int			status;
 
 	(void) ac;
 	(void) av;
@@ -44,6 +45,7 @@ int	main(int ac, char **av, char **env)
 			break ;
 	}
 	rl_clear_history();
+	status = shell->exit + shell->signal;
 	gc_free_all(shell->gc);
-	return (0);
+	return (status);
 }
