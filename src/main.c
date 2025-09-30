@@ -6,7 +6,7 @@
 /*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 13:32:47 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/09/30 17:46:42 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/09/30 19:57:42 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,12 @@ int	shell_process(t_minishell *shell)
 		add_history(shell->input);
 	lexer(shell);
 	//parser(shell);
-	if (!shell->head || !shell->root)
+	if (!shell->head)
 		exit_code(shell, 2);
 	// call execution function
 	token_print(shell);
+	gc_free_tag(shell->gc, GC_TOKEN);
+	shell->head = NULL;
 	return (0);
 }
 

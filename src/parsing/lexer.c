@@ -6,7 +6,7 @@
 /*   By: dasimoes <dasimoes@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/29 17:32:22 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/09/30 17:47:44 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/09/30 19:49:57 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,9 @@ char	*token_word(t_minishell *s, int i)
 	token = NULL;
 	while (1)
 	{
-		if (s->input[j] == '\'' || s->input[j] == '\"')
+		if (s->input[j] == '\0')
+			break ;
+		else if (s->input[j] == '\'' || s->input[j] == '\"')
 			break ;
 		else if (is_meta(s->input[j]))
 			break ;
@@ -91,24 +93,23 @@ void	lexer(t_minishell *s)
 	char	*str;
 	int		index;
 
-	str = NULL;
 	index = 0;
 	while (s->input[index])
 	{
-		if (is_space(s->input[index]))
-			index++;
-		else if (s->input[index] == '\'' || s->input[index] == '\"')
+		str = NULL;
+		if (s->input[index] == '\'' || s->input[index] == '\"')
 			str = token_quotes(s, index);
 		else if (is_meta(s->input[index]))
 			str = token_special(s, index);
-		else
+		else if (!is_space(s->input[index]))
 			str = token_word(s, index);
 		if (str)
 		{
 			token_add(s, str);
-			index += ft_strlen(str) + 1;
+			index += ft_strlen(str);
 		}
 		else
 			index++;
 	}
+	token_add(s, NULL);
 }

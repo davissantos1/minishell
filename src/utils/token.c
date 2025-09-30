@@ -6,7 +6,7 @@
 /*   By: dasimoes <dasimoes@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/30 15:42:28 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/09/30 17:45:57 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/09/30 19:55:46 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int		token_type(char *token)
 {
-	if (!*token)
+	if (!token)
 		return (TOKEN_EOL);
 	if (*token == '\'')
 		return (TOKEN_SQUOTE);
@@ -57,7 +57,7 @@ void	token_add(t_minishell *s, char *str)
 {
 	t_token *token;
 	t_token *last;
-	
+
 	token = token_create(s, str);
 	if (!s->head)
 		s->head = token;
@@ -78,12 +78,14 @@ void	token_print(t_minishell *s)
 
 	count = 0;
 	token = s->head;
-	while (token->next != NULL)
+	while (token)
 	{
+		printf("\n--------------\n");
 		printf("Token print: \n");
 		printf("Number: %d\n", count);
 		printf("type: %d\n", token->type);
 		printf("Value: %s\n", token->value);
 		token = token->next;
+		count++;
 	}
 }
