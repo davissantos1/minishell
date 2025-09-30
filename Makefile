@@ -4,8 +4,11 @@ CC= cc
 CFLAGS= -Wall -Wextra -Werror -Wpedantic -Iincludes -Ilibft
 SRC= \
 	src/main.c \
+	src/parsing/lexer.c \
 	src/utils/struct.c \
 	src/utils/error.c \
+	src/utils/validate.c \
+	src/utils/token.c \
 
 OBJ= $(SRC:.c=.o)
 NAME= minishell
