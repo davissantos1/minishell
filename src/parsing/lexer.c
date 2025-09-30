@@ -6,7 +6,7 @@
 /*   By: dasimoes <dasimoes@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/29 17:32:22 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/09/30 19:49:57 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/09/30 20:07:26 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,5 +111,6 @@ void	lexer(t_minishell *s)
 		else
 			index++;
 	}
-	token_add(s, NULL);
+	if (s->head)
+		token_add(s, NULL);
 }
