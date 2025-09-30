@@ -6,32 +6,46 @@
 /*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 13:32:47 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/09/23 08:26:24 by vitosant         ###   ########.fr       */
+/*   Updated: 2025/09/30 07:32:37 by vitosant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+int	shell_process(t_minishell *shell)
+{
+	errno = 0;
+	shell->input = readline("\033[091m minishell$ \033[0m");
+	if (!shell->input)
+	{
+		if (errno != 0)
+			exit_code(shell, EXIT_FAILURE);
+		else
+			return (-1);
+	}
+	if (!gc_addptr(shell->input, shell->gc, GC_DEFAULT))
+		exit_code(shell, EXIT_FAILURE);
+	if (*shell->input)
+		add_history(shell->input);
+	printf("voce digitou: %s\n", shell->input);
+	return (0);
+}
+
 int	main(int ac, char **av, char **env)
 {
-	char	*str;
+	t_minishell	*shell;
+	int			status;
 
 	(void) ac;
 	(void) av;
-	(void) env;
+	shell = shell_init(env);
 	while (1)
 	{
-		str = readline("minishell$ ");
-		if (str == NULL)
-		{
-			printf("exit");
+		if (shell_process(shell) == -1)
 			break ;
-		}
-		if (*str != '\0')
-			add_history(str);
-		printf("voce digitou: %s\n", str);
-		free(str);
 	}
 	rl_clear_history();
-	return (0);
+	status = shell->exit + shell->signal;
+	gc_free_all(shell->gc);
+	return (status);
 }
