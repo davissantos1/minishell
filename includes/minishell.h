@@ -6,7 +6,7 @@
 /*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 16:02:56 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/09/26 14:51:15 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/09/30 11:59:58 by vitosant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@
 # include "libft.h"
 
 // Macros
+# define LEFT 1
+# define RIGHT 0
 
 // Enums
 typedef enum e_token_type
