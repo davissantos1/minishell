@@ -6,7 +6,7 @@
 /*   By: dasimoes <dasimoes@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/29 17:32:22 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/09/30 20:44:53 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/10/01 10:36:22 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,9 @@ char	*token_quotes(t_minishell *s, int i)
 		exit_code(s, 2);
 	}
 	else if (next_single)
-		str = ft_substr(s->input, i, next_single - s->input - i);
+		str = ft_substr(s->input, i, next_single - s->input - i + 1);
 	else
-		str = ft_substr(s->input, i, next_double - s->input - i);
+		str = ft_substr(s->input, i, next_double - s->input - i + 1);
 	return (str);
 }
 
