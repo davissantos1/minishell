@@ -6,32 +6,11 @@
 /*   By: dasimoes <dasimoes@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/29 17:32:22 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/10/01 10:36:22 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/10/01 17:57:27 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-char	*token_quotes(t_minishell *s, int i)
-{
-	char	*next_single;
-	char	*next_double;
-	char	*str;
-
-	str = NULL;
-	next_single = ft_strchr(s->input + i + 1, '\'');	
-	next_double = ft_strchr(s->input + i + 1, '\"');
-	if ((!next_single && !next_double) || (next_single && next_double))
-	{
-		s->error = "syntax error: unexpected end of file\n";
-		exit_code(s, 2);
-	}
-	else if (next_single)
-		str = ft_substr(s->input, i, next_single - s->input - i + 1);
-	else
-		str = ft_substr(s->input, i, next_double - s->input - i + 1);
-	return (str);
-}
 
 char	*token_special(t_minishell *s, int i)
 {
@@ -72,8 +51,6 @@ char	*token_word(t_minishell *s, int i)
 	{
 		if (s->input[j] == '\0')
 			break ;
-		else if (s->input[j] == '\'' || s->input[j] == '\"')
-			break ;
 		else if (is_meta(s->input[j]))
 			break ;
 		else if (is_space(s->input[j]))
@@ -93,9 +70,7 @@ void	lexer(t_minishell *s)
 	while (s->input[index])
 	{
 		str = NULL;
-		if (s->input[index] == '\'' || s->input[index] == '\"')
-			str = token_quotes(s, index);
-		else if (is_meta(s->input[index]))
+		if (is_meta(s->input[index]))
 			str = token_special(s, index);
 		else if (!is_space(s->input[index]))
 			str = token_word(s, index);
@@ -109,4 +84,4 @@ void	lexer(t_minishell *s)
 	}
 	if (s->head)
 		token_add(s, NULL);
-}
+

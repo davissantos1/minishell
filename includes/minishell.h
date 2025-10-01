@@ -6,7 +6,7 @@
 /*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 16:02:56 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/09/30 17:45:00 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/10/01 16:53:00 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,7 @@ typedef enum e_token_type
 	TOKEN_EOL,
 	TOKEN_AND,
 	TOKEN_OR,
-	TOKEN_SQUOTE,
-	TOKEN_DQUOTE,
+	TOKEN_QUOTES,
 	TOKEN_LPAREN,
 	TOKEN_RPAREN
 }	t_token_type;

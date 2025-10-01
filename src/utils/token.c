@@ -6,7 +6,7 @@
 /*   By: dasimoes <dasimoes@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/30 15:42:28 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/09/30 20:38:16 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/10/01 16:56:21 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,8 @@ int		token_type(char *token)
 {
 	if (!token)
 		return (TOKEN_EOL);
-	if (*token == '\'')
-		return (TOKEN_SQUOTE);
-	if (*token == '\"')
-		return (TOKEN_DQUOTE);
+	if (ft_strchr(token, '\'') || ft_strchr(token, '\"'))
+		return (TOKEN_QUOTES);
 	if (*token == '(')
 		return (TOKEN_LPAREN);
 	if (*token == ')')
