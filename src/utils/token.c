@@ -6,7 +6,7 @@
 /*   By: dasimoes <dasimoes@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/30 15:42:28 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/09/30 19:55:46 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/09/30 20:38:16 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,11 @@ void	token_add(t_minishell *s, char *str)
 	t_token *token;
 	t_token *last;
 
+	if (str)
+	{
+		if (!gc_addptr(str, s->gc, GC_TOKEN))
+			exit_code(s, EXIT_FAILURE);
+	}
 	token = token_create(s, str);
 	if (!s->head)
 		s->head = token;
