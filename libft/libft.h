@@ -6,7 +6,7 @@
 /*   By: dasimoes <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 11:42:33 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/08/20 21:52:02 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/09/30 16:23:20 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,16 +25,14 @@
 // Enums
 typedef enum e_gc_tag
 {
-	GC_DEFAULT,
+	GC_SHELL,
+	GC_TOKEN,
+	GC_AST,
+	GC_CMD,
 	GC_TEMP,
-	GC_PERSISTENT,
-	GC_SESSION,
 	GC_CUSTOM1,
 	GC_CUSTOM2,
 	GC_CUSTOM3,
-	GC_CUSTOM4,
-	GC_CUSTOM5,
-	GC_CUSTOM6,
 	GC_COUNT
 }	t_gc_tag;
 
