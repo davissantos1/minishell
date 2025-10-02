@@ -6,7 +6,7 @@
 /*   By: dasimoes <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/01 16:07:04 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/10/01 16:31:50 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/10/02 18:40:53 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,9 @@ int	check_quotes(char *token)
 	{
 		if (token[i] == '\'')
 			s++;
-		else if (token[i] == '\"')
+		if (token[i] == '\"')
 			d++;
-		else
-			i++;
+		i++;
 	}
 	if (s % 2 != 0 || d % 2 != 0)
 		return (0);

@@ -9,6 +9,7 @@ SRC= \
 	src/utils/error.c \
 	src/utils/validate.c \
 	src/utils/token.c \
+	src/utils/quotes.c \
 
 OBJ= $(SRC:.c=.o)
 NAME= minishell
