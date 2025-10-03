@@ -1,19 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
+/*   ast.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dasimoes <dasimoes@42sp.org.br>            +#+  +:+       +#+        */
+/*   By: dasimoes <dasimoes@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/02 19:13:40 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/10/03 19:59:09 by dasimoes         ###   ########.fr       */
+/*   Created: 2025/10/03 11:43:00 by dasimoes          #+#    #+#             */
+/*   Updated: 2025/10/03 14:25:15 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	parser(t_minishell *s)
+t_ast	*ast_create(t_gc *gc, t_token *token)
 {
-	
-	token_print(s);
+	t_ast *node;
+
+	node = gc_calloc(sizeof(t_ast), gc, GC_AST);
+	if (!node)
+		return (NULL);
+	node->type = node_type(gc, token->type);
+	return (node);
 }

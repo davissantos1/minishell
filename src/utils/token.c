@@ -6,38 +6,11 @@
 /*   By: dasimoes <dasimoes@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/30 15:42:28 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/10/01 16:56:21 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/10/03 11:49:16 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-int		token_type(char *token)
-{
-	if (!token)
-		return (TOKEN_EOL);
-	if (ft_strchr(token, '\'') || ft_strchr(token, '\"'))
-		return (TOKEN_QUOTES);
-	if (*token == '(')
-		return (TOKEN_LPAREN);
-	if (*token == ')')
-		return (TOKEN_RPAREN);
-	if (*token == '>' && *(token + 1) == '>')
-		return (TOKEN_APPEND);
-	if (*token == '>' && *(token + 1) != '>')
-		return (TOKEN_REDIN);
-	if (*token == '<' && *(token + 1) == '<')
-		return (TOKEN_HEREDOC);
-	if (*token == '<' && *(token + 1) != '<')
-		return (TOKEN_REDOUT);
-	if (*token == '|' && *(token + 1) == '|')
-		return (TOKEN_OR);
-	if (*token == '|' && *(token + 1) != '|')
-		return (TOKEN_PIPE);
-	if (*token == '&' && *(token + 1) == '&')
-		return (TOKEN_AND);
-	return (TOKEN_WORD);
-}
 
 t_token	*token_create(t_minishell *s, char *str)
 {

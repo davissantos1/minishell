@@ -6,16 +6,19 @@
 /*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 13:32:47 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/10/02 19:19:40 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/10/03 19:27:28 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	shell_process(t_minishell *shell)
+int	shell_read(t_minishell *shell, char *input)
 {
 	errno = 0;
-	shell->input = readline("\033[091mMinishell$ \033[0m");
+	if (!input)
+		shell->input = readline("\033[091mMinishell$ \033[0m");
+	else
+		shell->input = input;
 	if (!shell->input)
 	{
 		if (errno != 0)
@@ -25,8 +28,14 @@ int	shell_process(t_minishell *shell)
 	}
 	if (!gc_addptr(shell->input, shell->gc, GC_TEMP))
 		exit_code(shell, EXIT_FAILURE);
-	if (*shell->input)
-		add_history(shell->input);
+	add_history(shell->input);
+	return (0);
+}
+
+int	shell_process(t_minishell *shell, char *input)
+{
+	if (shell_read(shell, input) == -1)
+		return (-1);
 	lexer(shell);
 	if (shell->error)
 		error_code(shell, 2);
@@ -42,13 +51,18 @@ int	main(int ac, char **av, char **env)
 	t_minishell	*shell;
 	int			status;
 
-	(void) ac;
-	(void) av;
 	shell = shell_init(env);
-	while (1)
+	if (ac == 1)
 	{
-		if (shell_process(shell) == -1)
-			break ;
+		while (1)
+		{
+			if (shell_process(shell, NULL) == -1)
+				break ;
+		}
+	}
+	else
+	{
+		shell_process(shell, av_convert(shell, av));
 	}
 	rl_clear_history();
 	status = shell->exit + shell->signal;

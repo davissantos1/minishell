@@ -5,11 +5,13 @@ CFLAGS= -Wall -Wextra -Werror -Wpedantic -Iincludes -Ilibft
 SRC= \
 	src/main.c \
 	src/parsing/lexer.c \
-	src/parsing/expander.c \
+	src/parsing/parser.c \
 	src/utils/struct.c \
+	src/utils/string.c \
 	src/utils/error.c \
 	src/utils/validate.c \
 	src/utils/token.c \
+	src/utils/type.c \
 	src/utils/quotes.c \
 
 OBJ= $(SRC:.c=.o)

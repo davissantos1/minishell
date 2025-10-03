@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quotes.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dasimoes <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: dasimoes <dasimoes@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/01 16:07:04 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/10/02 18:40:53 by dasimoes         ###   ########.fr       */
+/*   Created: 2025/10/03 10:55:20 by dasimoes          #+#    #+#             */
+/*   Updated: 2025/10/03 11:21:49 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,9 @@ int	word_size(char *token)
 	index = 0;
 	while (token[index])
 	{
-		if (token[index] == '\'' || token[index] == '\"')
-			index++;
-		else
+		if (token[index] != '\'' && token[index] != '\"')
 			size++;
+		index++;
 	}
 	return (size);
 }
@@ -64,12 +63,13 @@ char	*remove_quotes(t_gc *gc, char *token)
 		return (NULL);
 	while (token[i])
 	{
-		if (token[i] != '\'' || token[i] != '\"')
+		if (token[i] != '\'' && token[i] != '\"')
 		{
 			result[j] = token[i];
 			j++;
 		}
 		i++;
 	}
+	result[j] = '\0';
 	return (result);
 }

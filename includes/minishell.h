@@ -6,7 +6,7 @@
 /*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 16:02:56 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/10/01 18:51:18 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/10/03 19:27:30 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,13 +56,18 @@ typedef enum e_node_type
 {
 	NODE_CMD,
 	NODE_PIPE,
-	NODE_REDIN,
-	NODE_REDOUT,
-	NODE_APPEND,
-	NODE_HEREDOC,
 	NODE_AND,
-	NODE_OR
+	NODE_OR,
+	NODE_SUBSHELL
 }	t_node_type;
+
+typedef enum e_redir_type
+{
+	REDIN,
+	REDOUT,
+	APPEND,
+	HEREDOC,
+}	t_redir_type;
 
 // Lexer and parser structs
 typedef struct s_token
@@ -99,8 +104,10 @@ typedef struct s_minishell
 
 typedef struct s_redir
 {
-	t_node_type		type;
-	char			*file;
+	t_redir_type	type;
+	char			*file; // filename or heredoc delimiter
+	char			*next;
+	char			*prev;
 }	t_redir;
 
 //Execution structs 
@@ -110,7 +117,7 @@ typedef struct s_cmd
 	int			is_builtin;
 	int			std_in;
 	int			std_out;
-	t_list		*redir;
+	t_redir		*redir;
 }	t_cmd;
 
 //typedef struct s_pipe
@@ -125,7 +132,8 @@ typedef struct s_cmd
 
 //Prototypes
 t_minishell	*shell_init(char **env);
-int			shell_process(t_minishell *shell);
+int			shell_process(t_minishell *shell, char *input);
+int			shell_read(t_minishell *shell, char *input);
 int			is_space(char c);
 int			is_meta(char c);
 void		exit_code(t_minishell *shell, int code);
@@ -141,5 +149,7 @@ int			check_quotes(char *token);
 int			word_size(char *token);
 char		*remove_quotes(t_gc *gc, char *token);
 void		error_code(t_minishell *shell, int code);
+void		parser(t_minishell *s);
+char		*av_convert(t_minishell *s, char **av);
 
 #endif
