@@ -6,7 +6,7 @@
 /*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 13:32:47 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/10/02 18:42:23 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/10/02 19:19:40 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,7 @@ int	shell_process(t_minishell *shell)
 	if (shell->error)
 		error_code(shell, 2);
 	else
-		token_print(shell);
-	//else
-		//parser(shell);
-	// call execution function
+		parser(shell);
 	gc_free_tag(shell->gc, GC_TOKEN);
 	shell->head = NULL;
 	return (0);

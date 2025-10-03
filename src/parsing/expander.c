@@ -1,29 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
+/*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dasimoes <dasimoes@42sp.org.br>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/02 19:13:40 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/10/02 19:36:18 by dasimoes         ###   ########.fr       */
+/*   Created: 2025/10/02 21:32:55 by dasimoes          #+#    #+#             */
+/*   Updated: 2025/10/02 22:12:51 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	parser(t_minishell *s)
+char	*expand_var(t_gc *gc, char *token)
 {
-	t_token	*token;
+	int		status;
+	int		index;
+	char	*dollar;
 
-	token = s->head;
-	while (token)
+	index = 0;
+	status = 0;
+	dollar = ft_strchr(token, '$');
+	if (!dollar)	
+		return (token);
+	while (token[index])
 	{
-		if (token->type == TOKEN_WORD || token->type == TOKEN_QUOTES)
-			token->value = expand_var(s->gc, token->value);
-		if (token->type == TOKEN_QUOTES)
-			token->value = remove_quotes(s->gc, token->value);
-		token = token->next;
+		
+		index++;
 	}
-	token_print(shell);
 }

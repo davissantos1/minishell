@@ -5,6 +5,7 @@ CFLAGS= -Wall -Wextra -Werror -Wpedantic -Iincludes -Ilibft
 SRC= \
 	src/main.c \
 	src/parsing/lexer.c \
+	src/parsing/expander.c \
 	src/utils/struct.c \
 	src/utils/error.c \
 	src/utils/validate.c \
