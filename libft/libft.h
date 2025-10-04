@@ -195,4 +195,8 @@ void		ft_putmtx_fd(char **mtx, int fd)
 int			*ft_bubble_sort_int(int	*arr, int size)
 			__attribute__((nonnull(1)));
 
+// Part 7 - Minishell Extras
+int			ft_strcmp(const char *s1, const char *s2)
+			__attribute__((nonnull(1, 2)));
+
 #endif
