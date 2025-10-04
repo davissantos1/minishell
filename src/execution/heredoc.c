@@ -25,7 +25,7 @@ int	heredoc(char *limiter)
 	while (1)
 	{
 		str = readline("> ");
-		if (str == NULL || !ft_strncmp(str, limiter, ft_strlen(limiter)))
+		if (str == NULL || !ft_strcmp(str, limiter))
 			break ;
 		ft_putendl_fd(str, fd);
 		free(str);
