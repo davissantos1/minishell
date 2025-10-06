@@ -12,28 +12,20 @@
 
 #include "minishell.h"
 
-static void	exec_program(char **args, char **env, int std_in, int std_out);
-
-void	executor(t_cmd *cmd)
+void	executor(t_minishell *shell, t_ast *node)
 {
-	pid_t	fork_id;
-
-	fork_id = fork();
-	if (fork_id == -1)
-		return (panic("fork"));
-}
-
-static void	exec_program(char **args, char **env, int std_in, int std_out)
-{
-	if (dup2(std_in, STDIN_FILENO) == -1)
-		perror("");
-	if (dup2(std_out, STDOUT_FILENO) == -1)
-		perror("");
-	if (close(std_in) == -1)
-		perror("");
-	if (close(std_out) == -1)
-		perror("");
-	execve(args[0], args, env);
-	perror("");
-	exit(errno);
+	if (node->type == NODE_CMD)
+		return (try_exec(shell, node->data));
+	else if (node->type == NODE_SUBSHELL)
+		subshell_module(shell, node);
+	else if (node->type == NODE_AND)
+		end_node(shell, node);
+	else if (node->type == NODE_OR)
+		or_node(shell, node);
+	else if (node->type == NODE_PIPE)
+		pipe_node(shell, node);
+	if (node->left)
+		executor(shell, node->left);
+	if (node->right)
+		executor(shell, node->right);
 }
