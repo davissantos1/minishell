@@ -33,10 +33,10 @@
 
 // Local includes
 # include "libft.h"
+# include "redir.h"
+# include "executor.h"
 
 // Macros
-# define LEFT 1
-# define RIGHT 0
 
 // Enums
 typedef enum e_token_type
@@ -89,6 +89,7 @@ typedef struct s_minishell
 	struct s_gc		*gc;
 	struct s_token	*head;
 	struct s_ast	*root;
+	struct s_err	*redir_err;
 	char			**env;
 	char			*input;
 	char			*error;
