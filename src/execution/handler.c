@@ -6,7 +6,7 @@
 /*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/30 08:14:39 by vitosant          #+#    #+#             */
-/*   Updated: 2025/10/01 13:42:03 by vitosant         ###   ########.fr       */
+/*   Updated: 2025/10/07 08:08:07 by vitosant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	handler(t_minishell *shell)
 	if (shell->exit == 130)
 		return ;
 	predir(shell->redir_err);
+	executor(shell, shell->root);
 }
 
 static void	predir(t_err *node_error)
