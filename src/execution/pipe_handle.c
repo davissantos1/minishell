@@ -6,44 +6,40 @@
 /*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/30 08:30:36 by vitosant          #+#    #+#             */
-/*   Updated: 2025/09/30 11:40:11 by vitosant         ###   ########.fr       */
+/*   Updated: 2025/10/07 08:37:47 by vitosant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-static t_cmd *get_cmd_node(t_ast *node, int	dir);
+static void set_cmd_node(t_ast *node, int fd, char flag);
 
 void	pipe_node(t_minishell *shell, t_ast *node)
 {
-	int		pipe_fd[2];
-	t_cmd	*left_cmd;
-	t_cmd	*right_cmd;
+	int	pipe_fd[2];
 
-	if(pipe(pipe_fd) == -1)
-		return (exit_code(shell, errno));
-	right_cmd = get_cmd_node(node, RIGHT);
-	left_cmd = get_cmd_node(node, LEFT);
-	left_cmd->std_out = pipe_fd[1];
-	right_cmd->std_in = pipe_fd[0];
-	handler(shell, node->left);
-	handler(shell, node->right);
+	if (pipe(pipe_fd) == -1)
+		return ;
+	set_cmd_node(node->left, pipe_fd[1], STDOUT_FD);
+	set_cmd_node(node->right, pipe_fd[0], STDIN_FD);
+	executor(shell, node->left);
+	executor(shell, node->right);
 	close_pipes(pipe_fd);
 }
 
-static t_cmd *get_cmd_node(t_ast *node, int	dir)
+static void set_cmd_node(t_ast *node, int fd, char flag)
 {
-	while (node->type != NODE_CMD)
+	t_cmd	*cmd;
+
+	if (node->type == NODE_CMD)
 	{
-		if (dir == LEFT)
-		{
-			node = node->left;
-			dir = RIGHT;
-		}
+		cmd = node->data;
+		if (flag == STDIN_FD)
+			cmd->std_in = fd;
 		else
-		{
-			node = node->right;
-			dir = LEFT;
-		}
+			cmd->std_out = fd;
 	}
-	return (node->data);
+	if (node->left)
+		set_cmd_node(node->left, fd, flag);
+	if (node->right)
+		set_cmd_node(node->right, fd, flag);
 }
