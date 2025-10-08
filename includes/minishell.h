@@ -89,7 +89,6 @@ typedef struct s_minishell
 	struct s_gc		*gc;
 	struct s_token	*head;
 	struct s_ast	*root;
-	struct s_err	*redir_err;
 	struct s_lstpid	*lst_pid;
 	char			**env;
 	char			*input;
@@ -101,12 +100,6 @@ typedef struct s_minishell
 	int				std_out;
 	int				std_err;
 }	t_minishell;
-
-typedef struct s_redir
-{
-	t_node_type		type;
-	char			*file;
-}	t_redir;
 
 //Execution structs 
 typedef struct s_cmd
