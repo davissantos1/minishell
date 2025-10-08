@@ -15,14 +15,14 @@
 
 # define PATH_MAX 4096
 
-typedef struct	s_err
+typedef struct s_redir
 {
+	t_node_type		type;
 	char			*file;
-	char			*error_msg;
-	struct s_err	*next;
-}	t_err;
+}	t_redir;
 
-void	find_redir(t_minishell *shell, t_ast *node);
-void	do_redir(t_minishell *shell, t_cmd *cmd);
+void	find_heredoc(t_minishell *shell, t_ast *node);
+void	redirection(t_minishell *shell, t_cmd *cmd);
+void	close_redir(t_cmd *cmd);
 
 #endif
