@@ -26,9 +26,8 @@ void pid_add(t_minishell *shell, pid_t pid)
 		shell->lst_pid = node;
 	else
 	{
-		while (lst->next)
-			lst = lst->next;
-		lst->next = node;
+		node->next = shell->lst_pid;
+		shell->lst_pid = node;
 	}
 }
 
@@ -37,10 +36,11 @@ int	get_return(t_minishell *shell)
 	t_lstpid	*lst;
 	int			grepper;
 
-	lst = shell->lst_pid;
 	grepper = 0;
+	lst = shell->lst_pid;
+	shell->lst_pid = lst->next;
 	waitpid(lst->pid, &grepper, 0);
-	gc_delptr(lst, shell->gc, GC_CUSTOM2);
 	grepper = (grepper & 0xFF00) >> 8;
+	gc_delptr(lst, shell->gc, GC_CUSTOM2);
 	return (grepper);
 }
