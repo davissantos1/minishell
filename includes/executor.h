@@ -27,5 +27,6 @@ void	executor(t_minishell *shell, t_ast *node);
 void	close_pipes(int	*pipe_fd);
 void 	pid_add(t_minishell *shell, pid_t pid);
 int		get_return(t_minishell *shell);
-int		check_command(t_cmd *node);
+int		check_command(t_cmd *cmd);
+
 #endif
