@@ -37,34 +37,29 @@ static void	try_exec(t_minishell *shell, t_cmd *cmd)
 {
 	pid_t	pid;
 
-	if (cmd->std_in == -256)
-		cmd->std_in = shell->std_in;
-	if (cmd->std_out == -256)
-		cmd->std_out = shell->std_out;
-	if (cmd->std_in < 0 || cmd->std_out < 0)
+	redirection(shell, cmd);
+	if (cmd->std_in < 0 || cmd->std_out < 0 || !check_command(cmd))
 		return ;
-	if (!check_command(cmd))
-	{
-		shell->exit = 127;
-		return ;
-	}
+	if (cmd->is_builtin)
+		return (builtin(shell, cmd));
 	pid = fork();
 	if (pid == -1)
 		exit_code(shell, errno);
 	if (pid == 0)
 		exec_program(shell, cmd);
 	pid_add(shell, pid);
+	close_redir(cmd);
 }
 
 static void	exec_program(t_minishell *shell, t_cmd *cmd)
 {
-	if (dup2(cmd->std_in, STDIN_FILENO) == -1)
+	if (cmd->std_in != 0 && dup2(cmd->std_in, STDIN_FILENO) == -1)
 		perror("");
-	if (dup2(cmd->std_out, STDOUT_FILENO) == -1)
+	if (cmd->std_out != 1 && dup2(cmd->std_out, STDOUT_FILENO) == -1)
 		perror("");
-	if (close(cmd->std_in) == -1)
+	if (cmd->std_in != 0 && close(cmd->std_in) == -1)
 		perror("");
-	if (close(cmd->std_out) == -1)
+	if (cmd->std_out != 1 && close(cmd->std_out) == -1)
 		perror("");
 	execve(cmd->argv[0], cmd->argv, shell->env);
 	perror("");
