@@ -12,11 +12,11 @@
 
 #include "minishell.h"
 
-int	check_command(t_cmd *node)
+int	check_command(t_cmd *cmd)
 {
 	char	*file;
 
-	file = node->argv[0];
+	file = cmd->argv[0];
 	if (access(file, F_OK) == -1 || access(file, X_OK) == -1)
 	{
 		perror(file);
