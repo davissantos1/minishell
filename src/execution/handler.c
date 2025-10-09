@@ -12,27 +12,16 @@
 
 #include "minishell.h"
 
-static void predir(t_err *node_error);
-
 void	handler(t_minishell *shell)
 {
-	find_redir(shell, shell->root);
+	find_heredoc(shell, shell->root);
 	if (shell->exit == 130)
 		return ;
-	predir(shell->redir_err);
 	executor(shell, shell->root);
+	if (shell->lst_pid)
+		shell->exit = get_return(shell);
 }
 
-static void	predir(t_err *node_error)
-{
-	while (node_error)
-	{
-		ft_putstr_fd(node_error->file, 2);
-		ft_putstr_fd(": ", 2);
-		ft_putendl_fd(node_error->error_msg, 2);
-		node_error = node_error->next;
-	}
-}
 
 // int main(int ac, char **av, char **env)
 // {
