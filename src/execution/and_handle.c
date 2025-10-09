@@ -14,7 +14,10 @@
 
 void	and_node(t_minishell *shell, t_ast *node)
 {
-	handler(shell, node->left);
-	if (shell->exit == 0)
-		handler(shell, node->right);
+	int	grepper;
+
+	executor(shell, node->left);
+	grepper = get_return(shell);
+	if (grepper == 0)
+		executor(shell, node->right);
 }
