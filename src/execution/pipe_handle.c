@@ -24,6 +24,8 @@ void	pipe_node(t_minishell *shell, t_ast *node)
 	executor(shell, node->left);
 	executor(shell, node->right);
 	close_pipes(pipe_fd);
+	if (shell->lst_pid)
+		shell->exit = get_return(shell);
 }
 
 static void set_cmd_node(t_ast *node, int fd, char flag)
