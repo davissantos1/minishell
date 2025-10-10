@@ -6,7 +6,7 @@
 /*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 16:02:56 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/10/03 19:27:30 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/10/10 17:12:56 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,11 @@
 typedef enum e_token_type
 {
 	TOKEN_WORD,
-	TOKEN_PIPE,
 	TOKEN_REDIN,
 	TOKEN_REDOUT,
 	TOKEN_APPEND,
 	TOKEN_HEREDOC,
+	TOKEN_PIPE,
 	TOKEN_EOL,
 	TOKEN_AND,
 	TOKEN_OR,
@@ -102,15 +102,15 @@ typedef struct s_minishell
 	int				std_err;
 }	t_minishell;
 
+//Execution structs 
 typedef struct s_redir
 {
 	t_redir_type	type;
-	char			*file; // filename or heredoc delimiter
-	char			*next;
-	char			*prev;
+	char			*file; // filename or delimiter
+	struct s_redir	*next;
+	struct s_redir	*prev;
 }	t_redir;
 
-//Execution structs 
 typedef struct s_cmd
 {
 	char		**argv;
@@ -120,6 +120,11 @@ typedef struct s_cmd
 	t_redir		*redir;
 }	t_cmd;
 
+typedef struct	s_subshell
+{
+	char		*input;
+}	t_subshell;
+	
 //typedef struct s_pipe
 //{
 //	// to be defined
@@ -151,5 +156,18 @@ char		*remove_quotes(t_gc *gc, char *token);
 void		error_code(t_minishell *shell, int code);
 void		parser(t_minishell *s);
 char		*av_convert(t_minishell *s, char **av);
+t_token		*parser_handler(t_token *s);
+t_ast		*node_handler(t_minishell *s, t_token *start, t_token *end);
+t_redir		*redirect_create(t_minishell *s);
+void		redirect_add(t_minishell *s, t_cmd *cmd, t_token *token);
+t_ast		*ast_create(t_minishell *s);
+t_cmd		*cmd_create(t_minishell *s);
+t_ast		*cmd_node(t_minishell *s, t_token *start, t_token *end);
+t_ast		*subshell_node(t_minishell *s, t_token *start, t_token *end);
+t_ast		*operator_node(t_minishell *s, t_token *token);
+void		ast_print(t_ast *root);
+t_subshell	*subshell_create(t_minishell *s);
+int			node_type(int token_type);
+int			redir_type(int token_type);
 
 #endif

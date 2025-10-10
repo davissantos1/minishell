@@ -7,6 +7,10 @@ SRC= \
 	src/parsing/lexer.c \
 	src/parsing/parser.c \
 	src/utils/struct.c \
+	src/utils/subshell.c \
+	src/utils/ast.c \
+	src/utils/print.c \
+	src/utils/redirect.c \
 	src/utils/string.c \
 	src/utils/error.c \
 	src/utils/validate.c \
