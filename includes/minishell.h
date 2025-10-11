@@ -6,7 +6,7 @@
 /*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 16:02:56 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/10/10 17:12:56 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/10/11 16:36:26 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,5 +169,6 @@ void		ast_print(t_ast *root);
 t_subshell	*subshell_create(t_minishell *s);
 int			node_type(int token_type);
 int			redir_type(int token_type);
+void		node_insert(t_ast *root, t_ast *node);
 
 #endif

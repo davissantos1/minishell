@@ -6,7 +6,7 @@
 /*   By: dasimoes <dasimoes@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 11:43:00 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/10/10 17:05:11 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/10/11 16:37:15 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,3 +75,30 @@ t_ast	*operator_node(t_minishell *s, t_token *token)
 	node->data = NULL;
 	return (node);
 }
+
+void	node_insert(t_ast *root, t_ast *node)
+{
+	t_ast *tmp;
+
+	tmp = root;
+	if (!tmp->left)
+	{
+		tmp->left = node;
+		node->right = tmp;
+		return ;
+	}
+	if (!tmp->right)
+	{
+		tmp->right = node;
+		node->left = tmp;
+		return ;
+	}
+	node_insert(root->left, node);
+	node_insert(root->right, node);
+}
+
+//int	ast_validate(t_ast *root)
+//{
+//	
+//
+//}
