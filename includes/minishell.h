@@ -6,7 +6,7 @@
 /*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 16:02:56 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/10/12 15:59:20 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/10/13 13:56:39 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,8 @@ typedef struct s_cmd
 typedef struct	s_subshell
 {
 	char		*input;
+	int			std_in;
+	int			std_out;
 }	t_subshell;
 	
 //typedef struct s_pipe
@@ -169,7 +171,7 @@ void		ast_print(t_ast *root);
 t_subshell	*subshell_create(t_minishell *s);
 int			node_type(int token_type);
 int			redir_type(int token_type);
-void		node_insert(t_ast *root, t_ast *node);
+void		node_insert(t_ast **root, t_ast *node);
 void		ast_flip(t_ast **root);
 
 #endif

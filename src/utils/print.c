@@ -6,7 +6,7 @@
 /*   By: dasimoes <dasimoes@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/10 14:31:08 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/10/12 12:40:05 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/10/12 18:41:14 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,18 @@ void	ast_print(t_ast *root)
 		return ;
 	
 	ast_print(root->left);
-	printf("AST PRINT:\n");
-	printf("node type: %d\n", root->type);
+	printf("\nAST PRINT:\n");
+	if (root->type == NODE_CMD)
+		printf("CMD NODE");
+	if (root->type == NODE_PIPE)
+		printf("PIPE NODE");
+	if (root->type == NODE_AND)
+		printf("AND NODE");
+	if (root->type == NODE_OR)
+		printf("OR NODE");
+	if (root->type == NODE_SUBSHELL)
+		printf("SUBSHELL NODE");
+	printf("\nNode type code: %d\n", root->type);
 	ast_print(root->right);
 	return ;
 }
