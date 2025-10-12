@@ -6,7 +6,7 @@
 /*   By: dasimoes <dasimoes@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/10 14:31:08 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/10/10 17:06:22 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/10/12 12:40:05 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,9 @@ void	ast_print(t_ast *root)
 	
 	ast_print(root->left);
 	printf("AST PRINT:\n");
-			printf("node type: %d\n", root->type);
+	printf("node type: %d\n", root->type);
 	ast_print(root->right);
+	return ;
 }
 
 void	token_print(t_minishell *s)

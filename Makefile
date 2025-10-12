@@ -16,6 +16,7 @@ SRC= \
 	src/utils/validate.c \
 	src/utils/token.c \
 	src/utils/type.c \
+	src/utils/node.c \
 	src/utils/quotes.c \
 
 OBJ= $(SRC:.c=.o)

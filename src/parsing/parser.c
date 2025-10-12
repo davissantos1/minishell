@@ -6,7 +6,7 @@
 /*   By: dasimoes <dasimoes@42sp.org.br>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 19:13:40 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/10/11 16:35:45 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/10/12 16:31:16 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ void	parser(t_minishell *s)
 		node_insert(s->root, node);
 		start = end->next;
 	}
+	//ast_flip(&s->root);
 	//if (!ast_validate(s->root))
 	//{
 	//	error_code(s, 2)
