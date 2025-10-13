@@ -6,7 +6,7 @@
 /*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/30 10:34:14 by vitosant          #+#    #+#             */
-/*   Updated: 2025/09/30 11:38:29 by vitosant         ###   ########.fr       */
+/*   Updated: 2025/10/13 15:43:50 by vitosant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	or_node(t_minishell *shell, t_ast *node)
 
 	executor(shell, node->left);
 	grepper = get_return(shell);
+	shell->exit = grepper;
 	if (grepper != 0)
 		executor(shell, node->right);
 }
