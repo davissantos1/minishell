@@ -6,7 +6,7 @@
 /*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/30 08:14:39 by vitosant          #+#    #+#             */
-/*   Updated: 2025/10/07 08:08:07 by vitosant         ###   ########.fr       */
+/*   Updated: 2025/10/13 15:49:08 by vitosant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,27 +33,33 @@ void	handler(t_minishell *shell)
 // 	(void) ac;
 // 	(void) av;
 // 	shell = shell_init(env);
-// 	node = gc_calloc(sizeof(t_ast), shell->gc, GC_CUSTOM1);
-// 	node->type = NODE_PIPE;
+// 	node = gc_calloc(sizeof(t_ast), shell->gc, GC_FDLIST);
+// 	node->type = NODE_OR;
 // 	shell->root = node;
-// 	node = gc_calloc(sizeof(t_ast), shell->gc, GC_CUSTOM1);
+// 	node = gc_calloc(sizeof(t_ast), shell->gc, GC_FDLIST);
 // 	node->type = NODE_CMD;
-// 	cmd = gc_calloc(sizeof(t_cmd), shell->gc, GC_CUSTOM1);
-// 	cmd->redir = gc_calloc(sizeof(t_list), shell->gc, GC_CUSTOM1);
-// 	redir = gc_calloc(sizeof(t_redir), shell->gc, GC_CUSTOM1);
+// 	cmd = gc_calloc(sizeof(t_cmd), shell->gc, GC_FDLIST);
+// 	cmd->std_in = 0;
+// 	cmd->std_out = 1;
+// 	cmd->redir = gc_calloc(sizeof(t_list), shell->gc, GC_FDLIST);
+// 	redir = gc_calloc(sizeof(t_redir), shell->gc, GC_FDLIST);
 // 	redir->type = NODE_HEREDOC;
 // 	redir->file = ft_strdup("teste_heredoc");
-// 	gc_addptr(redir->file, shell->gc, GC_CUSTOM1);
+// 	gc_addptr(redir->file, shell->gc, GC_FDLIST);
 // 	cmd->redir->content = redir;
-// 	redir = gc_calloc(sizeof(t_redir), shell->gc, GC_CUSTOM1);
-// 	redir->type = NODE_APPEND;
-// 	redir->file = ft_strdup("teste");
-// 	cmd->redir->next = gc_calloc(sizeof(t_list), shell->gc, GC_CUSTOM1);
-// 	gc_addptr(redir->file, shell->gc, GC_CUSTOM1);
-// 	cmd->redir->next->content = redir;
+// 	cmd->argv = ft_split("/bin/cat -e", ' ');
+// 	gc_addptr(redir->file, shell->gc, GC_FDLIST);
 // 	node->data = cmd;
 // 	shell->root->left = node;
+// 	// cmd 2
+// 	cmd = gc_calloc(sizeof(t_cmd), shell->gc, GC_FDLIST);
+// 	cmd->std_in = 0;
+// 	cmd->std_out = 1;
+// 	cmd->argv = ft_split("/bin/cat -e", ' ');
+// 	shell->root->right = gc_calloc(sizeof(t_ast), shell->gc, GC_FDLIST);
+// 	shell->root->right->data = cmd;
 // 	handler(shell);
 // 	gc_free_all(shell->gc);
+// 	printf ("shell exit: %i", shell->exit);
 // 	return (0);
 // }
