@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dasimoes <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 11:42:33 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/09/30 16:23:20 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/10/11 12:02:40 by vitosant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ typedef enum e_gc_tag
 	GC_AST,
 	GC_CMD,
 	GC_TEMP,
-	GC_CUSTOM1,
-	GC_CUSTOM2,
+	GC_FDLIST,
+	GC_PIDLIST,
 	GC_CUSTOM3,
 	GC_COUNT
 }	t_gc_tag;
@@ -194,5 +194,9 @@ void		ft_putmtx_fd(char **mtx, int fd)
 			__attribute__((nonnull(1)));
 int			*ft_bubble_sort_int(int	*arr, int size)
 			__attribute__((nonnull(1)));
+
+// Part 7 - Minishell Extras
+int			ft_strcmp(const char *s1, const char *s2)
+			__attribute__((nonnull(1, 2)));
 
 #endif

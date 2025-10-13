@@ -6,9 +6,10 @@
 /*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 16:02:56 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/10/01 18:51:18 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/10/13 16:44:25 by vitosant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
@@ -86,6 +87,7 @@ typedef struct s_minishell
 	struct s_gc		*gc;
 	struct s_token	*head;
 	struct s_ast	*root;
+	struct s_lstpid	*lst_pid;
 	char			**env;
 	char			*input;
 	char			*error;
@@ -97,11 +99,12 @@ typedef struct s_minishell
 	int				std_err;
 }	t_minishell;
 
-typedef struct s_redir
+//list pid and fds
+typedef struct	s_lstint
 {
-	t_node_type		type;
-	char			*file;
-}	t_redir;
+	int				value;
+	struct s_lstint	*next;
+}					t_lstint;
 
 //Execution structs 
 typedef struct s_cmd
@@ -111,6 +114,7 @@ typedef struct s_cmd
 	int			std_in;
 	int			std_out;
 	t_list		*redir;
+	t_lstint	*lst_fds;
 }	t_cmd;
 
 //typedef struct s_pipe
@@ -141,5 +145,8 @@ int			check_quotes(char *token);
 int			word_size(char *token);
 char		*remove_quotes(t_gc *gc, char *token);
 void		error_code(t_minishell *shell, int code);
+
+# include "redir.h"
+# include "executor.h"
 
 #endif

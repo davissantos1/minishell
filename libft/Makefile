@@ -68,16 +68,21 @@ EXTRA_SRCS = \
 		btree_apply_infix.c \
 		btree_apply_suffix.c
 
+SHELL_SRCS = \
+		ft_strcmp.c
+
 EXTRA_OBJS = $(EXTRA_SRCS:.c=.o)
 
 BONUS_OBJS= $(BONUS_SRCS:.c=.o)
+
+SHELL_OBJS= $(SHELL_SRCS:.c=.o)
 
 OBJS= $(SRCS:.c=.o)
 
 NAME= libft.a
 
 ifeq ($(findstring bonus,$(MAKECMDGOALS)),bonus)
-	OBJS+=	$(BONUS_OBJS) $(EXTRA_OBJS)
+	OBJS+=	$(BONUS_OBJS) $(EXTRA_OBJS) $(SHELL_OBJS)
 endif
 
 all: $(NAME)
@@ -89,7 +94,7 @@ $(NAME): $(OBJS)
 	@$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	@rm -f $(OBJS) $(BONUS_OBJS) $(EXTRA_OBJS)
+	@rm -f $(OBJS) $(BONUS_OBJS) $(EXTRA_OBJS) $(SHELL_OBJS)
 
 fclean: clean
 	@rm -f $(NAME)
