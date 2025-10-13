@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dasimoes <dasimoes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 16:02:56 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/10/13 16:44:25 by vitosant         ###   ########.fr       */
+/*   Updated: 2025/10/13 16:51:27 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,11 @@
 typedef enum e_token_type
 {
 	TOKEN_WORD,
-	TOKEN_PIPE,
 	TOKEN_REDIN,
 	TOKEN_REDOUT,
 	TOKEN_APPEND,
 	TOKEN_HEREDOC,
+	TOKEN_PIPE,
 	TOKEN_EOL,
 	TOKEN_AND,
 	TOKEN_OR,
@@ -57,13 +57,18 @@ typedef enum e_node_type
 {
 	NODE_CMD,
 	NODE_PIPE,
-	NODE_REDIN,
-	NODE_REDOUT,
-	NODE_APPEND,
-	NODE_HEREDOC,
 	NODE_AND,
-	NODE_OR
+	NODE_OR,
+	NODE_SUBSHELL
 }	t_node_type;
+
+typedef enum e_redir_type
+{
+	REDIN,
+	REDOUT,
+	APPEND,
+	HEREDOC,
+}	t_redir_type;
 
 // Lexer and parser structs
 typedef struct s_token
@@ -100,23 +105,30 @@ typedef struct s_minishell
 }	t_minishell;
 
 //list pid and fds
+//Execution structs 
 typedef struct	s_lstint
 {
 	int				value;
 	struct s_lstint	*next;
 }					t_lstint;
 
-//Execution structs 
 typedef struct s_cmd
 {
 	char		**argv;
 	int			is_builtin;
 	int			std_in;
 	int			std_out;
-	t_list		*redir;
+	t_redir		*redir;
 	t_lstint	*lst_fds;
 }	t_cmd;
 
+typedef struct	s_subshell
+{
+	char		*input;
+	int			std_in;
+	int			std_out;
+}	t_subshell;
+	
 //typedef struct s_pipe
 //{
 //	// to be defined
@@ -129,7 +141,8 @@ typedef struct s_cmd
 
 //Prototypes
 t_minishell	*shell_init(char **env);
-int			shell_process(t_minishell *shell);
+int			shell_process(t_minishell *shell, char *input);
+int			shell_read(t_minishell *shell, char *input);
 int			is_space(char c);
 int			is_meta(char c);
 void		exit_code(t_minishell *shell, int code);
@@ -148,5 +161,22 @@ void		error_code(t_minishell *shell, int code);
 
 # include "redir.h"
 # include "executor.h"
+void		parser(t_minishell *s);
+char		*av_convert(t_minishell *s, char **av);
+t_token		*parser_handler(t_token *s);
+t_ast		*node_handler(t_minishell *s, t_token *start, t_token *end);
+t_redir		*redirect_create(t_minishell *s);
+void		redirect_add(t_minishell *s, t_cmd *cmd, t_token *token);
+t_ast		*ast_create(t_minishell *s);
+t_cmd		*cmd_create(t_minishell *s);
+t_ast		*cmd_node(t_minishell *s, t_token *start, t_token *end);
+t_ast		*subshell_node(t_minishell *s, t_token *start, t_token *end);
+t_ast		*operator_node(t_minishell *s, t_token *token);
+void		ast_print(t_ast *root);
+t_subshell	*subshell_create(t_minishell *s);
+int			node_type(int token_type);
+int			redir_type(int token_type);
+void		node_insert(t_ast **root, t_ast *node);
+void		ast_flip(t_ast **root);
 
 #endif
