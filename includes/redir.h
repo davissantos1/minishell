@@ -6,7 +6,7 @@
 /*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/06 15:53:02 by vitosant          #+#    #+#             */
-/*   Updated: 2025/10/10 13:39:04 by vitosant         ###   ########.fr       */
+/*   Updated: 2025/10/13 16:56:37 by vitosant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ typedef struct s_redir
 {
 	t_node_type		type;
 	char			*file;
+	struct s_redir	*next;
+	struct s_redir	*prev;
 }	t_redir;
 
 void	find_heredoc(t_minishell *shell, t_ast *node);
