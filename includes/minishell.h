@@ -6,7 +6,7 @@
 /*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 16:02:56 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/10/07 10:45:35 by vitosant         ###   ########.fr       */
+/*   Updated: 2025/10/10 14:21:21 by vitosant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,6 @@
 
 // Local includes
 # include "libft.h"
-# include "redir.h"
-# include "executor.h"
 
 // Macros
 
@@ -101,6 +99,13 @@ typedef struct s_minishell
 	int				std_err;
 }	t_minishell;
 
+//list pid and fds
+typedef struct	s_lstint
+{
+	int				value;
+	struct s_lstint	*next;
+}					t_lstint;
+
 //Execution structs 
 typedef struct s_cmd
 {
@@ -109,6 +114,7 @@ typedef struct s_cmd
 	int			std_in;
 	int			std_out;
 	t_list		*redir;
+	t_lstint	*lst_fds;
 }	t_cmd;
 
 //typedef struct s_pipe
@@ -135,5 +141,8 @@ char		*token_quotes(t_minishell *s, int i);
 char		*token_special(t_minishell *s, int i);
 char		*token_word(t_minishell *s, int i);
 void		lexer(t_minishell *s);
+
+# include "redir.h"
+# include "executor.h"
 
 #endif
