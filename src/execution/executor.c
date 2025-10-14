@@ -48,6 +48,7 @@ static void	try_exec(t_minishell *shell, t_cmd *cmd)
 	if (pid == 0)
 		exec_program(shell, cmd);
 	pid_add(shell, pid, NOT_BUILTIN, NOT_BUILTIN);
+	close_redir(cmd);
 }
 
 static void	exec_program(t_minishell *shell, t_cmd *cmd)
