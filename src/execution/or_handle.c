@@ -17,7 +17,7 @@ void	or_node(t_minishell *shell, t_ast *node)
 	int	grepper;
 
 	executor(shell, node->left);
-	grepper = get_return(shell);
+	grepper = last_return(shell);
 	shell->exit = grepper;
 	if (grepper != 0)
 		executor(shell, node->right);
