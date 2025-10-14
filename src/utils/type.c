@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   type.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dasimoes <dasimoes@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 11:47:45 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/10/03 12:22:34 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/10/13 19:09:50 by vitosant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,11 @@ int		token_type(char *token)
 	if (*token == '>' && *(token + 1) == '>')
 		return (TOKEN_APPEND);
 	if (*token == '>' && *(token + 1) != '>')
-		return (TOKEN_REDIN);
+		return (TOKEN_REDOUT);
 	if (*token == '<' && *(token + 1) == '<')
 		return (TOKEN_HEREDOC);
 	if (*token == '<' && *(token + 1) != '<')
-		return (TOKEN_REDOUT);
+		return (TOKEN_REDIN);
 	if (*token == '|' && *(token + 1) == '|')
 		return (TOKEN_OR);
 	if (*token == '|' && *(token + 1) != '|')

@@ -6,7 +6,7 @@
 /*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/26 11:16:48 by vitosant          #+#    #+#             */
-/*   Updated: 2025/10/10 16:30:19 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/10/13 19:01:22 by vitosant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,5 +59,6 @@ t_cmd	*cmd_create(t_minishell *s)
 	cmd->argv = gc_calloc(sizeof(char *), s->gc, GC_CMD);
 	if (!cmd->argv)
 		exit_code(s, EXIT_FAILURE);
+	cmd->std_out = 1;
 	return (cmd);
 }

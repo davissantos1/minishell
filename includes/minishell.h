@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dasimoes <dasimoes@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 16:02:56 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/10/13 16:51:27 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/10/13 19:02:16 by vitosant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,14 @@ typedef struct s_token
 	char			*value;
 }	t_token;
 
+typedef struct s_redir
+{
+	t_redir_type	type;
+	char			*file;
+	struct s_redir	*next;
+	struct s_redir	*prev;
+}	t_redir;
+
 typedef struct s_ast
 {
 	t_node_type		type;
@@ -140,6 +148,9 @@ typedef struct	s_subshell
 //}	t_logic;
 
 //Prototypes
+# include "redir.h"
+# include "executor.h"
+
 t_minishell	*shell_init(char **env);
 int			shell_process(t_minishell *shell, char *input);
 int			shell_read(t_minishell *shell, char *input);
@@ -159,8 +170,6 @@ int			word_size(char *token);
 char		*remove_quotes(t_gc *gc, char *token);
 void		error_code(t_minishell *shell, int code);
 
-# include "redir.h"
-# include "executor.h"
 void		parser(t_minishell *s);
 char		*av_convert(t_minishell *s, char **av);
 t_token		*parser_handler(t_token *s);

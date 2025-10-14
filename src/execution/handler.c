@@ -6,7 +6,7 @@
 /*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/30 08:14:39 by vitosant          #+#    #+#             */
-/*   Updated: 2025/10/13 15:49:08 by vitosant         ###   ########.fr       */
+/*   Updated: 2025/10/13 17:06:54 by vitosant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ void	handler(t_minishell *shell)
 	executor(shell, shell->root);
 	if (shell->lst_pid)
 		shell->exit = get_return(shell);
+	gc_free_tag(shell->gc, GC_PIDLIST);
+	gc_free_tag(shell->gc, GC_FDLIST);
 }
 
 

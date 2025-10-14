@@ -18,6 +18,20 @@ SRC= \
 	src/utils/type.c \
 	src/utils/node.c \
 	src/utils/quotes.c \
+	src/utils/check_command.c \
+	src/utils/close_pipes.c \
+	src/utils/close_redir.c \
+	src/utils/lst_pid.c \
+	src/utils/path.c \
+	src/execution/and_handle.c \
+	src/execution/or_handle.c \
+	src/execution/builtin.c \
+	src/execution/redirection.c \
+	src/execution/heredoc.c \
+	src/execution/executor.c \
+	src/execution/pipe_handle.c \
+	src/execution/find_heredoc.c \
+	src/execution/handler.c
 
 OBJ= $(SRC:.c=.o)
 NAME= minishell
