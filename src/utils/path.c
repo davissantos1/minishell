@@ -59,23 +59,23 @@ static char	**put_endbar(t_minishell *shell, char **envp)
 	char	*temp;
 	char	**paths;
 
-		i = 0;
-		j = 0;
-		while (envp[i] && !ft_strnstr(envp[i], "PATH", 4))
-			i++;
-		envp[i][4] = ':';
-		paths = ft_split(envp[i], ':');
-		if (!paths)
-			return (NULL);
-		while (paths[j])
-		{
-			temp = ft_strjoin(paths[j], "/");
-			free(paths[j]);
-			paths[j] = temp;
-			j++;
-		}
-		envp[i][4] = '=';
-		if (!gc_addmtx(paths, shell->gc, GC_CUSTOM3))
-			exit_code(shell, errno);
-		return (paths);
+	i = 0;
+	j = 0;
+	while (envp[i] && !ft_strnstr(envp[i], "PATH", 4))
+		i++;
+	envp[i][4] = ':';
+	paths = ft_split(envp[i], ':');
+	if (!paths)
+		return (NULL);
+	while (paths[j])
+	{
+		temp = ft_strjoin(paths[j], "/");
+		free(paths[j]);
+		paths[j] = temp;
+		j++;
 	}
+	envp[i][4] = '=';
+	if (!gc_addmtx(paths, shell->gc, GC_CUSTOM3))
+		exit_code(shell, errno);
+	return (paths);
+}
