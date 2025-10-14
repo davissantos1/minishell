@@ -59,6 +59,7 @@ EXTRA_SRCS = \
 		ft_atol.c \
 		ft_memdup.c \
 		ft_free.c \
+		gc_find.c \
 		gc_free.c \
 		gc_add.c \
 		gc_manage.c \

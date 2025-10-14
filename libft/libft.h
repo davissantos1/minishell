@@ -6,7 +6,7 @@
 /*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 11:42:33 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/10/11 12:02:40 by vitosant         ###   ########.fr       */
+/*   Updated: 2025/10/14 13:09:47 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,6 +154,7 @@ t_gc_node	*gc_create_node(void *p);
 t_gc		*gc_init(void);
 void		*gc_free_all(t_gc *gc);
 void		*gc_free_tag(t_gc *gc, t_gc_tag tag);
+void		*gc_free_ptr(void *p, t_gc *gc);
 void		*gc_malloc(size_t size, t_gc *gc, t_gc_tag tag)
 			__attribute__((nonnull(2)));
 void		*gc_calloc(size_t size, t_gc *gc, t_gc_tag tag)
@@ -176,6 +177,10 @@ void		gc_dellst(void *head, int index, t_gc *gc, t_gc_tag tag)
 			__attribute__((nonnull(1, 3)));
 void		gc_delbtree(void *root, t_gc *gc, t_gc_tag tag)
 			__attribute__((nonnull(1, 2)));
+int			gc_findtag(void *p, t_gc *gc)
+			__attribute__((nonnull(1, 2)));
+void		*gc_realloc(void *p, size_t old_size, size_t new_size, t_gc *gc)
+			__attribute__((nonnull(1, 4)));
 
 // Part 6 - Extra Cool Functions
 void		*ft_free(void *ptr);

@@ -6,7 +6,7 @@
 /*   By: dasimoes <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 16:15:55 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/08/14 12:12:57 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/10/14 13:11:23 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,4 +85,20 @@ void	*gc_calloc(size_t size, t_gc *gc, t_gc_tag tag)
 		gc->lists[tag] = node;
 	}
 	return (p);
+}
+
+void	*gc_realloc(void *p, size_t old_size, size_t new_size, t_gc *gc)
+{
+	int		tag;
+	void	*new;
+
+	tag = gc_findtag(p, gc);
+	if (tag == -1)
+		return (NULL);
+	new = gc_calloc(new_size, gc, tag);
+	if (!new)
+		return (NULL);
+	new = ft_memcpy(new, p, old_size);
+	gc_free_ptr(p, gc);
+	return (new);
 }

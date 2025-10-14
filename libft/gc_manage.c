@@ -6,42 +6,11 @@
 /*   By: dasimoes <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/08 16:53:02 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/08/14 19:53:22 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/10/14 12:45:51 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-
-void	*gc_findptr_tag(void *p, t_gc *gc, t_gc_tag tag)
-{
-	t_gc_node	*head;
-
-	head = gc->lists[tag];
-	while (head)
-	{
-		if (head->ptr == p)
-			return (head->ptr);
-		head = head->next;
-	}
-	return (NULL);
-}
-
-void	*gc_findptr(void *p, t_gc *gc)
-{
-	t_gc_node	*head;
-	size_t		index;
-
-	index = 0;
-	head = gc->lists[index];
-	while (index < GC_COUNT)
-	{
-		head = gc_findptr_tag(p, gc, index);
-		if (head)
-			return (head);
-		index++;
-	}
-	return (NULL);
-}
 
 void	gc_delptr(void *p, t_gc *gc, t_gc_tag tag)
 {
