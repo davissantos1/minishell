@@ -17,7 +17,13 @@ int	check_command(t_cmd *cmd)
 	char	*file;
 
 	file = cmd->argv[0];
-	if (access(file, F_OK) == -1 || access(file, X_OK) == -1)
+	if (access(file, F_OK) == -1)
+	{
+		ft_putstr_fd(file, 2);
+		ft_putstr_fd(": command not found\n", 2);
+		return (0);
+	}
+	if (access(file, X_OK) == -1)
 	{
 		perror(file);
 		return (0);
