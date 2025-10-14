@@ -32,7 +32,7 @@ typedef struct	s_lstpid
 void	executor(t_minishell *shell, t_ast *node);
 void	close_pipes(int	*pipe_fd);
 void 	pid_add(t_minishell *shell, pid_t pid, char is_builtin, int rbuiltin);
-int		get_return(t_minishell *shell);
+int		last_return(t_minishell *shell);
 int		check_command(t_cmd *cmd);
 void	builtin(t_minishell *shell, t_cmd *cmd);
 void	handler(t_minishell *shell);
