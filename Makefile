@@ -21,7 +21,8 @@ SRC= \
 	src/utils/check_command.c \
 	src/utils/close_pipes.c \
 	src/utils/close_redir.c \
-	src/utils/lst_pid.c \
+	src/utils/pid_add.c \
+	src/utils/last_return.c \
 	src/utils/path.c \
 	src/execution/and_handle.c \
 	src/execution/or_handle.c \
