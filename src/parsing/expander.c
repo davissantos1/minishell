@@ -1,18 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin.c                                          :+:      :+:    :+:   */
+/*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dasimoes <dasimoes@42sp.org.br>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/10 11:47:50 by vitosant          #+#    #+#             */
-/*   Updated: 2025/10/13 17:24:31 by vitosant         ###   ########.fr       */
+/*   Created: 2025/10/02 21:32:55 by dasimoes          #+#    #+#             */
+/*   Updated: 2025/10/02 22:12:51 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	builtin(t_minishell *shell, t_cmd *cmd)
+char	*expand_var(t_gc *gc, char *token)
 {
-	printf("aqui em builtin, %i %i", shell->std_in, cmd->std_in);
+	int		status;
+	int		index;
+	char	*dollar;
+
+	index = 0;
+	status = 0;
+	dollar = ft_strchr(token, '$');
+	if (!dollar)	
+		return (token);
+	while (token[index])
+	{
+		
+		index++;
+	}
 }

@@ -5,11 +5,33 @@ CFLAGS= -Wall -Wextra -Werror -Wpedantic -Iincludes -Ilibft
 SRC= \
 	src/main.c \
 	src/parsing/lexer.c \
+	src/parsing/parser.c \
 	src/utils/struct.c \
+	src/utils/subshell.c \
+	src/utils/ast.c \
+	src/utils/print.c \
+	src/utils/redirect.c \
+	src/utils/string.c \
 	src/utils/error.c \
 	src/utils/validate.c \
 	src/utils/token.c \
+	src/utils/type.c \
+	src/utils/node.c \
 	src/utils/quotes.c \
+	src/utils/check_command.c \
+	src/utils/close_pipes.c \
+	src/utils/close_redir.c \
+	src/utils/lst_pid.c \
+	src/utils/path.c \
+	src/execution/and_handle.c \
+	src/execution/or_handle.c \
+	src/execution/builtin.c \
+	src/execution/redirection.c \
+	src/execution/heredoc.c \
+	src/execution/executor.c \
+	src/execution/pipe_handle.c \
+	src/execution/find_heredoc.c \
+	src/execution/handler.c
 
 OBJ= $(SRC:.c=.o)
 NAME= minishell

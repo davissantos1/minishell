@@ -1,18 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin.c                                          :+:      :+:    :+:   */
+/*   subshell.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dasimoes <dasimoes@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/10 11:47:50 by vitosant          #+#    #+#             */
-/*   Updated: 2025/10/13 17:24:31 by vitosant         ###   ########.fr       */
+/*   Created: 2025/10/10 14:55:32 by dasimoes          #+#    #+#             */
+/*   Updated: 2025/10/10 14:57:34 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	builtin(t_minishell *shell, t_cmd *cmd)
+t_subshell	*subshell_create(t_minishell *s)
 {
-	printf("aqui em builtin, %i %i", shell->std_in, cmd->std_in);
+	t_subshell	*sub;
+
+	sub = gc_calloc(sizeof(t_subshell), s->gc, GC_AST);
+	if (!sub)
+		exit_code(s, EXIT_FAILURE);
+	return (sub);
 }
+	

@@ -1,18 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin.c                                          :+:      :+:    :+:   */
+/*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dasimoes <dasimoes@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/10 11:47:50 by vitosant          #+#    #+#             */
-/*   Updated: 2025/10/13 17:24:31 by vitosant         ###   ########.fr       */
+/*   Created: 2025/10/13 13:53:21 by dasimoes          #+#    #+#             */
+/*   Updated: 2025/10/13 13:53:53 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	builtin(t_minishell *shell, t_cmd *cmd)
-{
-	printf("aqui em builtin, %i %i", shell->std_in, cmd->std_in);
-}
+void	signal_handler(int sig)
+{}

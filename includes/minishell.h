@@ -152,7 +152,7 @@ typedef struct	s_subshell
 # include "executor.h"
 
 t_minishell	*shell_init(char **env);
-int			shell_process(t_minishell *shell);
+int			shell_process(t_minishell *shell, char *input);
 int			shell_read(t_minishell *shell, char *input);
 int			is_space(char c);
 int			is_meta(char c);
