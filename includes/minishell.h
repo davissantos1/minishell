@@ -101,6 +101,7 @@ typedef struct s_minishell
 	struct s_token	*head;
 	struct s_ast	*root;
 	struct s_lstpid	*lst_pid;
+	char			***paths;
 	char			**env;
 	char			*input;
 	char			*error;
