@@ -6,7 +6,7 @@
 /*   By: dasimoes <dasimoes@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/29 17:32:22 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/10/01 17:58:42 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/10/02 18:33:27 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,7 @@ char	*token_special(t_minishell *s, int i)
 	if (s->input[i] == '&' && s->input[i + 1] == '&')
 		return ft_strdup("&&");
 	if (s->input[i] == '&' && s->input[i + 1] != '&')
-	{
-		s->error = "syntax error unexpected token `&'\n";
-		exit_code(s, 2);
-	}
+		s->error = s->input + i + 1;
 	return (NULL);
 }
 
@@ -58,6 +55,8 @@ char	*token_word(t_minishell *s, int i)
 		j++;
 	}
 	token = ft_substr(s->input, i, j - i);
+	if (!check_quotes(token))
+		s->error = token + ft_strlen(token) - 1;
 	return (token);
 }
 

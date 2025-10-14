@@ -7,6 +7,7 @@
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 16:02:56 by dasimoes          #+#    #+#             */
 /*   Updated: 2025/10/10 14:21:21 by vitosant         ###   ########.fr       */
+/*   Updated: 2025/10/01 18:51:18 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,8 +142,9 @@ char		*token_quotes(t_minishell *s, int i);
 char		*token_special(t_minishell *s, int i);
 char		*token_word(t_minishell *s, int i);
 void		lexer(t_minishell *s);
-
-# include "redir.h"
-# include "executor.h"
+int			check_quotes(char *token);
+int			word_size(char *token);
+char		*remove_quotes(t_gc *gc, char *token);
+void		error_code(t_minishell *shell, int code);
 
 #endif
