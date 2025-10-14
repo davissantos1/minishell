@@ -23,6 +23,8 @@ void	path(t_minishell *shell, t_cmd *cmd)
 	if (temp == NULL)
 		return ;
 	cmd->argv[0] = temp;
+	if (!gc_addptr(temp, shell->gc, GC_CUSTOM3))
+		exit_code(shell, errno);
 }
 
 static char	*search_bin(t_minishell *shell, char *command, char **envp)
@@ -33,7 +35,10 @@ static char	*search_bin(t_minishell *shell, char *command, char **envp)
 
 	i = 1;
 	if (!paths)
+	{
 		paths = put_endbar(shell, envp);
+		shell->paths = &paths;
+	}
 	if (ft_strchr(command, '/') && access(command, F_OK) == 0)
 		return (ft_strdup(command));
 	while (paths && paths[i])
