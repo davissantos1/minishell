@@ -6,7 +6,7 @@
 /*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/30 11:48:35 by vitosant          #+#    #+#             */
-/*   Updated: 2025/10/13 18:47:46 by vitosant         ###   ########.fr       */
+/*   Updated: 2025/10/15 10:27:31 by vitosant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static void	try_exec(t_minishell *shell, t_cmd *cmd)
 	pid_t	pid;
 
 	redirection(shell, cmd);
-	path(shell, cmd);
+	find_path(shell, cmd);
 	if (cmd->std_in < 0 || cmd->std_out < 0 || !check_command(cmd))
 		return ;
 	if (cmd->is_builtin)

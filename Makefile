@@ -23,7 +23,8 @@ SRC= \
 	src/utils/close_redir.c \
 	src/utils/pid_add.c \
 	src/utils/last_return.c \
-	src/utils/path.c \
+	src/utils/build_path.c \
+	src/utils/find_path.c \
 	src/execution/and_handle.c \
 	src/execution/or_handle.c \
 	src/execution/builtin.c \

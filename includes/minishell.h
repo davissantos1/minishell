@@ -6,7 +6,7 @@
 /*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 16:02:56 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/10/13 19:02:16 by vitosant         ###   ########.fr       */
+/*   Updated: 2025/10/15 10:31:41 by vitosant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ typedef struct s_minishell
 	struct s_token	*head;
 	struct s_ast	*root;
 	struct s_lstpid	*lst_pid;
-	char			***paths;
+	char			**paths;
 	char			**env;
 	char			*input;
 	char			*error;

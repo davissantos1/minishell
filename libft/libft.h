@@ -6,7 +6,7 @@
 /*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 11:42:33 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/10/14 13:09:47 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/10/15 09:52:58 by vitosant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ typedef enum e_gc_tag
 	GC_TEMP,
 	GC_FDLIST,
 	GC_PIDLIST,
-	GC_CUSTOM3,
+	GC_PATHS,
 	GC_COUNT
 }	t_gc_tag;
 
