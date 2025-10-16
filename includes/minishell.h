@@ -6,7 +6,7 @@
 /*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 16:02:56 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/10/15 10:31:41 by vitosant         ###   ########.fr       */
+/*   Updated: 2025/10/15 13:48:07 by vitosant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,6 +136,8 @@ typedef struct	s_subshell
 	char		*input;
 	int			std_in;
 	int			std_out;
+	t_redir		*redir;
+	t_lstint	*lst_fds;
 }	t_subshell;
 	
 //typedef struct s_pipe

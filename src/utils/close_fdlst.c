@@ -1,25 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   subshell.c                                         :+:      :+:    :+:   */
+/*   close_fdlst.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/10 14:55:32 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/10/15 12:05:06 by vitosant         ###   ########.fr       */
+/*   Created: 2025/10/15 11:50:23 by vitosant          #+#    #+#             */
+/*   Updated: 2025/10/15 11:51:34 by vitosant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_subshell	*subshell_create(t_minishell *s)
+void	close_fdlst(t_lstint *node_fd)
 {
-	t_subshell	*sub;
-
-	sub = gc_calloc(sizeof(t_subshell), s->gc, GC_AST);
-	if (!sub)
-		exit_code(s, EXIT_FAILURE);
-	sub->std_out = 1;
-	return (sub);
+	while (node_fd)
+	{
+		close(node_fd->value);
+		node_fd = node_fd->next;
+	}
 }
-	

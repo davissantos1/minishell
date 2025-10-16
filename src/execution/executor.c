@@ -6,7 +6,7 @@
 /*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/30 11:48:35 by vitosant          #+#    #+#             */
-/*   Updated: 2025/10/15 10:27:31 by vitosant         ###   ########.fr       */
+/*   Updated: 2025/10/15 11:52:42 by vitosant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,11 +67,7 @@ static void	exec_program(t_minishell *shell, t_cmd *cmd)
 	if (cmd->std_out != 1 && dup2(cmd->std_out, STDOUT_FILENO) == -1)
 		perror("dup2");
 	close_redir(cmd);
-	while (node_fd)
-	{
-		close(node_fd->value);
-		node_fd = node_fd->next;
-	}
+	close_fdlst(cmd->lst_fds);
 	gc_free_all(shell->gc);
 	execve(argv[0], argv, env);
 	perror("execve");

@@ -6,14 +6,13 @@
 /*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/06 15:52:51 by vitosant          #+#    #+#             */
-/*   Updated: 2025/10/15 10:31:17 by vitosant         ###   ########.fr       */
+/*   Updated: 2025/10/15 14:24:18 by vitosant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef EXECUTOR_H
 # define EXECUTOR_H
 
-# define NODE_SUBSHELL 919
 # define STDIN_FD 1
 # define STDOUT_FD 0
 # define NOT_BUILTIN 0
@@ -38,9 +37,15 @@ void	builtin(t_minishell *shell, t_cmd *cmd);
 void	handler(t_minishell *shell);
 void	build_path(t_minishell *shell);
 void	find_path(t_minishell *shell, t_cmd *cmd);
+void	close_fdlst(t_lstint *node_fd);
 
 void	or_node(t_minishell *shell, t_ast *node);
 void	pipe_node(t_minishell *shell, t_ast *node);
 void	and_node(t_minishell *shell, t_ast *node);
+
+void 	set_sub_node(t_minishell *shell, t_subshell *sub, int *fd, char flag);
+void	subshell(t_minishell *shell, t_subshell *sub);
+void	sub_close_redir(t_subshell *sub);
+void	sub_redirection(t_minishell *shell, t_subshell *sub);
 
 #endif

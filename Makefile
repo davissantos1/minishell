@@ -25,6 +25,7 @@ SRC= \
 	src/utils/last_return.c \
 	src/utils/build_path.c \
 	src/utils/find_path.c \
+	src/utils/close_fdlst.c \
 	src/execution/and_handle.c \
 	src/execution/or_handle.c \
 	src/execution/builtin.c \
@@ -33,7 +34,11 @@ SRC= \
 	src/execution/executor.c \
 	src/execution/pipe_handle.c \
 	src/execution/find_heredoc.c \
-	src/execution/handler.c
+	src/execution/handler.c \
+	src/execution/subshell/exec_subshell.c \
+	src/execution/subshell/sub_close_redir.c \
+	src/execution/subshell/sub_open_redir.c \
+	src/execution/subshell/sub_pipefd.c
 
 OBJ= $(SRC:.c=.o)
 NAME= minishell
