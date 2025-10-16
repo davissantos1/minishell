@@ -6,7 +6,7 @@
 /*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 16:02:56 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/10/13 19:02:16 by vitosant         ###   ########.fr       */
+/*   Updated: 2025/10/16 13:20:39 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,11 @@ typedef enum e_token_type
 	TOKEN_REDOUT,
 	TOKEN_APPEND,
 	TOKEN_HEREDOC,
+	TOKEN_QUOTES,
 	TOKEN_PIPE,
 	TOKEN_EOL,
 	TOKEN_AND,
 	TOKEN_OR,
-	TOKEN_QUOTES,
 	TOKEN_LPAREN,
 	TOKEN_RPAREN
 }	t_token_type;
@@ -178,7 +178,7 @@ t_ast		*node_handler(t_minishell *s, t_token *start, t_token *end);
 t_redir		*redirect_create(t_minishell *s);
 void		redirect_add(t_minishell *s, t_cmd *cmd, t_token *token);
 t_ast		*ast_create(t_minishell *s);
-t_cmd		*cmd_create(t_minishell *s);
+t_cmd		*cmd_create(t_minishell *s, int ac);
 t_ast		*cmd_node(t_minishell *s, t_token *start, t_token *end);
 t_ast		*subshell_node(t_minishell *s, t_token *start, t_token *end);
 t_ast		*operator_node(t_minishell *s, t_token *token);
@@ -188,5 +188,6 @@ int			node_type(int token_type);
 int			redir_type(int token_type);
 void		node_insert(t_ast **root, t_ast *node);
 void		ast_flip(t_ast **root);
+int			token_size(t_token *start, t_token *end);
 
 #endif

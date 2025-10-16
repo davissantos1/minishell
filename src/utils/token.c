@@ -6,7 +6,7 @@
 /*   By: dasimoes <dasimoes@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/30 15:42:28 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/10/10 14:32:17 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/10/16 12:50:44 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,3 +46,19 @@ void	token_add(t_minishell *s, char *str)
 		token->prev = last;
 	}
 }
+
+int	token_size(t_token *start, t_token *end)
+{
+	int size;
+
+	size = 0;
+	if (start == end)
+		return (1);
+	while (start != end)
+	{
+		start = start->next;
+		size++;
+	}
+	return (size);
+}
+	
