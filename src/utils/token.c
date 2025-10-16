@@ -6,7 +6,7 @@
 /*   By: dasimoes <dasimoes@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/30 15:42:28 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/10/16 12:50:44 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/10/16 14:33:41 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,14 +51,13 @@ int	token_size(t_token *start, t_token *end)
 {
 	int size;
 
-	size = 0;
-	if (start == end)
-		return (1);
+	size = 1;
 	while (start != end)
 	{
 		start = start->next;
-		size++;
+		if (start->type == TOKEN_WORD || start->type == TOKEN_QUOTES)
+			size++;
 	}
 	return (size);
 }
-	
+
