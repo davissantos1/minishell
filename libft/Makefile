@@ -70,7 +70,8 @@ EXTRA_SRCS = \
 		btree_apply_suffix.c
 
 SHELL_SRCS = \
-		ft_strcmp.c
+		ft_strcmp.c \
+		ft_reverse_split.c
 
 EXTRA_OBJS = $(EXTRA_SRCS:.c=.o)
 

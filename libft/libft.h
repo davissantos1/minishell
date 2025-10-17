@@ -203,5 +203,7 @@ int			*ft_bubble_sort_int(int	*arr, int size)
 // Part 7 - Minishell Extras
 int			ft_strcmp(const char *s1, const char *s2)
 			__attribute__((nonnull(1, 2)));
+char		*ft_reverse_split(char **tab, char c)
+			__attribute__((nonnull(1)));
 
 #endif
