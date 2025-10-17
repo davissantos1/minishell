@@ -189,5 +189,6 @@ int			redir_type(int token_type);
 void		node_insert(t_ast **root, t_ast *node);
 void		ast_flip(t_ast **root);
 int			token_size(t_token *start, t_token *end);
+char		*get_env(t_minishell *s, char *var);
 
 #endif
