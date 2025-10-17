@@ -13,12 +13,13 @@
 #include "minishell.h"
 
 static int	open_redir(char *file, int flags);
+static int	there_is_heredoc(t_redir *redir);
 
 void	redirection(t_minishell *shell, t_cmd *cmd)
 {
 	t_redir	*redir;
 
-	if (!cmd->redir)
+	if (!cmd->redir || there_is_heredoc(cmd->redir))
 		return ;
 	//tira esse void pf
 	(void) shell;
@@ -47,4 +48,15 @@ static int	open_redir(char *file, int flags)
 	if (fd == -1)
 		perror(file);
 	return (fd);
+}
+
+static int	there_is_heredoc(t_redir *redir)
+{
+	while (redir)
+	{
+		if (redir->type == HEREDOC)
+			return (1);
+		redir = redir->next;
+	}
+	return (0);
 }
