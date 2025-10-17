@@ -205,5 +205,11 @@ int			ft_strcmp(const char *s1, const char *s2)
 			__attribute__((nonnull(1, 2)));
 char		*ft_reverse_split(char **tab, char c)
 			__attribute__((nonnull(1)));
+char		**ft_mtxadd(char **mtx, char *s)
+			__attribute__((nonnull(1, 2)));
+char		**ft_mtxdel(char **mtx, char *s)
+			__attribute__((nonnull(1, 2)));
+int			ft_mtxfind(void **mtx, void *ptr)
+			__attribute__((nonnull(1, 2)));
 
 #endif

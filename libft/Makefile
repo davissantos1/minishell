@@ -71,6 +71,9 @@ EXTRA_SRCS = \
 
 SHELL_SRCS = \
 		ft_strcmp.c \
+		ft_mtxfind.c \
+		ft_mtxdel.c \
+		ft_mtxadd.c \
 		ft_reverse_split.c
 
 EXTRA_OBJS = $(EXTRA_SRCS:.c=.o)
