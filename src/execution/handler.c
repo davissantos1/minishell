@@ -16,9 +16,8 @@ void	handler(t_minishell *shell)
 {
 	find_heredoc(shell, shell->root);
 	build_path(shell);
-	if (shell->exit == 130)
-		return ;
-	executor(shell, shell->root);
+	if (shell->exit != 130)
+		executor(shell, shell->root);
 	if (shell->lst_pid)
 		shell->exit = last_return(shell);
 	gc_free_tag(shell->gc, GC_PIDLIST);

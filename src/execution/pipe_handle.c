@@ -35,9 +35,9 @@ static void set_cmd_node(t_minishell *shell, t_ast *node, int *fd, char flag)
 	if (node->type == NODE_CMD)
 	{
 		cmd = node->data;
-		if (flag == STDIN_FD)
+		if (flag == STDIN_FD && !cmd->redir)
 			cmd->std_in = fd[0];
-		else
+		else if (flag == STDOUT_FD)
 			cmd->std_out = fd[1];
 		add_fdlst(shell, fd[0], cmd);
 		add_fdlst(shell, fd[1], cmd);
