@@ -1,7 +1,7 @@
 # Variables
 
 CC= cc
-CFLAGS= -Wall -Wextra -Werror -Wpedantic -Iincludes -Ilibft
+CFLAGS= -Wall -Wextra -Werror -Iincludes -Ilibft
 SRC= \
 	src/main.c \
 	src/parsing/lexer.c \

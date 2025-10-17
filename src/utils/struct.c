@@ -6,7 +6,7 @@
 /*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/26 11:16:48 by vitosant          #+#    #+#             */
-/*   Updated: 2025/10/13 19:01:22 by vitosant         ###   ########.fr       */
+/*   Updated: 2025/10/16 14:03:45 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,14 +49,14 @@ t_ast	*ast_create(t_minishell *s)
 	return (node);
 }
 
-t_cmd	*cmd_create(t_minishell *s)
+t_cmd	*cmd_create(t_minishell *s, int ac)
 {
 	t_cmd *cmd;
 
 	cmd = gc_calloc(sizeof(t_cmd), s->gc, GC_CMD);
 	if (!cmd)
 		exit_code(s, EXIT_FAILURE);
-	cmd->argv = gc_calloc(sizeof(char *), s->gc, GC_CMD);
+	cmd->argv = gc_calloc(sizeof(char *) * (ac + 1), s->gc, GC_CMD);
 	if (!cmd->argv)
 		exit_code(s, EXIT_FAILURE);
 	cmd->std_out = 1;

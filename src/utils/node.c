@@ -6,7 +6,7 @@
 /*   By: dasimoes <dasimoes@42sp.org.br>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/12 15:26:25 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/10/12 18:25:33 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/10/16 12:51:32 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ t_ast	*cmd_node(t_minishell *s, t_token *start, t_token *end)
 	t_cmd	*cmd;
 
 	index = 0;
-	cmd = cmd_create(s);
 	node = ast_create(s);
 	node->type = NODE_CMD;
+	cmd = cmd_create(s, token_size(start, end));
 	while (start != end->next)
 	{
 		if (start->type == TOKEN_WORD || start->type == TOKEN_QUOTES)
