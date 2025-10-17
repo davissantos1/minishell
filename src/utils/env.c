@@ -15,14 +15,16 @@
 char	*get_env(t_minishell *s, char *var)
 {
 	int		index;
+	int		len;
 	char	*result;
 
 	index = 0;
+	len = ft_strlen(var);
 	while (s->env[index])
 	{
-		if (!ft_strncmp(s->env[index], var, ft_strlen(var) + 1))
+		if (!ft_strncmp(s->env[index], var, len))
 		{
-			result = s->env + ft_strlen(var) + 2;
+			result = s->env[index] + len + 2;
 			return (result);
 		}
 		index++;

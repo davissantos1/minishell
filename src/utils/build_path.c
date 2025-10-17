@@ -19,7 +19,7 @@ void	build_path(t_minishell *shell)
 	char	*genv;
 	char	**paths;
 
-	genv = get_env("PATH");
+	genv = get_env(shell, "PATH");
 	if (!genv)
 		return ;
 	paths = ft_split(genv, ':');
