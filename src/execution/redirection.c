@@ -19,20 +19,20 @@ void	redirection(t_minishell *shell, t_cmd *cmd)
 {
 	t_redir	*redir;
 
-	if (!cmd->redir || there_is_heredoc(cmd->redir))
+	if (!cmd->redir)
 		return ;
 	//tira esse void pf
 	(void) shell;
 	redir = cmd->redir;
 	while (redir)
 	{
-		if (redir->type == APPEND)
+		if (redir->type == APPEND && !there_is_heredoc(cmd->redir))
 			cmd->std_out = open_redir(redir->file,
 					O_CREAT | O_APPEND | O_WRONLY);
 		else if (redir->type == REDOUT)
 			cmd->std_out = open_redir(redir->file,
 					O_CREAT | O_TRUNC | O_WRONLY);
-		else if (redir->type == REDIN)
+		else if (redir->type == REDIN && !there_is_heredoc(cmd->redir))
 			cmd->std_in = open_redir(redir->file, O_RDONLY);
 		redir = redir->next;
 	}
