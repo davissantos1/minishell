@@ -6,23 +6,50 @@
 /*   By: dasimoes <dasimoes@42sp.org.br>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 21:32:55 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/10/16 18:55:14 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/10/18 17:18:10 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+static int	expand_check(char **spl, int pos)
+{
+	char	*var;
+	char	*dol;
+
+	dol = spl + pos;
+	var = spl + pos + 1;
+	if (pos == 0 && var)
+		return (1);
+	else if (pos > 0 && var && !(var + 1))
+		return (1);
+	if (count_single_quotes(var + 1) % 2 != 0)
+		if (count_single_quotes(dol - 1) % 2 != 0)
+			return (0);
+	if (count_double_quotes(var + 1) % 2 != 0)
+		if (count_double_quotes(dol - 1) % 2 != 0)
+			return (2);
+	return (1);
+}
+
 static char	*expand_string(t_minishell *s, char *str)
 {
-	char	*expanded;
+	char	**spl;
+	char	**exp;
+	int		i;
 
-	if (ft_strchr(str, '\'') || ft_strchr(str, '\"'))
+	i = 0;
+	spl = ft_split(str, '$');
+	while (spl[i])
 	{
-		
-	}
-	else
-	{
-		
+		if (spl[i][0] == '$')
+		{
+			if (expand_check(spl, i))
+			{
+				spl[i + 1] = ft_strdup(get_env(s, spl[i + 1]));
+			}
+		}
+		i++;
 	}
 
 	return ()
