@@ -21,8 +21,6 @@ void	redirection(t_minishell *shell, t_cmd *cmd)
 
 	if (!cmd->redir)
 		return ;
-	//tira esse void pf
-	(void) shell;
 	redir = cmd->redir;
 	while (redir)
 	{
@@ -37,7 +35,7 @@ void	redirection(t_minishell *shell, t_cmd *cmd)
 		redir = redir->next;
 	}
 	if (cmd->std_in < 0 || cmd->std_out < 0)
-		close_redir(cmd);
+		close_redir(shell, cmd);
 }
 
 static int	open_redir(char *file, int flags)

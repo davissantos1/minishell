@@ -95,12 +95,20 @@ typedef struct s_ast
 	void			*data;
 }	t_ast;
 
+//list pid and fds
+typedef struct	s_lstint
+{
+	int				value;
+	struct s_lstint	*next;
+}					t_lstint;
+
 typedef struct s_minishell
 {
 	struct s_gc		*gc;
 	struct s_token	*head;
 	struct s_ast	*root;
 	struct s_lstpid	*lst_pid;
+	struct s_lstint	*lstfd;
 	char			**paths;
 	char			**env;
 	char			*input;
@@ -113,14 +121,6 @@ typedef struct s_minishell
 	int				std_err;
 }	t_minishell;
 
-//list pid and fds
-//Execution structs 
-typedef struct	s_lstint
-{
-	int				value;
-	struct s_lstint	*next;
-}					t_lstint;
-
 typedef struct s_cmd
 {
 	char		**argv;
@@ -128,7 +128,6 @@ typedef struct s_cmd
 	int			std_in;
 	int			std_out;
 	t_redir		*redir;
-	t_lstint	*lst_fds;
 }	t_cmd;
 
 typedef struct	s_subshell

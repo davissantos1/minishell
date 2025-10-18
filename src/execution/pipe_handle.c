@@ -13,7 +13,8 @@
 #include "minishell.h"
 
 static void set_cmd_node(t_minishell *shell, t_ast *node, int *fd, char flag);
-static void	add_fdlst(t_minishell *shell, int fd, t_cmd *cmd);
+static void	add_fdlst(t_minishell *shell, int fd);
+static void	close_pipes(t_minishell *shell);
 
 void	pipe_node(t_minishell *shell, t_ast *node)
 {
@@ -21,11 +22,13 @@ void	pipe_node(t_minishell *shell, t_ast *node)
 
 	if (pipe(pipe_fd) == -1)
 		return ;
+	add_fdlst(shell, pipe_fd[0]);
+	add_fdlst(shell, pipe_fd[1]);
 	set_cmd_node(shell, node->left, pipe_fd, STDOUT_FD);
 	set_cmd_node(shell, node->right, pipe_fd, STDIN_FD);
 	executor(shell, node->left);
 	executor(shell, node->right);
-	close_pipes(pipe_fd);
+	close_pipes(shell);
 }
 
 static void set_cmd_node(t_minishell *shell, t_ast *node, int *fd, char flag)
@@ -39,8 +42,6 @@ static void set_cmd_node(t_minishell *shell, t_ast *node, int *fd, char flag)
 			cmd->std_in = fd[0];
 		else if (flag == STDOUT_FD)
 			cmd->std_out = fd[1];
-		add_fdlst(shell, fd[0], cmd);
-		add_fdlst(shell, fd[1], cmd);
 	}
 	if (node->left)
 		set_cmd_node(shell, node->left, fd, flag);
@@ -48,7 +49,7 @@ static void set_cmd_node(t_minishell *shell, t_ast *node, int *fd, char flag)
 		set_cmd_node(shell, node->right, fd, flag);
 }
 
-static void	add_fdlst(t_minishell *shell, int fd, t_cmd *cmd)
+static void	add_fdlst(t_minishell *shell, int fd)
 {
 	t_lstint	*node;
 
@@ -56,6 +57,17 @@ static void	add_fdlst(t_minishell *shell, int fd, t_cmd *cmd)
 	if (!node)
 		exit_code(shell, errno);
 	node->value = fd;
-	node->next = cmd->lst_fds;
-	cmd->lst_fds = node;
+	node->next = shell->lstfd;
+	shell->lstfd = node;
+}
+
+static void	close_pipes(t_minishell *shell)
+{
+	t_lstint *lst;
+
+	lst = shell->lstfd;
+	close(lst->value);
+	lst = lst->next;
+	close(lst->value);
+	shell->lstfd = lst->next;
 }

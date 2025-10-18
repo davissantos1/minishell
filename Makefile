@@ -19,7 +19,6 @@ SRC= \
 	src/utils/node.c \
 	src/utils/quotes.c \
 	src/utils/check_command.c \
-	src/utils/close_pipes.c \
 	src/utils/close_redir.c \
 	src/utils/pid_add.c \
 	src/utils/last_return.c \

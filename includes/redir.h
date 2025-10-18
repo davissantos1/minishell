@@ -20,6 +20,6 @@
 void	find_heredoc(t_minishell *shell, t_ast *node);
 int		heredoc(char *limiter);
 void	redirection(t_minishell *shell, t_cmd *cmd);
-void	close_redir(t_cmd *cmd);
+void	close_redir(t_minishell *shell, t_cmd *cmd);
 
 #endif

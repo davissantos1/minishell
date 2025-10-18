@@ -12,21 +12,25 @@
 
 #include "minishell.h"
 
-static t_lstint	*find_fd(t_cmd *cmd, int fd);
+static t_lstint	*find_fd(t_lstint *lst, int fd);
 
-void	close_redir(t_cmd *cmd)
+void	close_redir(t_minishell *shell, t_cmd *cmd)
 {
-	if (cmd->std_in != -1 && cmd->std_in != 0 && !find_fd(cmd, cmd->std_in))
+	t_lstint	*lst;
+	int			std_in;
+	int			std_out;
+
+	lst = shell->lstfd;
+	std_in = cmd->std_in;
+	std_out = cmd->std_out;
+	if (std_in != -1 && std_in != 0 && !find_fd(lst, std_in))
 		close(cmd->std_in);
-	if (cmd->std_out != -1 && cmd->std_out != 1 && !find_fd(cmd, cmd->std_out))
+	if (std_out != -1 && std_out != 1 && !find_fd(lst, std_out))
 		close(cmd->std_out);
 }
 
-static t_lstint	*find_fd(t_cmd *cmd, int fd)
+static t_lstint	*find_fd(t_lstint *lst, int fd)
 {
-	t_lstint	*lst;
-
-	lst = cmd->lst_fds;
 	if (!lst)
 		return (NULL);
 	while (lst && lst->value != fd)

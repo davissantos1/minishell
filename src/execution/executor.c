@@ -48,7 +48,7 @@ static void	try_exec(t_minishell *shell, t_cmd *cmd)
 	if (pid == 0)
 		exec_program(shell, cmd);
 	pid_add(shell, pid, NOT_BUILTIN, NOT_BUILTIN);
-	close_redir(cmd);
+	close_redir(shell, cmd);
 }
 
 static void	exec_program(t_minishell *shell, t_cmd *cmd)
@@ -58,7 +58,7 @@ static void	exec_program(t_minishell *shell, t_cmd *cmd)
 	t_lstint	*node_fd;
 
 	argv = ft_mtxdup(cmd->argv);
-	node_fd = cmd->lst_fds;
+	node_fd = shell->lstfd;
 	env = shell->env;
 	if (!argv)
 		exit_code(shell, errno);
@@ -66,7 +66,7 @@ static void	exec_program(t_minishell *shell, t_cmd *cmd)
 		perror("dup2");
 	if (cmd->std_out != 1 && dup2(cmd->std_out, STDOUT_FILENO) == -1)
 		perror("dup2");
-	close_redir(cmd);
+	close_redir(shell, cmd);
 	while (node_fd)
 	{
 		close(node_fd->value);
