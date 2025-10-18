@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
@@ -96,7 +95,7 @@ typedef struct s_ast
 }	t_ast;
 
 //list pid and fds
-typedef struct	s_lstint
+typedef struct s_lstint
 {
 	int				value;
 	struct s_lstint	*next;
@@ -130,13 +129,13 @@ typedef struct s_cmd
 	t_redir		*redir;
 }	t_cmd;
 
-typedef struct	s_subshell
+typedef struct s_subshell
 {
 	char		*input;
 	int			std_in;
 	int			std_out;
 }	t_subshell;
-	
+
 //typedef struct s_pipe
 //{
 //	// to be defined

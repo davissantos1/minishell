@@ -16,7 +16,7 @@ static char	*find_bin(t_minishell *shell, char *command);
 
 void	find_path(t_minishell *shell, t_cmd *cmd)
 {
-	char *tmp;
+	char	*tmp;
 
 	if (!shell->paths || ft_strchr(cmd->argv[0], '/'))
 		return ;

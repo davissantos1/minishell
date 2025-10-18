@@ -26,7 +26,7 @@ void	build_path(t_minishell *shell)
 	put_endbar(shell, paths);
 	if (paths)
 	{
-		if (!gc_addmtx(paths,shell->gc, GC_PATHS))
+		if (!gc_addmtx(paths, shell->gc, GC_PATHS))
 			exit_code(shell, errno);
 		shell->paths = paths;
 	}

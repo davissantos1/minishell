@@ -44,7 +44,6 @@ static void	tmp_file(char path[PATH_MAX])
 	int		num;
 
 	ft_bzero(path, PATH_MAX);
-	//chamar a função getcwd ?
 	ft_memcpy(path, "/tmp/minishell_heredoc-", 23);
 	num = 0;
 	while (access(path, F_OK) != -1)

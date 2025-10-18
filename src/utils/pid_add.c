@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-void pid_add(t_minishell *shell, pid_t pid, char is_builtin, int rbuiltin)
+void	pid_add(t_minishell *shell, pid_t pid, char is_builtin, int rbuiltin)
 {
 	t_lstpid	*node;
 	t_lstpid	*lst;

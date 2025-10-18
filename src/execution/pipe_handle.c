@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-static void set_cmd_node(t_minishell *shell, t_ast *node, int *fd, char flag);
+static void	set_cmd_node(t_minishell *shell, t_ast *node, int *fd, char flag);
 static void	add_fdlst(t_minishell *shell, int fd);
 static void	close_pipes(t_minishell *shell);
 
@@ -31,7 +31,7 @@ void	pipe_node(t_minishell *shell, t_ast *node)
 	close_pipes(shell);
 }
 
-static void set_cmd_node(t_minishell *shell, t_ast *node, int *fd, char flag)
+static void	set_cmd_node(t_minishell *shell, t_ast *node, int *fd, char flag)
 {
 	t_cmd	*cmd;
 
@@ -63,7 +63,7 @@ static void	add_fdlst(t_minishell *shell, int fd)
 
 static void	close_pipes(t_minishell *shell)
 {
-	t_lstint *lst;
+	t_lstint	*lst;
 
 	lst = shell->lstfd;
 	close(lst->value);
