@@ -6,7 +6,7 @@
 /*   By: dasimoes <dasimoes@42sp.org.br>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/12 15:26:25 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/10/19 11:37:16 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/10/19 18:29:21 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,14 @@ t_ast	*cmd_node(t_minishell *s, t_token *start, t_token *end)
 		{
 			cmd->argv[index] = start->value;
 			index++;
-			start = start->next;
 		}
 		else
 		{
 			redirect_add(s, cmd, start);
-			start = start->next;
+			if (start->next->value)
+				start = start->next;
 		}
+		start = start->next;
 	}
 	node->data = cmd;
 	return (node);
