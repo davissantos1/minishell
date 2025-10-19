@@ -6,7 +6,7 @@
 /*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 16:02:56 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/10/16 13:20:39 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/10/19 10:54:35 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -189,5 +189,8 @@ int			redir_type(int token_type);
 void		node_insert(t_ast **root, t_ast *node);
 void		ast_flip(t_ast **root);
 int			token_size(t_token *start, t_token *end);
+char		**expand_argv(t_minishell *s, char **av);
+int			count_single_quotes(char *str);
+char		*get_env(t_minishell *s, char *var);
 
 #endif
