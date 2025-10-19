@@ -6,7 +6,7 @@
 /*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 16:02:56 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/10/19 11:05:57 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/10/19 16:50:10 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@
 // Local includes
 # include "libft.h"
 
-// Macros
+// Globals
+static volatile sig_atomic_t g_signal = 0;
 
 // Enums
 typedef enum e_token_type
@@ -187,5 +188,9 @@ int			token_size(t_token *start, t_token *end);
 char		**expand_argv(t_minishell *s, char **av);
 int			count_single_quotes(char *str);
 char		*get_env(t_minishell *s, char *var);
+void		signal_interrupt(int sig);
+void		signal_child(int sig);
+void		register_parent_signals(void);
+void		register_child_signals(void);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/30 11:48:35 by vitosant          #+#    #+#             */
-/*   Updated: 2025/10/15 10:27:31 by vitosant         ###   ########.fr       */
+/*   Updated: 2025/10/19 17:03:27 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,10 @@ static void	try_exec(t_minishell *shell, t_cmd *cmd)
 	if (pid == -1)
 		exit_code(shell, errno);
 	if (pid == 0)
+	{
+		//register_child_signals();
 		exec_program(shell, cmd);
+	}
 	pid_add(shell, pid, NOT_BUILTIN, NOT_BUILTIN);
 	close_redir(shell, cmd);
 }
@@ -57,7 +60,7 @@ static void	exec_program(t_minishell *shell, t_cmd *cmd)
 	char		**env;
 	t_lstint	*node_fd;
 
-	argv = ft_mtxdup(cmd->argv);
+	argv = ft_mtxdup(expand_argv(shell, cmd->argv));
 	node_fd = shell->lstfd;
 	env = shell->env;
 	if (!argv)

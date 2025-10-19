@@ -4,6 +4,7 @@ CC= cc
 CFLAGS= -Wall -Wextra -Werror -Iincludes -Ilibft
 SRC= \
 	src/main.c \
+	src/signal.c \
 	src/parsing/lexer.c \
 	src/parsing/parser.c \
 	src/parsing/expander.c \

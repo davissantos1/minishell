@@ -6,7 +6,7 @@
 /*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 13:32:47 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/10/19 11:09:37 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/10/19 16:42:59 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ int	shell_read(t_minishell *shell, char *input)
 	{
 		if (errno != 0)
 			exit_code(shell, EXIT_FAILURE);
-		else
-			return (-1);
+		printf("exit\n");
+		return (-1);
 	}
 	if (!gc_addptr(shell->input, shell->gc, GC_TEMP))
 		exit_code(shell, EXIT_FAILURE);
@@ -59,6 +59,7 @@ int	main(int ac, char **av, char **env)
 	int			status;
 
 	shell = shell_init(env);
+	register_parent_signals();
 	if (ac == 1)
 	{
 		while (1)
@@ -72,7 +73,7 @@ int	main(int ac, char **av, char **env)
 		shell_process(shell, av_convert(shell, av));
 	}
 	rl_clear_history();
-	status = shell->exit + shell->signal;
+	status = shell->exit + g_signal;
 	gc_free_all(shell->gc);
 	return (status);
 }
