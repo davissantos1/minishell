@@ -6,7 +6,7 @@
 /*   By: dasimoes <dasimoes@42sp.org.br>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 21:32:55 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/10/19 18:20:22 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/10/19 19:55:35 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static char	*expand_string(t_minishell *s, char *str, int cd)
 	int		i;
 
 	i = 0;
-	if (str[0] != '$')
+	if (str[0] != '$' && str[2])
 		i = 1;
 	spl = ft_split(str, '$');
 	if (!gc_addmtx(spl, s->gc, GC_AST))
@@ -79,12 +79,12 @@ char	**expand_argv(t_minishell *s, char **av)
 	while (av[index])
 	{
 		dollar = ft_strchr(av[index], '$');
-		if (!dollar && ft_strncmp(av[index], "~", 2))
+		if (!dollar && ft_strcmp(av[index], "~") && ft_strcmp(av[index], "-"))
 			result[index] = ft_strdup(av[index]);
 		else if (index > 0 && !ft_strcmp(av[0], "cd"))
 			result[index] = expand_string(s, av[index], 1);
 		else
-			result[index] = expand_string(s, av[index], 0);
+			result[index] = expand_string(s, av[index], 1);
 		index++;
 	}
 	if (!gc_addmtx(result, s->gc, GC_AST))
