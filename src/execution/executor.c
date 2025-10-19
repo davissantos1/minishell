@@ -47,7 +47,7 @@ static void	try_exec(t_minishell *shell, t_cmd *cmd)
 		exit_code(shell, errno);
 	if (pid == 0)
 		exec_program(shell, cmd);
-	pid_add(shell, pid, NOT_BUILTIN, NOT_BUILTIN);
+	pid_add(shell, pid, FORKED, FORKED);
 	close_redir(shell, cmd);
 }
 

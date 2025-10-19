@@ -16,8 +16,8 @@
 # define NODE_SUBSHELL 919
 # define STDIN_FD 1
 # define STDOUT_FD 0
-# define NOT_BUILTIN 0
-# define IS_BUILTIN 1
+# define FORKED 0
+# define NOT_FORKED 1
 
 # include "minishell.h"
 
