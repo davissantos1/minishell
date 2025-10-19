@@ -6,7 +6,7 @@
 /*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 16:02:56 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/10/16 13:20:39 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/10/19 08:46:34 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,9 +160,6 @@ void		token_print(t_minishell *s);
 void		token_add(t_minishell *s, char *str);
 int			token_type(char *token);
 t_token		*token_create(t_minishell *s, char *str);
-char		*token_quotes(t_minishell *s, int i);
-char		*token_special(t_minishell *s, int i);
-char		*token_word(t_minishell *s, int i);
 void		lexer(t_minishell *s);
 int			check_quotes(char *token);
 int			word_size(char *token);
