@@ -19,6 +19,7 @@ void	builtin(t_minishell *shell, t_cmd *cmd)
 	pid_t	pid;
 	int		last_return;
 
+	cmd->argv = expand_argv(shell, cmd->argv);
 	if (!shell->lstfd)
 		which_builtin(shell, cmd);
 	else
@@ -45,7 +46,7 @@ static void	which_builtin(t_minishell *shell, t_cmd *cmd)
 	else if (!ft_strcmp(cmd->argv[0], "cd"))
 		cd_builtin(shell, cmd);
 	else if (!ft_strcmp(cmd->argv[0], "exit"))
-		exit_biltin(shell, cmd);
+		exit_builtin(shell, cmd);
 	else if (!ft_strcmp(cmd->argv[0], "export"))
 		export_builtin(shell, cmd);
 	else if (!ft_strcmp(cmd->argv[0], "unset"))

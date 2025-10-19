@@ -13,7 +13,6 @@
 #ifndef EXECUTOR_H
 # define EXECUTOR_H
 
-# define NODE_SUBSHELL 919
 # define STDIN_FD 1
 # define STDOUT_FD 0
 # define FORKED 0

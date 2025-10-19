@@ -19,7 +19,7 @@ void	exit_builtin(t_minishell *shell, t_cmd *cmd)
 	if (cmd->argv[1])
 	{
 		ft_putstr_fd("exit: Too many arguments", 2);
-		ret = 1;
+		ret = 1 >> 8;
 	}
 	gc_free_all(shell->gc);
 	exit(ret);
