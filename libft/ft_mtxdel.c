@@ -25,6 +25,8 @@ char	**ft_mtxdel(char **mtx, char *s)
 	new_mtx = ft_calloc(len, sizeof(char));
 	if (!new_mtx)
 		return (NULL);
+	if (ft_mtxfind(mtx, s) == -1)
+		return (mtx);
 	while (mtx[i])
 	{
 		if (mtx[i] != s)
