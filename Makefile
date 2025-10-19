@@ -25,7 +25,6 @@ SRC= \
 	src/utils/last_return.c \
 	src/utils/build_path.c \
 	src/utils/find_path.c \
-	src/utils/path.c \
 	src/utils/env.c \
 	src/execution/and_handle.c \
 	src/execution/or_handle.c \
