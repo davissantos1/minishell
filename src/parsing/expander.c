@@ -6,7 +6,7 @@
 /*   By: dasimoes <dasimoes@42sp.org.br>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 21:32:55 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/10/18 17:18:10 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/10/19 09:45:21 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,18 +28,19 @@ static int	expand_check(char **spl, int pos)
 			return (0);
 	if (count_double_quotes(var + 1) % 2 != 0)
 		if (count_double_quotes(dol - 1) % 2 != 0)
-			return (2);
+			return (1);
 	return (1);
 }
 
 static char	*expand_string(t_minishell *s, char *str)
 {
 	char	**spl;
-	char	**exp;
 	int		i;
 
 	i = 0;
 	spl = ft_split(str, '$');
+	if (!gc_addmtx(spl, s->gc, GC_AST))
+		exit_code(s, EXIT_FAILURE);
 	while (spl[i])
 	{
 		if (spl[i][0] == '$')
@@ -47,11 +48,12 @@ static char	*expand_string(t_minishell *s, char *str)
 			if (expand_check(spl, i))
 			{
 				spl[i + 1] = ft_strdup(get_env(s, spl[i + 1]));
+				if (!gc_addptr(spl[i + 1], s->gc, GC_AST))
+					exit_code(s, EXIT_FAILURE);
 			}
 		}
 		i++;
 	}
-
 	return ()
 }
 
