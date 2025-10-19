@@ -26,6 +26,7 @@ SRC= \
 	src/utils/build_path.c \
 	src/utils/find_path.c \
 	src/utils/env.c \
+	src/utils/close_fdlst.c \
 	src/execution/and_handle.c \
 	src/execution/or_handle.c \
 	src/execution/builtin.c \

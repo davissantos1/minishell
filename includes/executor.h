@@ -37,6 +37,7 @@ void	builtin(t_minishell *shell, t_cmd *cmd);
 void	handler(t_minishell *shell);
 void	build_path(t_minishell *shell);
 void	find_path(t_minishell *shell, t_cmd *cmd);
+void	close_fdlst(t_lstint *lst);
 
 void	or_node(t_minishell *shell, t_ast *node);
 void	pipe_node(t_minishell *shell, t_ast *node);

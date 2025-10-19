@@ -55,10 +55,8 @@ static void	exec_program(t_minishell *shell, t_cmd *cmd)
 {
 	char		**argv;
 	char		**env;
-	t_lstint	*node_fd;
 
-	argv = ft_mtxdup(cmd->argv);
-	node_fd = shell->lstfd;
+	argv = expand_argv(shell, cmd->argv);
 	env = shell->env;
 	if (!argv)
 		exit_code(shell, errno);
@@ -67,14 +65,9 @@ static void	exec_program(t_minishell *shell, t_cmd *cmd)
 	if (cmd->std_out != 1 && dup2(cmd->std_out, STDOUT_FILENO) == -1)
 		perror("dup2");
 	close_redir(shell, cmd);
-	while (node_fd)
-	{
-		close(node_fd->value);
-		node_fd = node_fd->next;
-	}
-	gc_free_all(shell->gc);
+	close_fdlst(shell->lstfd);
 	execve(argv[0], argv, env);
 	perror("execve");
-	ft_mtxfree(argv);
+	gc_free_all(shell->gc);
 	exit(errno);
 }
