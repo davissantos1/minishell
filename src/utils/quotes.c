@@ -6,11 +6,27 @@
 /*   By: dasimoes <dasimoes@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 10:55:20 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/10/03 11:21:49 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/10/18 16:34:19 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	count_single_quotes(char *str)
+{
+	int	count;
+	int	index;
+
+	count = 0;
+	index = 0;
+	while (str[index])
+	{
+		if (str[index] == '\'')
+			count++;
+		index++;
+	}
+	return (count);
+}
 
 int	check_quotes(char *token)
 {
