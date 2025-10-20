@@ -6,7 +6,7 @@
 /*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/06 15:52:51 by vitosant          #+#    #+#             */
-/*   Updated: 2025/10/15 10:31:17 by vitosant         ###   ########.fr       */
+/*   Updated: 2025/10/20 16:44:39 by vitosant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,12 @@ typedef struct s_lstpid
 	struct s_lstpid	*next;
 }					t_lstpid;
 
+typedef void (*func)(t_minishell *, t_cmd *);
+
 void	executor(t_minishell *shell, t_ast *node);
 void	pid_add(t_minishell *shell, pid_t pid, char is_builtin, int rbuiltin);
 int		last_return(t_minishell *shell);
-int		check_command(t_cmd *cmd);
+int		check_command(t_minishell *shell, t_cmd *cmd);
 void	builtin(t_minishell *shell, t_cmd *cmd);
 void	handler(t_minishell *shell);
 void	build_path(t_minishell *shell);
@@ -41,5 +43,13 @@ void	close_fdlst(t_lstint *lst);
 void	or_node(t_minishell *shell, t_ast *node);
 void	pipe_node(t_minishell *shell, t_ast *node);
 void	and_node(t_minishell *shell, t_ast *node);
+
+void	export_builtin(t_minishell *shell, t_cmd *cmd);
+void	pwd_builtin(t_minishell *shell, t_cmd *cmd);
+void	unset_builtin(t_minishell *shell, t_cmd *cmd);
+void	exit_builtin(t_minishell *shell, t_cmd *cmd);
+void	env_builtin(t_minishell *shell, t_cmd *cmd);
+void	echo_builtin(t_minishell *shell, t_cmd *cmd);
+void	cd_builtin(t_minishell *shell, t_cmd *cmd);
 
 #endif
