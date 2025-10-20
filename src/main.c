@@ -6,7 +6,7 @@
 /*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 13:32:47 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/10/19 16:42:59 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/10/20 17:21:32 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,12 @@ int	shell_process(t_minishell *shell, char *input)
 	if (shell_read(shell, input) == -1)
 		return (-1);
 	lexer(shell);
-	if (shell->error)
+	if (shell->error || !shell->head )
+	{
 		error_code(shell, 2);
-	else if (!shell->head)
+		return (0);
+	}
+	else if (!shell->head || !shell->head->value)
 		return (0);
 	else
 		parser(shell);

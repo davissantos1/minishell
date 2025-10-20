@@ -6,7 +6,7 @@
 /*   By: dasimoes <dasimoes@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/29 17:32:22 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/10/19 08:49:00 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/10/20 16:56:05 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,19 @@ static char	*token_quotes(t_minishell *s, int i)
 		s->error = token + ft_strlen(token) - 1;
 	return (token);
 	
+}
+
+void	token_validate(t_minishell *s)
+{
+	if (s->head->type == TOKEN_EOL)
+		return ;
+	if (!s->head->next->value)
+	{
+		validate_single(s);
+		return ;
+	}
+	validate_duplicate(s);
+	validate_terminal(s);
 }
 
 void	lexer(t_minishell *s)

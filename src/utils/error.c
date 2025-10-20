@@ -6,7 +6,7 @@
 /*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/26 11:16:55 by vitosant          #+#    #+#             */
-/*   Updated: 2025/10/02 18:43:20 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/10/20 16:16:31 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,11 @@ void	exit_code(t_minishell *shell, int code)
 	if (code == EXIT_FAILURE)
 		perror("minishell");
 	else if (code == 2)
+	{
+		ft_putstr_fd("syntax error near unexpected token `", 2);
 		ft_putstr_fd(shell->error, 2);
+		ft_putstr_fd("'\n", 2);
+	}
 	if (shell)
 		gc_free_all(shell->gc);
 	exit(code);

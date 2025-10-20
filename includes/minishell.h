@@ -6,7 +6,7 @@
 /*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 16:02:56 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/10/19 16:50:10 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/10/20 17:27:42 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,23 +34,23 @@
 # include "libft.h"
 
 // Globals
-static volatile sig_atomic_t g_signal = 0;
+volatile sig_atomic_t g_signal = 0;
 
 // Enums
 typedef enum e_token_type
 {
 	TOKEN_WORD,
+	TOKEN_QUOTES,
+	TOKEN_EOL,
+	TOKEN_LPAREN,
+	TOKEN_RPAREN,
 	TOKEN_REDIN,
 	TOKEN_REDOUT,
 	TOKEN_APPEND,
 	TOKEN_HEREDOC,
-	TOKEN_QUOTES,
 	TOKEN_PIPE,
-	TOKEN_EOL,
 	TOKEN_AND,
 	TOKEN_OR,
-	TOKEN_LPAREN,
-	TOKEN_RPAREN
 }	t_token_type;
 
 typedef enum e_node_type
@@ -192,5 +192,9 @@ void		signal_interrupt(int sig);
 void		signal_child(int sig);
 void		register_parent_signals(void);
 void		register_child_signals(void);
+void		validate_terminal(t_minishell *s);
+void		validate_single(t_minishell *s);
+void		validate_duplicate(t_minishell *s);
+void		token_validate(t_minishell *s);
 
 #endif
