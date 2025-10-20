@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dasimoes <dasimoes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/30 11:48:35 by vitosant          #+#    #+#             */
-/*   Updated: 2025/10/19 17:03:27 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/10/20 12:33:45 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ static void	try_exec(t_minishell *shell, t_cmd *cmd)
 		builtin(shell, cmd);
 		return ;
 	}
+	cmd->argv = expand_argv(shell, cmd->argv);
 	pid = fork();
 	if (pid == -1)
 		exit_code(shell, errno);
@@ -60,7 +61,7 @@ static void	exec_program(t_minishell *shell, t_cmd *cmd)
 	char		**env;
 	t_lstint	*node_fd;
 
-	argv = ft_mtxdup(expand_argv(shell, cmd->argv));
+	argv = ft_mtxdup(cmd->argv);
 	node_fd = shell->lstfd;
 	env = shell->env;
 	if (!argv)
