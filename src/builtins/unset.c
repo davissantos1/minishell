@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vitosant <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/19 17:16:11 by vitosant          #+#    #+#             */
-/*   Updated: 2025/10/19 17:16:14 by vitosant         ###   ########.fr       */
+/*   Updated: 2025/10/20 09:11:08 by vitosant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static void	remove_var(t_minishell *shell, char *var)
 		exit_code(shell, errno);
 	if (new_env != shell->env)
 	{
-		if (!gc_addptr(new_env, shell->gc, GC_AST))
+		if (!gc_addptr(new_env, shell->gc, GC_LOCALVARS))
 			exit_code(shell->gc, errno);
 	}
 	shell->env = new_env;

@@ -6,7 +6,7 @@
 /*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 16:25:22 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/10/10 11:47:35 by vitosant         ###   ########.fr       */
+/*   Updated: 2025/10/20 16:54:12 by vitosant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	echo_builtin(t_minishell *shell, t_cmd *cmd)
 
 	i = 1;
 	put_endln = 1;
-	while (cmd->argv[i] && cmd->argv[i][0] == '-')
+	while (cmd->argv[i] && cmd->argv[i][0] == '-' && cmd->argv[i][1])
 	{
 		j = 1;
 		while (cmd->argv[i][j])
