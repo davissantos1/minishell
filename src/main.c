@@ -6,7 +6,7 @@
 /*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 13:32:47 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/10/20 22:06:44 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/10/21 09:39:18 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,8 @@ int	main(int ac, char **av, char **env)
 		{
 			if (shell_process(shell, NULL) == -1)
 				break ;
-			//gc_free_tag(shell->gc, GC_TOKEN);
+			shell->head = gc_free_tag(shell->gc, GC_TOKEN);
+			shell->root = gc_free_tag(shell->gc, GC_AST);
 		}
 	}
 	else

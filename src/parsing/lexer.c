@@ -6,7 +6,7 @@
 /*   By: dasimoes <dasimoes@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/29 17:32:22 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/10/20 21:11:23 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/10/21 09:42:55 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static char	*token_special(t_minishell *s, int i)
 	if (s->input[i] == '&' && s->input[i + 1] == '&')
 		return ft_strdup("&&");
 	if (s->input[i] == '&' && s->input[i + 1] != '&')
-		s->error = s->input + i + 1;
+		s->error = "&";
 	return (NULL);
 }
 
