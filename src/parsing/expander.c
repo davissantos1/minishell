@@ -6,7 +6,7 @@
 /*   By: dasimoes <dasimoes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 21:32:55 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/10/20 12:42:39 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/10/21 09:49:09 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ static char	*expand_string(t_minishell *s, char *str, int cd)
 	res = ft_reverse_split(spl, ' ');
 	if (!gc_addptr(res, s->gc, GC_AST))
 		exit_code(s, EXIT_FAILURE);
+	res[ft_strlen(res) - 1] = '\0';
 	return (res);
 }
 
