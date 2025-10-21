@@ -6,7 +6,7 @@
 /*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/30 11:48:35 by vitosant          #+#    #+#             */
-/*   Updated: 2025/10/19 17:03:27 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/10/21 17:07:59 by vitosant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 static void	try_exec(t_minishell *shell, t_cmd *cmd);
 static void	exec_program(t_minishell *shell, t_cmd *cmd);
+static void	which_builtin(t_cmd *cmd);
 
 void	executor(t_minishell *shell, t_ast *node)
 {
@@ -35,9 +36,10 @@ static void	try_exec(t_minishell *shell, t_cmd *cmd)
 
 	redirection(shell, cmd);
 	find_path(shell, cmd);
-	if (cmd->std_in < 0 || cmd->std_out < 0 || !check_command(cmd))
+	which_builtin(cmd);
+	if (cmd->std_in < 0 || cmd->std_out < 0 || !check_command(shell, cmd))
 		return ;
-	if (cmd->is_builtin)
+	if (cmd->is_builtin >= 0)
 	{
 		builtin(shell, cmd);
 		return ;
@@ -49,8 +51,7 @@ static void	try_exec(t_minishell *shell, t_cmd *cmd)
 	{
 		//register_child_signals();
 		exec_program(shell, cmd);
-	}
-	pid_add(shell, pid, NOT_BUILTIN, NOT_BUILTIN);
+	pid_add(shell, pid, FORKED, FORKED);
 	close_redir(shell, cmd);
 }
 
@@ -58,10 +59,8 @@ static void	exec_program(t_minishell *shell, t_cmd *cmd)
 {
 	char		**argv;
 	char		**env;
-	t_lstint	*node_fd;
 
-	argv = ft_mtxdup(expand_argv(shell, cmd->argv));
-	node_fd = shell->lstfd;
+	argv = expand_argv(shell, cmd->argv);
 	env = shell->env;
 	if (!argv)
 		exit_code(shell, errno);
@@ -70,14 +69,29 @@ static void	exec_program(t_minishell *shell, t_cmd *cmd)
 	if (cmd->std_out != 1 && dup2(cmd->std_out, STDOUT_FILENO) == -1)
 		perror("dup2");
 	close_redir(shell, cmd);
-	while (node_fd)
-	{
-		close(node_fd->value);
-		node_fd = node_fd->next;
-	}
-	gc_free_all(shell->gc);
+	close_fdlst(shell->lstfd);
 	execve(argv[0], argv, env);
 	perror("execve");
-	ft_mtxfree(argv);
+	gc_free_all(shell->gc);
 	exit(errno);
+}
+
+static void	which_builtin(t_cmd *cmd)
+{
+	if (!ft_strcmp(cmd->argv[0], "echo"))
+		cmd->is_builtin = 0;
+	else if (!ft_strcmp(cmd->argv[0], "cd"))
+		cmd->is_builtin = 1;
+	else if (!ft_strcmp(cmd->argv[0], "exit"))
+		cmd->is_builtin = 2;
+	else if (!ft_strcmp(cmd->argv[0], "export"))
+		cmd->is_builtin = 3;
+	else if (!ft_strcmp(cmd->argv[0], "unset"))
+		cmd->is_builtin = 4;
+	else if (!ft_strcmp(cmd->argv[0], "pwd"))
+		cmd->is_builtin = 5;
+	else if (!ft_strcmp(cmd->argv[0], "env"))
+		cmd->is_builtin = 6;
+	else
+		cmd->is_builtin = -1;
 }

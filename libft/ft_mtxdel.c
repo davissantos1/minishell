@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_mtxdel.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vitosant <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/17 14:11:02 by vitosant          #+#    #+#             */
-/*   Updated: 2025/10/17 14:11:03 by vitosant         ###   ########.fr       */
+/*   Updated: 2025/10/20 18:09:24 by vitosant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,9 @@ char	**ft_mtxdel(char **mtx, char *s)
 	i = 0;
 	j = 0;
 	len = ft_mtxlen(mtx);
-	new_mtx = ft_calloc(len, sizeof(char));
+	if (ft_mtxfind((void **)mtx, (void *)s) == -1)
+		return (mtx);
+	new_mtx = ft_calloc(len, sizeof(char *));
 	if (!new_mtx)
 		return (NULL);
 	while (mtx[i])

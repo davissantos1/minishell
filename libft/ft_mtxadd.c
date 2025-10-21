@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_mtxadd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vitosant <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/17 14:05:05 by vitosant          #+#    #+#             */
-/*   Updated: 2025/10/17 14:05:06 by vitosant         ###   ########.fr       */
+/*   Updated: 2025/10/20 17:41:08 by vitosant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	**ft_mtxadd(char **mtx, char *s)
 
 	i = 0;
 	len = ft_mtxlen(mtx);
-	new_mtx = ft_calloc(len + 1, sizeof(char));
+	new_mtx = ft_calloc(len + 2, sizeof(char *));
 	if (!new_mtx)
 		return (NULL);
 	while (mtx[i])

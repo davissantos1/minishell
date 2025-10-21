@@ -1,36 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_command.c                                    :+:      :+:    :+:   */
+/*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/07 12:01:22 by vitosant          #+#    #+#             */
-/*   Updated: 2025/10/20 17:17:17 by vitosant         ###   ########.fr       */
+/*   Created: 2025/10/19 17:06:54 by vitosant          #+#    #+#             */
+/*   Updated: 2025/10/21 14:17:50 by vitosant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	check_command(t_minishell *shell, t_cmd *cmd)
+void	pwd_builtin(t_minishell *shell, t_cmd *cmd)
 {
-	char	*file;
+	char	cwd[PATH_MAX];
 
-	file = cmd->argv[0];
-	if (cmd->is_builtin >= 0)
-		return (1);
-	if (access(file, F_OK) == -1)
+	ft_bzero(cwd, PATH_MAX);
+	if (cmd->argv[1] || getcwd(cwd, PATH_MAX) == NULL)
 	{
-		ft_putstr_fd(file, 2);
-		ft_putstr_fd(": command not found\n", 2);
-		shell->exit = 127;
-		return (0);
+		if (cmd->argv[1])
+			ft_putstr_fd("pwd: Too many arguments\n", 2);
+		else
+			perror("pwd");
+		pid_add(shell, NOT_FORKED, NOT_FORKED, 1  << 8);
+		return ;
 	}
-	if (access(file, X_OK) == -1)
-	{
-		perror(file);
-		shell->exit = 126;
-		return (0);
-	}
-	return (1);
+	pid_add(shell, NOT_FORKED, NOT_FORKED, 0);
 }

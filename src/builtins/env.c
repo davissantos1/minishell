@@ -1,36 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_command.c                                    :+:      :+:    :+:   */
+/*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/07 12:01:22 by vitosant          #+#    #+#             */
-/*   Updated: 2025/10/20 17:17:17 by vitosant         ###   ########.fr       */
+/*   Created: 2025/10/19 16:55:06 by vitosant          #+#    #+#             */
+/*   Updated: 2025/10/20 17:19:59 by vitosant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	check_command(t_minishell *shell, t_cmd *cmd)
+void	env_builtin(t_minishell *shell, t_cmd *cmd)
 {
-	char	*file;
+	char	**env;
 
-	file = cmd->argv[0];
-	if (cmd->is_builtin >= 0)
-		return (1);
-	if (access(file, F_OK) == -1)
+	env = shell->env;
+	if (cmd->argv[1])
 	{
-		ft_putstr_fd(file, 2);
-		ft_putstr_fd(": command not found\n", 2);
-		shell->exit = 127;
-		return (0);
+		ft_putstr_fd("env: Too many arguments\n", 2);
+		pid_add(shell, NOT_FORKED, NOT_FORKED, 1  << 8);
+		return ;
 	}
-	if (access(file, X_OK) == -1)
+	while (*env)
 	{
-		perror(file);
-		shell->exit = 126;
-		return (0);
+		ft_putendl_fd(*env, 1);
+		env++;
 	}
-	return (1);
+	pid_add(shell, NOT_FORKED, NOT_FORKED, 0);
 }
+

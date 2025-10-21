@@ -1,36 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_command.c                                    :+:      :+:    :+:   */
+/*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/07 12:01:22 by vitosant          #+#    #+#             */
-/*   Updated: 2025/10/20 17:17:17 by vitosant         ###   ########.fr       */
+/*   Created: 2025/10/18 19:31:10 by vitosant          #+#    #+#             */
+/*   Updated: 2025/10/20 17:19:53 by vitosant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	check_command(t_minishell *shell, t_cmd *cmd)
+void	exit_builtin(t_minishell *shell, t_cmd *cmd)
 {
-	char	*file;
+	int		ret;
 
-	file = cmd->argv[0];
-	if (cmd->is_builtin >= 0)
-		return (1);
-	if (access(file, F_OK) == -1)
+	ret = 0;
+	if (cmd->argv[1])
 	{
-		ft_putstr_fd(file, 2);
-		ft_putstr_fd(": command not found\n", 2);
-		shell->exit = 127;
-		return (0);
+		ft_putstr_fd("exit: Too many arguments\n", 2);
+		ret = 1 << 8;
 	}
-	if (access(file, X_OK) == -1)
-	{
-		perror(file);
-		shell->exit = 126;
-		return (0);
-	}
-	return (1);
+	gc_free_all(shell->gc);
+	exit(ret);
 }
