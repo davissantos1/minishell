@@ -6,7 +6,7 @@
 /*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 13:32:47 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/10/20 17:21:32 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/10/20 21:20:02 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ int	shell_process(t_minishell *shell, char *input)
 	if (shell_read(shell, input) == -1)
 		return (-1);
 	lexer(shell);
+	token_validate(shell);
 	if (shell->error || !shell->head )
 	{
 		error_code(shell, 2);
@@ -49,9 +50,6 @@ int	shell_process(t_minishell *shell, char *input)
 	//token_print(shell);
 	//ast_print(shell->root);
 	handler(shell);
-	gc_free_tag(shell->gc, GC_TOKEN);
-	gc_free_tag(shell->gc, GC_AST);
-	gc_free_tag(shell->gc, GC_CMD);
 	shell->head = NULL;
 	return (0);
 }
@@ -69,6 +67,7 @@ int	main(int ac, char **av, char **env)
 		{
 			if (shell_process(shell, NULL) == -1)
 				break ;
+			gc_free_tag(shell->gc, GC_TOKEN);
 		}
 	}
 	else

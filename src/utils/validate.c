@@ -6,7 +6,7 @@
 /*   By: dasimoes <dasimoes@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/28 15:00:45 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/10/20 17:32:05 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/10/20 21:05:58 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,9 @@ void	validate_duplicate(t_minishell *s)
 		after = start->next;
 		if (after)
 		{
-			if (start->type > 4 && after->type > 4)
-			{
-				s->error = &start->value[ft_strlen(start->value)];
-				error_code(s, 2);
-			}
+			if (start->type != 0 && start->type != 12 && start->type != 5)
+				if (after->type != 0 && after->type != 12 && after->type != 5)
+					s->error = &start->value[ft_strlen(start->value) - 1];
 		}
 		start = start->next;
 	}
@@ -57,10 +55,12 @@ void	validate_single(t_minishell *s)
 	t_token *token;
 	
 	token = s->head;
-	if (token-type > 2)
+	if (token->type != 0 && token->type != 12 && token->type != 5)
 	{
-		s->error = &start->value[ft_strlen(start->value)];
-		error_code(s, 2);
+		if (token->type > 0 && token->type < 5)
+			s->error = "newline";
+		else
+			s->error = &token->value[ft_strlen(token->value) - 1];
 	}
 }
 
@@ -73,14 +73,13 @@ void	validate_terminal(t_minishell *s)
 	end = start;
 	while (end->next->value)
 		end = end->next;
-	if (start->type == TOKEN_RPAREN || start->type > 9)
+	if (start->type == TOKEN_RPAREN || start->type >= 9)
+		s->error = &start->value[ft_strlen(start->value) - 1];
+	if ((end->type > 0 && end->type < 5) || end->type > 6)
 	{
-		s->error = &start->value[ft_strlen(start->value)];
-		error_code(s, 2);
-	}
-	if (end->type == TOKEN_LPAREN || end->type > 6)
-	{
-		s->error = &start->value[ft_strlen(start->value)];
-		error_code(s, 2);
+		if (end->type > 0 && end->type < 5)
+			s->error = "newline";
+		else
+			s->error = &end->value[ft_strlen(end->value) - 1];
 	}
 }

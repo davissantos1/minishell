@@ -1,12 +1,10 @@
-/* ************************************************************************** */
-/*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 16:02:56 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/10/20 17:27:42 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/10/20 18:33:58 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,23 +32,23 @@
 # include "libft.h"
 
 // Globals
-volatile sig_atomic_t g_signal = 0;
+static volatile sig_atomic_t g_signal = 0;
 
 // Enums
 typedef enum e_token_type
 {
 	TOKEN_WORD,
-	TOKEN_QUOTES,
-	TOKEN_EOL,
-	TOKEN_LPAREN,
-	TOKEN_RPAREN,
 	TOKEN_REDIN,
 	TOKEN_REDOUT,
 	TOKEN_APPEND,
 	TOKEN_HEREDOC,
+	TOKEN_QUOTES,
+	TOKEN_RPAREN,
+	TOKEN_LPAREN,
 	TOKEN_PIPE,
 	TOKEN_AND,
 	TOKEN_OR,
+	TOKEN_EOL,
 }	t_token_type;
 
 typedef enum e_node_type

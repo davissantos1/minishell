@@ -6,7 +6,7 @@
 /*   By: dasimoes <dasimoes@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/29 17:32:22 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/10/20 16:56:05 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/10/20 21:11:23 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,8 @@ static char	*token_quotes(t_minishell *s, int i)
 
 void	token_validate(t_minishell *s)
 {
+	if (!s->head)
+		return ;
 	if (s->head->type == TOKEN_EOL)
 		return ;
 	if (!s->head->next->value)
