@@ -6,7 +6,7 @@
 /*   By: dasimoes <dasimoes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 21:32:55 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/10/21 09:49:09 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/10/21 10:40:16 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,8 @@ char	**expand_argv(t_minishell *s, char **av)
 	{
 		dollar = ft_strchr(av[index], '$');
 		if (!dollar && ft_strcmp(av[index], "~") && ft_strcmp(av[index], "-"))
+			result[index] = ft_strdup(av[index]);
+		else if (!dollar && ft_strcmp(av[index], "~"))
 			result[index] = ft_strdup(av[index]);
 		else if (index > 0 && !ft_strcmp(av[0], "cd"))
 			result[index] = expand_string(s, av[index], 1);
