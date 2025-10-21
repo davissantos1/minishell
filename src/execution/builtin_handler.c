@@ -6,11 +6,13 @@
 /*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/10 11:47:50 by vitosant          #+#    #+#             */
-/*   Updated: 2025/10/20 16:44:15 by vitosant         ###   ########.fr       */
+/*   Updated: 2025/10/20 18:43:24 by vitosant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static void	fill_functions(func *functions);
 
 void	builtin(t_minishell *shell, t_cmd *cmd)
 {
@@ -19,6 +21,7 @@ void	builtin(t_minishell *shell, t_cmd *cmd)
 	int		last_return;
 
 	cmd->argv = expand_argv(shell, cmd->argv);
+	fill_functions(builtins);
 	if (!shell->lstfd)
 		builtins[cmd->is_builtin] (shell, cmd);
 	else
@@ -28,6 +31,10 @@ void	builtin(t_minishell *shell, t_cmd *cmd)
 			exit_code(shell, errno);
 		if (pid == 0)
 		{
+			if (cmd->std_in != 0)
+				dup2(cmd->std_in, 0);
+			if (cmd->std_out != 1)
+				dup2(cmd->std_in, 1);
 			builtins[cmd->is_builtin] (shell, cmd);
 			last_return = shell->lst_pid->rbuiltin;
 			gc_free_all(shell->gc);

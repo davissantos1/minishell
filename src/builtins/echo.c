@@ -6,11 +6,13 @@
 /*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 16:25:22 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/10/20 16:54:12 by vitosant         ###   ########.fr       */
+/*   Updated: 2025/10/20 17:19:16 by vitosant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static void	just_echo(char **argv, int put_endln);
 
 void	echo_builtin(t_minishell *shell, t_cmd *cmd)
 {
@@ -43,6 +45,7 @@ static void	just_echo(char **argv, int put_endln)
 {
 	int	i;
 
+	i = 0;
 	while (argv[i])
 	{
 		ft_putstr_fd(argv[i], 1);

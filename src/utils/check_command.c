@@ -6,7 +6,7 @@
 /*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/07 12:01:22 by vitosant          #+#    #+#             */
-/*   Updated: 2025/10/20 15:21:29 by vitosant         ###   ########.fr       */
+/*   Updated: 2025/10/20 17:17:17 by vitosant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ int	check_command(t_minishell *shell, t_cmd *cmd)
 	char	*file;
 
 	file = cmd->argv[0];
+	if (cmd->is_builtin >= 0)
+		return (1);
 	if (access(file, F_OK) == -1)
 	{
 		ft_putstr_fd(file, 2);

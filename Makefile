@@ -27,15 +27,23 @@ SRC= \
 	src/utils/find_path.c \
 	src/utils/env.c \
 	src/utils/close_fdlst.c \
+	src/utils/add_var.c \
 	src/execution/and_handle.c \
 	src/execution/or_handle.c \
-	src/execution/builtin.c \
+	src/execution/builtin_handler.c \
 	src/execution/redirection.c \
 	src/execution/heredoc.c \
 	src/execution/executor.c \
 	src/execution/pipe_handle.c \
 	src/execution/find_heredoc.c \
-	src/execution/handler.c
+	src/execution/handler.c \
+	src/builtins/cd.c \
+	src/builtins/env.c \
+	src/builtins/exit.c \
+	src/builtins/pwd.c \
+	src/builtins/export.c \
+	src/builtins/unset.c \
+	src/builtins/echo.c 
 
 OBJ= $(SRC:.c=.o)
 NAME= minishell
