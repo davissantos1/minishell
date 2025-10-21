@@ -6,7 +6,7 @@
 /*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/30 11:48:35 by vitosant          #+#    #+#             */
-/*   Updated: 2025/10/21 17:07:59 by vitosant         ###   ########.fr       */
+/*   Updated: 2025/10/21 17:08:40 by vitosant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ static void	try_exec(t_minishell *shell, t_cmd *cmd)
 	{
 		//register_child_signals();
 		exec_program(shell, cmd);
+	}
 	pid_add(shell, pid, FORKED, FORKED);
 	close_redir(shell, cmd);
 }
