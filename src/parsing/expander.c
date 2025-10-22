@@ -47,7 +47,7 @@ static char	*expand_string(t_minishell *s, char *str, int cd)
 {
 	char	**spl;
 	char	*res;
-	int		i;
+	int	i;
 
 	i = 0;
 	if (str[0] != '$' && str[1])
@@ -67,11 +67,39 @@ static char	*expand_string(t_minishell *s, char *str, int cd)
 	return (res);
 }
 
+void	expand_wildcard(t_minishell *s, char ***av, int index)
+{
+	int		len;
+	int		flow;
+	DIR *		dir;
+	struct dirent	*cur;
+
+	flow = check_wildcard((*av)[index]);
+	len = ft_strlen((*av)[index]);
+	dir = opendir(".");
+	if (!dir)
+		return ;
+	cur = readdir(dir);
+	while (cur)
+	{
+		if (flow)
+			(*av)[index] = ft_strdup(cur->d_name);
+		else
+		{
+			if (check_wildcard_str(((*av)[index]), cur->d_name))
+				(*av)[index] = ft_strdup(cur->d_name);
+
+		}
+		index++;
+		cur = readdir(dir);
+	}
+}
+
 char	**expand_argv(t_minishell *s, char **av)
 {
 	char	**result;
 	char	*dollar;
-	int		index;
+	int	index;
 
 	index = 0;
 	result = ft_calloc(sizeof(char *), (ft_mtxlen(av) + 1));
@@ -80,9 +108,9 @@ char	**expand_argv(t_minishell *s, char **av)
 	while (av[index])
 	{
 		dollar = ft_strchr(av[index], '$');
-		if (!dollar && ft_strcmp(av[index], "~") && ft_strcmp(av[index], "-"))
-			result[index] = ft_strdup(av[index]);
-		else if (!dollar && ft_strcmp(av[index], "~"))
+		if (!dollar && ft_strchr(av[index], '*'))
+			expand_wildcard(s, &av, index);
+		else if (!dollar && ft_strcmp(av[index], "~") && ft_strcmp(av[index], "-"))
 			result[index] = ft_strdup(av[index]);
 		else if (index > 0 && !ft_strcmp(av[0], "cd"))
 			result[index] = expand_string(s, av[index], 1);
