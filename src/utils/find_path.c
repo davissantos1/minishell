@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   path.c                                             :+:      :+:    :+:   */
+/*   find_path.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 17:51:19 by vitosant          #+#    #+#             */
-/*   Updated: 2025/10/15 10:18:40 by vitosant         ###   ########.fr       */
+/*   Updated: 2025/10/23 15:12:54 by vitosant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	find_path(t_minishell *shell, t_cmd *cmd)
 {
 	char	*tmp;
 
-	if (!shell->paths || ft_strchr(cmd->argv[0], '/'))
+	if (!shell->paths || !cmd->argv[0] || ft_strchr(cmd->argv[0], '/'))
 		return ;
 	tmp = find_bin(shell, cmd->argv[0]);
 	if (tmp == cmd->argv[0])
