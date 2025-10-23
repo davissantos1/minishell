@@ -6,7 +6,7 @@
 /*   By: dasimoes <dasimoes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 21:32:55 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/10/21 10:40:16 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/10/22 21:27:44 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,23 +24,27 @@ static int	expand_check(char **spl, int pos)
 
 static char	*expand_string_aux(t_minishell *s, char **spl, int i, int cd)
 {
-	char *res;
-
-	res = NULL;
 	if (expand_check(spl, i))
 	{
 		if (!ft_strncmp(spl[i], "~", 2))
-			res = ft_strdup(get_env(s, "HOME"));
+			return (ft_strdup(getenv("HOME")));
 		else if (!ft_strncmp(spl[i], "?", 2))
-			res = ft_itoa(s->exit + s->signal);
+			return (ft_itoa(s->exit + s->signal));
 		else if (cd && !ft_strncmp(spl[i], "-", 2))
-			res = ft_strdup(get_env(s, "OLDPWD"));
+			return (ft_strdup(get_env(s, "OLDPWD")));
 		else
-			res = ft_strdup(get_env(s, spl[i]));
-		if (!gc_addptr(res, s->gc, GC_AST))
-			exit_code(s, EXIT_FAILURE);
+		{
+			if (ft_strchr(spl[i], '~'))
+				return (expand_mixed_str(s, spl, i, '~'));
+			if (ft_strchr(spl[i], '-'))
+				return (expand_mixed_str(s, spl, i, '-'));
+			else if (ft_strchr(spl[i], '*'))
+				return (expand_mixed_wildcard(s, spl, i);
+			else
+				return (ft_strdup(get_env(s, spl[i])));
+		}
 	}
-	return (res);
+	return (NULL);
 }
 
 static char	*expand_string(t_minishell *s, char *str, int cd)
@@ -58,20 +62,20 @@ static char	*expand_string(t_minishell *s, char *str, int cd)
 	while (spl[i])
 	{
 		spl[i] = expand_string_aux(s, spl, i, cd);
+		if (!gc_addptr(spl[i], s->gc, GC_AST))
+			exit_code(s, EXIT_FAILURE);
 		i++;
 	}
 	res = ft_reverse_split(spl, ' ');
-	if (!gc_addptr(res, s->gc, GC_AST))
-		exit_code(s, EXIT_FAILURE);
 	res[ft_strlen(res) - 1] = '\0';
 	return (res);
 }
 
 void	expand_wildcard(t_minishell *s, char ***av, int index)
 {
-	int		len;
-	int		flow;
-	DIR *		dir;
+	int				len;
+	int				flow;
+	DIR *			dir;
 	struct dirent	*cur;
 
 	flow = check_wildcard((*av)[index]);
@@ -99,7 +103,7 @@ char	**expand_argv(t_minishell *s, char **av)
 {
 	char	**result;
 	char	*dollar;
-	int	index;
+	int		index;
 
 	index = 0;
 	result = ft_calloc(sizeof(char *), (ft_mtxlen(av) + 1));
