@@ -6,7 +6,7 @@
 /*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/30 08:14:39 by vitosant          #+#    #+#             */
-/*   Updated: 2025/10/20 16:38:41 by vitosant         ###   ########.fr       */
+/*   Updated: 2025/10/23 11:35:37 by vitosant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,4 +24,5 @@ void	handler(t_minishell *shell)
 	gc_free_tag(shell->gc, GC_FDLIST);
 	gc_free_tag(shell->gc, GC_PATHS);
 	shell->paths = NULL;
+	printf("%d\n", shell->exit);
 }
