@@ -6,7 +6,7 @@
 /*   By: dasimoes <dasimoes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 21:32:55 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/10/22 21:27:44 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/10/23 12:25:18 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,8 @@ char	**expand_argv(t_minishell *s, char **av)
 			result[index] = ft_strdup(av[index]);
 		else if (index > 0 && !ft_strcmp(av[0], "cd"))
 			result[index] = expand_string(s, av[index], 1);
+		else if (dollar && ft_strchr(av[index], '*'))
+			expand_mixed_wildcard(s, &av, index);
 		else
 			result[index] = expand_string(s, av[index], 1);
 		index++;
