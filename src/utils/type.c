@@ -6,18 +6,14 @@
 /*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 11:47:45 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/10/13 19:09:50 by vitosant         ###   ########.fr       */
+/*   Updated: 2025/10/25 19:10:15 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int		token_type(char *token)
+static	int	token_type_aux(char *token)
 {
-	if (!token)
-		return (TOKEN_EOL);
-	if (ft_strchr(token, '\'') || ft_strchr(token, '\"'))
-		return (TOKEN_QUOTES);
 	if (*token == '(')
 		return (TOKEN_LPAREN);
 	if (*token == ')')
@@ -37,6 +33,19 @@ int		token_type(char *token)
 	if (*token == '&' && *(token + 1) == '&')
 		return (TOKEN_AND);
 	return (TOKEN_WORD);
+}
+
+int		token_type(char *token)
+{
+	if (!token)
+		return (TOKEN_EOL);
+	if (ft_strchr(token, '\''))
+		return (TOKEN_SQUOTES);
+	if (ft_strchr(token, '\"'))
+		return (TOKEN_DQUOTES);
+	if (*token == '$' && !is_meta(*(token + 1)))
+		return (TOKEN_VAR);
+	return (token_type_aux(token));
 }
 
 int	node_type(int token_type)

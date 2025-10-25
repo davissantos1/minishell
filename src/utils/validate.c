@@ -6,30 +6,11 @@
 /*   By: dasimoes <dasimoes@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/28 15:00:45 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/10/21 09:40:47 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/10/25 15:28:53 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-int	is_space(char c)
-{
-	if (c == ' ' || c == '\t' || c == '\f' )
-		return (1);
-	else if (c == '\n' || c == '\r' || c == '\v')
-		return (1);
-	else
-		return (0);
-}
-
-int	is_meta(char c)
-{
-	if (c == '|' || c == '>' || c == '<' || c == '&')
-		return (1);
-	else if (c == '(' || c == ')')
-		return (1);
-	return (0);
-}
 
 void	validate_duplicate(t_minishell *s)
 {

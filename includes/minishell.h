@@ -42,7 +42,9 @@ typedef enum e_token_type
 	TOKEN_REDOUT,
 	TOKEN_APPEND,
 	TOKEN_HEREDOC,
-	TOKEN_QUOTES,
+	TOKEN_SQUOTES,
+	TOKEN_DQUOTES,
+	TOKEN_VAR,
 	TOKEN_RPAREN,
 	TOKEN_LPAREN,
 	TOKEN_PIPE,
@@ -194,5 +196,9 @@ void		validate_terminal(t_minishell *s);
 void		validate_single(t_minishell *s);
 void		validate_duplicate(t_minishell *s);
 void		token_validate(t_minishell *s);
+char		*token_special(t_minishell *s, int i);
+char		*token_word(t_minishell *s, int i);
+char		*token_quotes(t_minishell *s, int i);
+char		*token_var(t_minishell *s, int i);
 
 #endif
