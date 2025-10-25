@@ -17,6 +17,7 @@
 # define STDOUT_FD 0
 # define FORKED 0
 # define NOT_FORKED 1
+# define EXIT_SUCCESS 0
 
 # include "minishell.h"
 

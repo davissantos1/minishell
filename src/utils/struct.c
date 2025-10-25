@@ -25,6 +25,7 @@ t_minishell	*shell_init(char **env)
 		exit_code(NULL, EXIT_FAILURE);
 	shell->gc = garbage;
 	shell->path = getcwd(NULL, 0);
+	shell->tmp_var = gc_calloc(sizeof(char *), garbage, GC_LOCALVARS);
 	if (!shell->path)
 		exit_code(shell, EXIT_FAILURE);
 	if (!gc_addptr(shell->path, shell->gc, GC_SHELL))

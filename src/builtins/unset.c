@@ -35,13 +35,13 @@ static void	remove_var(t_minishell *shell, char *var)
 	char	**new_env;
 	char	*ptr_env;
 
-	ptr_env = get_env(shell, var);
+	ptr_env = get_env(shell->env, var);
 	if (!ptr_env)
 	{
 		pid_add(shell, NOT_FORKED, NOT_FORKED, 0);
 		return ;
 	}
-	ptr_env = ptr_env - ft_strlen(var) - 2;
+	ptr_env = ptr_env - ft_strlen(var) - 1;
 	new_env = ft_mtxdel(shell->env, ptr_env);
 	if (!new_env)
 		exit_code(shell, errno);

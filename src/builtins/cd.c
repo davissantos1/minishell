@@ -15,34 +15,43 @@
 static void	disco(t_minishell *shell, char *dir);
 static void	update_env(t_minishell *shell, char	olddir[PATH_MAX]);
 static void	remove_vars(t_minishell *shell);
+static char	*expand_ddot(t_minishell *shell);
 
 void	cd_builtin(t_minishell *shell, t_cmd *cmd)
 {
+	char	*varhome;
+
 	if (!cmd->argv[1])
 	{
+		varhome = get_env(shell->env, "HOME");
+		if (!varhome)
+		{
+			ft_putstr_fd("cd: HOME not set\n", 2);
+			pid_add(shell, NOT_FORKED, NOT_FORKED, 1 << 8);
+			return ;
+		}
+		if (chdir(varhome) == -1)
+			perror("cd");
 		pid_add(shell, NOT_FORKED, NOT_FORKED, 0);
-		return ;
 	}
 	else if (cmd->argv[1] && cmd->argv[2])
 	{
 		ft_putstr_fd("cd: Too many arguments\n", 2);
 		pid_add(shell, NOT_FORKED, NOT_FORKED, 1 << 8);
-		return ;
 	}
-	disco(shell, cmd->argv[1]);
+	else
+		disco(shell, cmd->argv[1]);
 }
 
 static void	disco(t_minishell *shell, char *dir)
 {
-	size_t	len;
 	char	olddir[PATH_MAX];
 
-	len = ft_strlen(dir);
 	ft_bzero(olddir, PATH_MAX);
 	ft_memmove(olddir, "OLDPWD=", 7);
 	getcwd(olddir + 7, PATH_MAX - 7);
-	if (ft_strncmp(&dir[len - 2], "\\ ", 2) != 0)
-		dir[len - 1] = '\0';
+	if (!ft_strcmp(dir, ".."))
+		dir = expand_ddot(shell);
 	if (chdir(dir) == -1)
 	{
 		perror("cd");
@@ -69,20 +78,39 @@ static void	remove_vars(t_minishell *shell)
 {
 	char	*v_env;
 
-	v_env = get_env(shell, "PWD");
+	v_env = get_env(shell->env, "PWD");
 	if (v_env)
 	{
-		v_env = v_env - 2 - 3;
+		v_env = v_env - 1 - 3;
 		shell->env = ft_mtxdel(shell->env, v_env);
 		if (!shell->env || !gc_addptr(shell->env, shell->gc, GC_LOCALVARS))
 			exit_code(shell, errno);
 	}
-	v_env = get_env(shell, "OLDPWD");
+	v_env = get_env(shell->env, "OLDPWD");
 	if (v_env)
 	{
-		v_env = v_env - 2 - 6;
+		v_env = v_env - 1 - 6;
 		shell->env = ft_mtxdel(shell->env, v_env);
 		if (!shell->env || !gc_addptr(shell->env, shell->gc, GC_LOCALVARS))
 			exit_code(shell, errno);
 	}
 }
+
+static char	*expand_ddot(t_minishell *shell)
+{
+	char	parent_dir[PATH_MAX];
+	char	*ret_dir;
+	char	*last_slash;
+
+	ft_bzero(parent_dir, PATH_MAX);
+	if (!getcwd(parent_dir, PATH_MAX))
+		exit_code(shell, errno);
+	last_slash = ft_strrchr(parent_dir, '/');
+	if (ft_strcmp("/", parent_dir))
+		*last_slash	= '\0';
+	ret_dir = ft_strdup(parent_dir);
+	if (!ret_dir || !gc_addptr(ret_dir, shell->gc, GC_AST))
+		exit_code(shell, errno);
+	return (ret_dir);
+}
+

@@ -35,8 +35,8 @@ static void	try_exec(t_minishell *shell, t_cmd *cmd)
 	pid_t	pid;
 
 	redirection(shell, cmd);
-	find_path(shell, cmd);
 	which_builtin(cmd);
+	find_path(shell, cmd);
 	if (cmd->std_in < 0 || cmd->std_out < 0 || !check_command(shell, cmd))
 		return (pid_add(shell, NOT_FORKED, NOT_FORKED, 1 << 8));
 	if (cmd->is_builtin >= 0)

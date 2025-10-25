@@ -23,10 +23,10 @@ void	add_var(t_minishell *shell, char *ovar)
 		exit_code(shell, errno);
 	equal = ft_strchr(ovar, '=');
 	*equal = '\0';
-	exists = get_env(shell, ovar);
+	exists = get_env(shell->env, ovar);
 	if (exists)
 	{
-		exists = exists - ft_strlen(ovar) - 2;
+		exists = exists - ft_strlen(ovar) - 1;
 		shell->env = ft_mtxdel(shell->env, exists);
 		if (!shell->env || !gc_addptr(shell->env, shell->gc, GC_LOCALVARS))
 			exit_code(shell, errno);

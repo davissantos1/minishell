@@ -18,7 +18,8 @@ void	find_path(t_minishell *shell, t_cmd *cmd)
 {
 	char	*tmp;
 
-	if (!shell->paths || !cmd->argv[0] || ft_strchr(cmd->argv[0], '/'))
+	if (!shell->paths || !cmd->argv[0] || cmd->is_builtin != -1
+		|| ft_strchr(cmd->argv[0], '/'))
 		return ;
 	tmp = find_bin(shell, cmd->argv[0]);
 	if (tmp == cmd->argv[0])

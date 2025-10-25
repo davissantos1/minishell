@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-char	*get_env(t_minishell *s, char *var)
+char	*get_env(char **env, char *var)
 {
 	int		index;
 	int		len;
@@ -20,11 +20,11 @@ char	*get_env(t_minishell *s, char *var)
 
 	index = 0;
 	len = ft_strlen(var);
-	while (s->env[index])
+	while (env[index])
 	{
-		if (!ft_strncmp(s->env[index], var, len))
+		if (!ft_strncmp(env[index], var, len))
 		{
-			result = s->env[index] + len + 2;
+			result = env[index] + len + 1;
 			return (result);
 		}
 		index++;

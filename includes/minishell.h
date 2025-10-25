@@ -109,6 +109,7 @@ typedef struct s_minishell
 	struct s_lstint	*lstfd;
 	char			**paths;
 	char			**env;
+	char			**tmp_var;
 	char			*input;
 	char			*error;
 	char			*path;
@@ -185,7 +186,7 @@ void		ast_flip(t_ast **root);
 int			token_size(t_token *start, t_token *end);
 char		**expand_argv(t_minishell *s, char **av);
 int			count_single_quotes(char *str);
-char		*get_env(t_minishell *s, char *var);
+char		*get_env(char **env, char *var);
 void		signal_interrupt(int sig);
 void		signal_child(int sig);
 void		register_parent_signals(void);

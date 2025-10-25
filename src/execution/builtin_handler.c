@@ -31,10 +31,12 @@ void	builtin(t_minishell *shell, t_cmd *cmd)
 			exit_code(shell, errno);
 		if (pid == 0)
 		{
-			if (cmd->std_in != 0)
-				dup2(cmd->std_in, 0);
-			if (cmd->std_out != 1)
-				dup2(cmd->std_in, 1);
+			if (cmd->std_in != STDIN_FILENO)
+				dup2(cmd->std_in, STDIN_FILENO);
+			if (cmd->std_out != STDOUT_FILENO)
+				dup2(cmd->std_out, STDOUT_FILENO);
+			close_fdlst(shell->lstfd);
+			close_redir(shell, cmd);
 			builtins[cmd->is_builtin] (shell, cmd);
 			last_return = shell->lst_pid->rbuiltin;
 			gc_free_all(shell->gc);

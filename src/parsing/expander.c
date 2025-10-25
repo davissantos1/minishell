@@ -30,13 +30,13 @@ static char	*expand_string_aux(t_minishell *s, char **spl, int i, int cd)
 	if (expand_check(spl, i))
 	{
 		if (!ft_strncmp(spl[i], "~", 2))
-			res = ft_strdup(get_env(s, "HOME"));
+			res = ft_strdup(get_env(s->env, "HOME"));
 		else if (!ft_strncmp(spl[i], "?", 2))
 			res = ft_itoa(s->exit + s->signal);
 		else if (cd && !ft_strncmp(spl[i], "-", 2))
-			res = ft_strdup(get_env(s, "OLDPWD"));
+			res = ft_strdup(get_env(s->env, "OLDPWD"));
 		else
-			res = ft_strdup(get_env(s, spl[i]));
+			res = ft_strdup(get_env(s->env, spl[i]));
 		if (!gc_addptr(res, s->gc, GC_AST))
 			exit_code(s, EXIT_FAILURE);
 	}

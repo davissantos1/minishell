@@ -30,4 +30,3 @@ void	env_builtin(t_minishell *shell, t_cmd *cmd)
 	}
 	pid_add(shell, NOT_FORKED, NOT_FORKED, 0);
 }
-
