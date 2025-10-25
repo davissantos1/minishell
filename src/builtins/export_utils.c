@@ -1,34 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   export_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/16 18:54:25 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/10/25 10:12:44 by vitosant         ###   ########.fr       */
+/*   Created: 2025/10/25 11:19:46 by vitosant          #+#    #+#             */
+/*   Updated: 2025/10/25 13:31:01 by vitosant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*get_env(char **env, char *var)
+int	nvalid(char *var, int *ret)
 {
-	int		index;
-	int		len;
-	char	*result;
-
-	index = 0;
-	len = ft_strlen(var);
-	while (env[index])
+	if (!ft_isalpha(*var))
 	{
-		if ((env[index][len] == '=' || !env[index][len]) 
-			&& !ft_strncmp(env[index], var, len))
-		{
-			result = env[index] + len + 1;
-			return (result);
-		}
-		index++;
+		*ret = 1;
+		ft_putstr_fd(var, 2);
+		ft_putendl_fd(": not a valid identifier", 2);
+		return (1);
 	}
-	return (NULL);
+	return (0);
+}
+
+void	remove_plus(char *var, char *cpy_var)
+{
+	size_t	cpy_len;
+	size_t	var_len;
+	
+	cpy_len = ft_strlen(cpy_var);
+	var_len = ft_strlen(var);
+	ft_memmove(cpy_var + var_len, cpy_var + var_len + 1,
+		ft_strlen(cpy_var + var_len));
 }

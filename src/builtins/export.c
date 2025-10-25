@@ -6,7 +6,7 @@
 /*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/20 08:53:11 by vitosant          #+#    #+#             */
-/*   Updated: 2025/10/21 16:14:55 by vitosant         ###   ########.fr       */
+/*   Updated: 2025/10/25 13:36:28 by vitosant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,34 +14,34 @@
 
 static void	sort_env(char **env);
 static void	print_vars(t_minishell *shell);
-static void	maybe_add(t_minishell *shell, char *var, int *ret);
-static int	without_value(t_minishell *shell, char *str, int *ret);
+static void	maybe_add(t_minishell *shell, char *var);
+static int	no_value(t_minishell *shell, char *str, int *ret);
 
 void	export_builtin(t_minishell *shell, t_cmd *cmd)
 {
 	char	*tmp_var;
 	int		i;
 	int		ret;
-	
-	i = 1;
+
+	i = 0;
 	ret = 0;
 	if (!cmd->argv[1])
 		print_vars(shell);
-	while (cmd->argv[i])
+	while (cmd->argv[i + 1])
 	{
-		if (!without_value(shell, cmd->argv[i], &ret))
-		{
-			maybe_add(shell, cmd->argv[i], &ret);
-			tmp_var = get_env(shell->tmp_var, cmd->argv[i]);
-			if (tmp_var)
-			{
-				tmp_var = tmp_var - ft_strlen(cmd->argv[i]) - 1;
-				shell->tmp_var = ft_mtxdel(shell->tmp_var, tmp_var);
-				if (!shell->tmp_var || !gc_addptr(shell->tmp_var, shell->gc, GC_LOCALVARS))
-					exit_code(shell, errno);
-			}
-		}
 		i++;
+		if (!nvalid(cmd->argv[i], &ret) && !no_value(shell, cmd->argv[i], &ret))
+		{
+			maybe_add(shell, cmd->argv[i]);
+			tmp_var = get_env(shell->tmp_var, cmd->argv[i]);
+			if (!tmp_var)
+				continue ;
+			tmp_var = tmp_var - ft_strlen(cmd->argv[i]) - 1;
+			shell->tmp_var = ft_mtxdel(shell->tmp_var, tmp_var);
+			if (!shell->tmp_var
+				|| !gc_addptr(shell->tmp_var, shell->gc, GC_LOCALVARS))
+				exit_code(shell, errno);
+		}
 	}
 	pid_add(shell, NOT_FORKED, NOT_FORKED, ret << 8);
 }
@@ -74,18 +74,12 @@ static void	print_vars(t_minishell *shell)
 	ft_mtxfree(env);
 }
 
-static int	without_value(t_minishell *shell, char *str, int *ret)
+static int	no_value(t_minishell *shell, char *str, int *ret)
 {
 	char	**new_tmp;
 	char	*var;
 
-	if (!ft_isalpha(*str))
-	{
-		*ret = 1;
-		ft_putstr_fd(str, 2);
-		ft_putendl_fd(": not a valid identifier", 2);
-		return (0);
-	}
+	*ret = 0;
 	if (ft_strchr(str, '='))
 		return (0);
 	if (get_env(shell->tmp_var, str) || get_env(shell->env, str))
@@ -97,7 +91,6 @@ static int	without_value(t_minishell *shell, char *str, int *ret)
 	if (!new_tmp || !gc_addptr(new_tmp, shell->gc, GC_LOCALVARS))
 		exit_code(shell, errno);
 	shell->tmp_var = new_tmp;
-	*ret = 0;
 	return (1);
 }
 
@@ -128,23 +121,15 @@ static void	sort_env(char **env)
 	}
 }
 
-static void	maybe_add(t_minishell *shell, char *var, int *ret)
+static void	maybe_add(t_minishell *shell, char *var)
 {
 	char	*gvar;
 	char	*tmp;
 
-	*ret = 0;
 	tmp = ft_strchr(var, '=');
 	var = ft_strdup(var);
 	if (!var || !gc_addptr(var, shell->gc, GC_LOCALVARS))
 		exit_code(shell, errno);
-	if (!ft_isalpha(*var))
-	{
-		*ret = 1;
-		ft_putstr_fd(var, 2);
-		ft_putendl_fd(": not a valid identifier", 2);
-		return ;
-	}
 	*tmp = '\0';
 	if (*(tmp - 1) != '+')
 		return (add_var(shell, var));

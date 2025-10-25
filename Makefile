@@ -44,8 +44,9 @@ SRC= \
 	src/builtins/pwd.c \
 	src/builtins/export.c \
 	src/builtins/unset.c \
-	src/builtins/echo.c 
-
+	src/builtins/echo.c \
+	src/builtins/export_utils.c
+	
 OBJ= $(SRC:.c=.o)
 NAME= minishell
 LIBFT_DIR= libft

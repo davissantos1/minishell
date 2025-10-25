@@ -6,7 +6,7 @@
 /*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/06 15:52:51 by vitosant          #+#    #+#             */
-/*   Updated: 2025/10/21 16:00:30 by vitosant         ###   ########.fr       */
+/*   Updated: 2025/10/25 13:29:01 by vitosant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ void	or_node(t_minishell *shell, t_ast *node);
 void	pipe_node(t_minishell *shell, t_ast *node);
 void	and_node(t_minishell *shell, t_ast *node);
 
+int		nvalid(char *var, int *ret);
+void	remove_plus(char *var, char *cpy_var);
 void	export_builtin(t_minishell *shell, t_cmd *cmd);
 void	pwd_builtin(t_minishell *shell, t_cmd *cmd);
 void	unset_builtin(t_minishell *shell, t_cmd *cmd);
