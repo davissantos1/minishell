@@ -6,8 +6,7 @@
 /*   By: dasimoes <dasimoes@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/25 15:28:33 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/10/25 15:30:50 by dasimoes         ###   ########.fr       */
-/*                                                                            */
+/*   Updated: 2025/10/25 19:45:58 by dasimoes         ###   ########.fr       */
 /* ************************************************************************** */
 
 #include "minishell.h"
@@ -32,4 +31,3 @@ int	is_meta(char c)
 		return (1);
 	return (0);
 }
-
