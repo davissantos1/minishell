@@ -14,16 +14,20 @@
 
 int	nvalid(char *var, int *ret)
 {
-	char	*equal;
+	size_t	i;
 
-	equal = ft_strchr(var, '=');
-	if (!ft_isalpha(*var) || (equal && !ft_isalpha(*(equal - 1))
-		&& *(equal - 1) != '+'))
+	i = 0;
+	while (var[i] && var[i] != '=')
 	{
-		*ret = 1;
-		ft_putstr_fd(var, 2);
-		ft_putendl_fd(": not a valid identifier", 2);
-		return (1);
+		if ((!ft_isalpha(var[i]) && var[i] != '+')
+			|| (var[i] == '+' && var[i + 1] != '='))
+		{
+			*ret = 1;
+			ft_putstr_fd(var, 2);
+			ft_putendl_fd(": not a valid identifier", 2);
+			return (1);
+		}
+		i++;
 	}
 	return (0);
 }
