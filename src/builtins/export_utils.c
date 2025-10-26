@@ -14,7 +14,11 @@
 
 int	nvalid(char *var, int *ret)
 {
-	if (!ft_isalpha(*var))
+	char	*equal;
+
+	equal = ft_strchr(var, '=');
+	if (!ft_isalpha(*var) || (equal && !ft_isalpha(*(equal - 1))
+		&& *(equal - 1) != '+'))
 	{
 		*ret = 1;
 		ft_putstr_fd(var, 2);
@@ -26,10 +30,8 @@ int	nvalid(char *var, int *ret)
 
 void	remove_plus(char *var, char *cpy_var)
 {
-	size_t	cpy_len;
 	size_t	var_len;
-	
-	cpy_len = ft_strlen(cpy_var);
+
 	var_len = ft_strlen(var);
 	ft_memmove(cpy_var + var_len, cpy_var + var_len + 1,
 		ft_strlen(cpy_var + var_len));

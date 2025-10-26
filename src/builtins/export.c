@@ -124,21 +124,23 @@ static void	sort_env(char **env)
 static void	maybe_add(t_minishell *shell, char *var)
 {
 	char	*gvar;
+	char	*cpy_var;
 	char	*tmp;
 
 	tmp = ft_strchr(var, '=');
-	var = ft_strdup(var);
-	if (!var || !gc_addptr(var, shell->gc, GC_LOCALVARS))
+	cpy_var = ft_strdup(var);
+	if (!cpy_var || !gc_addptr(cpy_var, shell->gc, GC_LOCALVARS))
 		exit_code(shell, errno);
 	*tmp = '\0';
 	if (*(tmp - 1) != '+')
-		return (add_var(shell, var));
+		return (add_var(shell, cpy_var));
 	*(tmp - 1) = '\0';
 	gvar = get_env(shell->env, var);
+	remove_plus(var, cpy_var);
 	if (!gvar)
-		return (add_var(shell, var));
-	var = ft_strjoin(gvar, tmp + 1);
-	if (!var || gc_addptr(var, shell->gc, GC_LOCALVARS))
+		return (add_var(shell, cpy_var));
+	var = ft_strjoin(gvar - ft_strlen(var) - 1, tmp + 1);
+	if (!var || !gc_addptr(var, shell->gc, GC_LOCALVARS))
 		exit_code(shell, errno);
 	add_var(shell, var);
 }
