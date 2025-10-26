@@ -185,9 +185,9 @@ int			redir_type(int token_type);
 void		node_insert(t_ast **root, t_ast *node);
 void		ast_flip(t_ast **root);
 int			token_size(t_token *start, t_token *end);
-char		**expand_argv(t_minishell *s, char **av);
 int			count_single_quotes(char *str);
 char		*get_env(t_minishell *s, char *var);
+char		**expand_argv(t_minishell *s, char **av);
 void		signal_interrupt(int sig);
 void		signal_child(int sig);
 void		register_parent_signals(void);
@@ -200,5 +200,9 @@ char		*token_special(t_minishell *s, int i);
 char		*token_word(t_minishell *s, int i);
 char		*token_quotes(t_minishell *s, int i);
 char		*token_var(t_minishell *s, int i);
+int			check_wildcard_char(char *str);
+int			check_wildcard_str(char *str, char *match);
+int			dir_len(char *dir);
+char		**check_wildcard(t_minishell *s, char **result);
 
 #endif

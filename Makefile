@@ -10,6 +10,7 @@ SRC= \
 	src/parsing/expander.c \
 	src/parsing/tokenizer.c \
 	src/parsing/validator.c \
+	src/parsing/wildcard.c \
 	src/utils/struct.c \
 	src/utils/subshell.c \
 	src/utils/ast.c \
@@ -30,6 +31,7 @@ SRC= \
 	src/utils/find_path.c \
 	src/utils/env.c \
 	src/utils/exist.c \
+	src/utils/wildcard.c \
 	src/utils/close_fdlst.c \
 	src/utils/add_var.c \
 	src/execution/and_handle.c \

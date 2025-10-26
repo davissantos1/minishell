@@ -6,7 +6,7 @@
 /*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 21:32:55 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/10/25 19:44:29 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/10/25 21:05:25 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,52 +70,6 @@ static char	*expand_quotes(t_minishell *s, char *str)
 	return (res);
 }
 
-void	check_wildcard(t_minishell *s, char ***result)
-{
-	int		index;
-	char	**res;
-
-	res = *result;
-	index = 0;
-	while (res[index])
-	{
-		if (res[index][0] == '*' && !res[index][1])
-			expand_wildcard(s, result);
-		index++;
-	}
-	res = ft_reverse_split(spl, ' ');
-	res[ft_strlen(res) - 1] = '\0';
-	return (res);
-}
-
-void	expand_wildcard(t_minishell *s, char ***av, int index)
-{
-	int				len;
-	int				flow;
-	DIR *			dir;
-	struct dirent	*cur;
-
-	flow = check_wildcard((*av)[index]);
-	len = ft_strlen((*av)[index]);
-	dir = opendir(".");
-	if (!dir)
-		return ;
-	cur = readdir(dir);
-	while (cur)
-	{
-		if (flow)
-			(*av)[index] = ft_strdup(cur->d_name);
-		else
-		{
-			if (check_wildcard_str(((*av)[index]), cur->d_name))
-				(*av)[index] = ft_strdup(cur->d_name);
-
-		}
-		index++;
-		cur = readdir(dir);
-	}
-}
-
 char	**expand_argv(t_minishell *s, char **av)
 {
 	char	**result;
@@ -137,6 +91,6 @@ char	**expand_argv(t_minishell *s, char **av)
 	}
 	if (!gc_addmtx(result, s->gc, GC_AST))
 		exit_code(s, EXIT_FAILURE);
-	check_wildcard(s, &result);
+	result = check_wildcard(s, result);
 	return (result);
 }
