@@ -39,7 +39,7 @@ static void	just_exit(t_minishell *shell, t_cmd *cmd)
 		ft_putstr_fd(": numeric argument required\n", 2);
 	}
 	if (ret != 2 && cmd->argv[1] && cmd->argv[2])
-		return;
+		return ;
 	gc_free_all(shell->gc);
 	exit(ret);
 }

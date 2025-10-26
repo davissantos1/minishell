@@ -13,7 +13,7 @@
 #include "minishell.h"
 
 static void	disco(t_minishell *shell, char *dir);
-static void	update_env(t_minishell *shell, char	olddir[PATH_MAX]);
+static void	update_env(t_minishell *shell, char olddir[PATH_MAX]);
 static void	remove_vars(t_minishell *shell);
 static char	*expand_ddot(t_minishell *shell);
 
@@ -62,7 +62,7 @@ static void	disco(t_minishell *shell, char *dir)
 	update_env(shell, olddir);
 }
 
-static void	update_env(t_minishell *shell, char	olddir[PATH_MAX])
+static void	update_env(t_minishell *shell, char olddir[PATH_MAX])
 {
 	char	dir[PATH_MAX];
 
@@ -107,10 +107,9 @@ static char	*expand_ddot(t_minishell *shell)
 		exit_code(shell, errno);
 	last_slash = ft_strrchr(parent_dir, '/');
 	if (ft_strcmp("/", parent_dir))
-		*last_slash	= '\0';
+		*last_slash = '\0';
 	ret_dir = ft_strdup(parent_dir);
 	if (!ret_dir || !gc_addptr(ret_dir, shell->gc, GC_AST))
 		exit_code(shell, errno);
 	return (ret_dir);
 }
-

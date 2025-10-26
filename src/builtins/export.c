@@ -15,7 +15,7 @@
 static void	sort_env(char **env);
 static void	print_vars(t_minishell *shell);
 static void	maybe_add(t_minishell *shell, char *var);
-static int	no_value(t_minishell *shell, char *str, int *ret);
+static int	no_value(t_minishell *shell, char *str);
 
 void	export_builtin(t_minishell *shell, t_cmd *cmd)
 {
@@ -30,7 +30,7 @@ void	export_builtin(t_minishell *shell, t_cmd *cmd)
 	while (cmd->argv[i + 1])
 	{
 		i++;
-		if (!nvalid(cmd->argv[i], &ret) && !no_value(shell, cmd->argv[i], &ret))
+		if (!nvalid(cmd->argv[i], &ret) && !no_value(shell, cmd->argv[i]))
 		{
 			maybe_add(shell, cmd->argv[i]);
 			tmp_var = get_env(shell->tmp_var, cmd->argv[i]);
@@ -74,12 +74,11 @@ static void	print_vars(t_minishell *shell)
 	ft_mtxfree(env);
 }
 
-static int	no_value(t_minishell *shell, char *str, int *ret)
+static int	no_value(t_minishell *shell, char *str)
 {
 	char	**new_tmp;
 	char	*var;
 
-	*ret = 0;
 	if (ft_strchr(str, '='))
 		return (0);
 	if (get_env(shell->tmp_var, str) || get_env(shell->env, str))
@@ -123,7 +122,7 @@ static void	sort_env(char **env)
 
 static void	maybe_add(t_minishell *shell, char *var)
 {
-	char	*gvar;
+	char	*env_var;
 	char	*cpy_var;
 	char	*tmp;
 
@@ -135,11 +134,11 @@ static void	maybe_add(t_minishell *shell, char *var)
 	if (*(tmp - 1) != '+')
 		return (add_var(shell, cpy_var));
 	*(tmp - 1) = '\0';
-	gvar = get_env(shell->env, var);
+	env_var = get_env(shell->env, var);
 	remove_plus(var, cpy_var);
-	if (!gvar)
+	if (!env_var)
 		return (add_var(shell, cpy_var));
-	var = ft_strjoin(gvar - ft_strlen(var) - 1, tmp + 1);
+	var = ft_strjoin(env_var - ft_strlen(var) - 1, tmp + 1);
 	if (!var || !gc_addptr(var, shell->gc, GC_LOCALVARS))
 		exit_code(shell, errno);
 	add_var(shell, var);

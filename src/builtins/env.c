@@ -20,7 +20,7 @@ void	env_builtin(t_minishell *shell, t_cmd *cmd)
 	if (cmd->argv[1])
 	{
 		ft_putstr_fd("env: Too many arguments\n", 2);
-		pid_add(shell, NOT_FORKED, NOT_FORKED, 1  << 8);
+		pid_add(shell, NOT_FORKED, NOT_FORKED, 1 << 8);
 		return ;
 	}
 	while (*env)

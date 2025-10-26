@@ -47,7 +47,7 @@ static void	try_exec(t_minishell *shell, t_cmd *cmd)
 		exit_code(shell, errno);
 	if (pid == 0)
 	{
-		//register_child_signals();
+		register_child_signals();
 		exec_program(shell, cmd);
 	}
 	pid_add(shell, pid, FORKED, FORKED);
