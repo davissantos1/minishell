@@ -6,7 +6,7 @@
 /*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/30 08:30:36 by vitosant          #+#    #+#             */
-/*   Updated: 2025/10/11 12:02:16 by vitosant         ###   ########.fr       */
+/*   Updated: 2025/10/27 09:48:09 by vitosant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 static void	set_cmd_node(t_minishell *shell, t_ast *node, int *fd, char flag);
 static void	add_fdlst(t_minishell *shell, int fd);
+static void *is_redir(t_cmd *cmd, char flag);
 static void	close_pipes(t_minishell *shell);
 
 void	pipe_node(t_minishell *shell, t_ast *node)
@@ -38,9 +39,9 @@ static void	set_cmd_node(t_minishell *shell, t_ast *node, int *fd, char flag)
 	if (node->type == NODE_CMD)
 	{
 		cmd = node->data;
-		if (flag == STDIN_FD && !cmd->redir)
+		if (flag == STDIN_FD && !is_redir(cmd, flag))
 			cmd->std_in = fd[0];
-		else if (flag == STDOUT_FD)
+		else if (flag == STDOUT_FD && !is_redir(cmd, flag))
 			cmd->std_out = fd[1];
 	}
 	if (node->left)
@@ -70,4 +71,24 @@ static void	close_pipes(t_minishell *shell)
 	lst = lst->next;
 	close(lst->value);
 	shell->lstfd = lst->next;
+}
+
+static void *is_redir(t_cmd *cmd, char flag)
+{
+	t_redir	*redir;
+
+	redir = cmd->redir;
+	while(flag == STDOUT_FD && redir)
+	{
+		if (redir->type == APPEND || redir->type == REDOUT)
+			return (redir);
+		redir = redir->next;
+	}
+	while(flag == STDIN_FD && redir)
+	{
+		if (redir->type == HEREDOC || redir->type == REDIN)
+			return (redir);
+		redir = redir->next;
+	}
+	return (NULL);
 }
