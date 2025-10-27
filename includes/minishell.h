@@ -156,6 +156,7 @@ int			shell_process(t_minishell *shell, char *input);
 int			shell_read(t_minishell *shell, char *input);
 int			is_space(char c);
 int			is_meta(char c);
+int			is_operator(char c);
 void		exit_code(t_minishell *shell, int code);
 void		token_print(t_minishell *s);
 void		token_add(t_minishell *s, char *str);
@@ -164,9 +165,8 @@ t_token		*token_create(t_minishell *s, char *str);
 void		lexer(t_minishell *s);
 int			check_quotes(char *token);
 int			word_size(char *token);
-char		*remove_quotes(t_gc *gc, char *token);
+char		*remove_quotes(t_minishell *s, char *t);
 void		error_code(t_minishell *shell, int code);
-
 void		parser(t_minishell *s);
 char		*av_convert(t_minishell *s, char **av);
 t_token		*parser_handler(t_token *s);

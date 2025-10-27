@@ -6,7 +6,7 @@
 /*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 21:32:55 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/10/25 21:05:25 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/10/27 11:40:50 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static char	*expand_var(t_minishell *s, char *var)
 
 	if (expand_check(var))
 	{
-		env_var = remove_quotes(s->gc, var);
+		env_var = remove_quotes(s, var);
 		env_var = get_env(s, var + 1);
 		if (!env_var)
 			return (ft_strdup(""));
@@ -63,10 +63,13 @@ static char	*expand_quotes(t_minishell *s, char *str)
 			spl[i] = expand_var(s, spl[i]);
 		i++;
 	}
-	res = ft_reverse_split(spl, ' ');
+	if (spl)
+		res = ft_merge(spl);
+	else
+		res = str;
 	if (!gc_addptr(res, s->gc, GC_AST))
 		exit_code(s, EXIT_FAILURE);
-	res = remove_quotes(s->gc, res);
+	res = remove_quotes(s, res);
 	return (res);
 }
 
@@ -86,7 +89,9 @@ char	**expand_argv(t_minishell *s, char **av)
 		else if (av[index][0] == '$' && av[index][1])
 			result[index] = expand_var(s, av[index]);
 		else if (av[index][0] == '~' && !av[index][1])
-			result[index] = getenv("HOME");
+			result[index] = ft_strdup(getenv("HOME"));
+		else
+			result[index] = ft_strdup(av[index]);
 		index++;
 	}
 	if (!gc_addmtx(result, s->gc, GC_AST))

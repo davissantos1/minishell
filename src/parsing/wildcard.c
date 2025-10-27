@@ -6,7 +6,7 @@
 /*   By: dasimoes <dasimoes@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/25 21:04:28 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/10/25 21:49:45 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/10/26 10:09:00 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ char	**check_wildcard(t_minishell *s, char **result)
 	char	**exp;
 
 	index = 0;
+	exp = NULL;
 	while (result[index])
 	{
 		if (ft_strchr(result[index], '*'))
@@ -83,6 +84,8 @@ char	**check_wildcard(t_minishell *s, char **result)
 		}
 		index++;
 	}
+	if (!exp)
+		return (result);
 	if (!gc_addmtx(exp, s->gc, GC_TOKEN))
 		exit_code(s, EXIT_FAILURE);
 	return (exp);

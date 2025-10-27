@@ -6,7 +6,7 @@
 /*   By: dasimoes <dasimoes@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/25 15:45:28 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/10/25 19:08:00 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/10/27 11:00:10 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,13 +53,13 @@ char	*token_word(t_minishell *s, int i)
 	char	*token;
 	int		j;
 
-	j = i;
+	j = i + 1;
 	token = NULL;
 	while (1)
 	{
 		if (s->input[j] == '\0')
 			break ;
-		else if (is_meta(s->input[j]))
+		else if (is_operator(s->input[j]))
 			break ;
 		else if (is_space(s->input[j]))
 			break ;
@@ -74,21 +74,25 @@ char	*token_word(t_minishell *s, int i)
 char	*token_quotes(t_minishell *s, int i)
 {
 	char	*token;
+	int		closed;
 	int		j;
 
+	closed = 0;
 	j = i + 1;
 	token = NULL;
-	if (s->input[j] == s->input[i])
-		return (ft_strdup(""));
 	while (1)
 	{
 		if (s->input[j] == '\0')
 			break ;
-		else if (s->input[j] == s->input[i])
+		else if ((s->input[j] == '\'' || s->input[j] == '\"') && closed)
+			closed = 0;
+		else if ((s->input[j] == '\'' || s->input[j] == '\"') && !closed)
+			closed = 1;
+		else if (is_space(s->input[j]) && closed)
 			break ;
 		j++;
 	}
-	token = ft_substr(s->input, i + 1, j - i);
+	token = ft_substr(s->input, i, j - i + 1);
 	if (!check_quotes(token))
 		s->error = token + ft_strlen(token) - 1;
 	return (token);

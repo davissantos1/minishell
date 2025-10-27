@@ -6,7 +6,7 @@
 /*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 13:32:47 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/10/25 21:58:11 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/10/27 11:19:27 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ int	shell_process(t_minishell *shell, char *input)
 	token_print(shell);
 	//ast_print(shell->root);
 	handler(shell);
-	shell->head = NULL;
 	return (0);
 }
 

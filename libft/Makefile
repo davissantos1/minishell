@@ -53,6 +53,7 @@ EXTRA_SRCS = \
 		ft_bubble_sort_int.c \
 		ft_putmtx_fd.c \
 		ft_mtxdup.c \
+		ft_merge.c \
 		ft_mtxndup.c \
 		ft_mtxlen.c \
 		ft_mtxjoin.c \

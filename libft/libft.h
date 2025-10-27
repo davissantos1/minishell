@@ -6,7 +6,7 @@
 /*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 11:42:33 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/10/25 21:54:14 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/10/26 12:02:54 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -202,6 +202,10 @@ void		ft_putmtx_fd(char **mtx, int fd)
 			__attribute__((nonnull(1)));
 int			*ft_bubble_sort_int(int	*arr, int size)
 			__attribute__((nonnull(1)));
+char		**ft_break(char *str, size_t index)
+			__attribute__((nonnull(1)));
+char		*ft_merge(char **mtx)
+			__attribute__((nonnull(1)));
 
 // Part 7 - Minishell Extras
 int			ft_strcmp(const char *s1, const char *s2)
@@ -214,7 +218,5 @@ char		**ft_mtxdel(char **mtx, char *s)
 			__attribute__((nonnull(1, 2)));
 int			ft_mtxfind(void **mtx, void *ptr)
 			__attribute__((nonnull(1, 2)));
-char		**ft_break(char *str, size_t index)
-			__attribute__((nonnull(1)));
 
 #endif

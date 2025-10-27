@@ -6,7 +6,7 @@
 /*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/30 11:48:35 by vitosant          #+#    #+#             */
-/*   Updated: 2025/10/23 15:14:11 by vitosant         ###   ########.fr       */
+/*   Updated: 2025/10/26 13:00:34 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,11 @@ static void	try_exec(t_minishell *shell, t_cmd *cmd)
 	redirection(shell, cmd);
 	find_path(shell, cmd);
 	which_builtin(cmd);
+	cmd->argv = expand_argv(shell, cmd->argv);
 	if (cmd->std_in < 0 || cmd->std_out < 0 || !check_command(shell, cmd))
 		return (pid_add(shell, NOT_FORKED, NOT_FORKED, 1 << 8));
 	if (cmd->is_builtin >= 0)
 		return (builtin(shell, cmd));
-	cmd->argv = expand_argv(shell, cmd->argv);
 	pid = fork();
 	if (pid == -1)
 		exit_code(shell, errno);

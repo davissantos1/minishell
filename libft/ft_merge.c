@@ -1,29 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   validator.c                                        :+:      :+:    :+:   */
+/*   ft_merge.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dasimoes <dasimoes@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/25 15:38:30 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/10/26 13:22:44 by dasimoes         ###   ########.fr       */
+/*   Created: 2025/10/26 11:52:25 by dasimoes          #+#    #+#             */
+/*   Updated: 2025/10/26 12:59:07 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-void	token_validate(t_minishell *s)
+char	*ft_merge(char **mtx)
 {
-	s->error = NULL;
-	if (!s->head)
-		return ;
-	if (s->head->type == TOKEN_EOL)
-		return ;
-	if (!s->head->next->value)
+	char	*res;
+	char	*tmp;
+	int		index;
+
+	index = 0;
+	res = ft_strdup("");
+	if (!mtx[index + 1])
+		return (ft_strdup(mtx[index]));
+	while (mtx[index])
 	{
-		validate_single(s);
-		return ;
+		tmp = res;
+		res = ft_strjoin(res, mtx[index]);
+		if (!res)
+			return (NULL);
+		free(tmp);
+		index++;
 	}
-	validate_duplicate(s);
-	validate_terminal(s);
+	return (res);
 }
