@@ -6,7 +6,7 @@
 /*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/10 11:47:50 by vitosant          #+#    #+#             */
-/*   Updated: 2025/10/23 15:16:16 by vitosant         ###   ########.fr       */
+/*   Updated: 2025/10/27 10:39:51 by vitosant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	builtin(t_minishell *shell, t_cmd *cmd)
 
 	cmd->argv = expand_argv(shell, cmd->argv);
 	fill_functions(builtins);
-	if (cmd->std_out == 1)
+	if (!shell->lstfd)
 		builtins[cmd->is_builtin](shell, cmd);
 	else
 	{
