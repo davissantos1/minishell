@@ -16,18 +16,14 @@ static void	remove_var(t_minishell *shell, char *var);
 
 void	unset_builtin(t_minishell *shell, t_cmd *cmd)
 {
-	if (cmd->argv[1] && cmd->argv[2])
+	int	i;
+	i = 1;
+	while (cmd->argv[i])
 	{
-		ft_putstr_fd("unset: Too many arguments\n", 2);
-		pid_add(shell, NOT_FORKED, NOT_FORKED, 1 << 8);
-		return ;
+		remove_var(shell, cmd->argv[i]);
+		i++;
 	}
-	if (!cmd->argv[1])
-	{
-		pid_add(shell, NOT_FORKED, NOT_FORKED, 0);
-		return ;
-	}
-	remove_var(shell, cmd->argv[1]);
+	pid_add(shell, NOT_FORKED, NOT_FORKED, 0);
 }
 
 static void	remove_var(t_minishell *shell, char *var)
@@ -51,5 +47,4 @@ static void	remove_var(t_minishell *shell, char *var)
 			exit_code(shell, errno);
 	}
 	shell->env = new_env;
-	pid_add(shell, NOT_FORKED, NOT_FORKED, 0);
 }

@@ -24,5 +24,5 @@ void	handler(t_minishell *shell)
 	gc_free_tag(shell->gc, GC_FDLIST);
 	gc_free_tag(shell->gc, GC_PATHS);
 	shell->paths = NULL;
-	printf("%d\n", shell->exit);
+	//printf("%d\n", shell->exit);
 }

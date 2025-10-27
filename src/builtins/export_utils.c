@@ -17,10 +17,10 @@ int	nvalid(char *var, int *ret)
 	size_t	i;
 
 	i = 0;
-	while (var[i] && var[i] != '=')
+	while (1)
 	{
 		if ((!ft_isalpha(var[i]) && var[i] != '+')
-			|| (var[i] == '+' && var[i + 1] != '='))
+			|| (var[i] == '+' && var[i + 1] != '=') || var[0] == '=')
 		{
 			*ret = 1;
 			ft_putstr_fd(var, 2);
@@ -28,6 +28,8 @@ int	nvalid(char *var, int *ret)
 			return (1);
 		}
 		i++;
+		if (var[i] == '=' || !var[i])
+			break ;
 	}
 	return (0);
 }

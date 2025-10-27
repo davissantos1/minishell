@@ -46,6 +46,12 @@ static void	just_exit(t_minishell *shell, t_cmd *cmd)
 
 static int	only_nums(char *str)
 {
+	if (*str == '+' || *str == '-')
+	{
+		str++;
+		if (!*str)
+			return (0);
+	}
 	while (*str)
 	{
 		if (!ft_isdigit(*str))

@@ -34,7 +34,7 @@ typedef void (*func)(t_minishell *, t_cmd *);
 void	executor(t_minishell *shell, t_ast *node);
 void	pid_add(t_minishell *shell, pid_t pid, char is_builtin, int rbuiltin);
 int		last_return(t_minishell *shell);
-int		check_command(t_minishell *shell, t_cmd *cmd);
+int		check_command(t_cmd *cmd, int *i);
 void	builtin(t_minishell *shell, t_cmd *cmd);
 void	handler(t_minishell *shell);
 void	build_path(t_minishell *shell);

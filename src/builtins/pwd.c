@@ -17,13 +17,12 @@ void	pwd_builtin(t_minishell *shell, t_cmd *cmd)
 	char	cwd[PATH_MAX];
 
 	ft_bzero(cwd, PATH_MAX);
-	if (cmd->argv[1] || getcwd(cwd, PATH_MAX) == NULL)
+	while (*(cmd->argv + 1) && **(cmd->argv + 1) == '-')
+		cmd->argv++;
+	if (getcwd(cwd, PATH_MAX) == NULL)
 	{
-		if (cmd->argv[1])
-			ft_putstr_fd("pwd: Too many arguments\n", 2);
-		else
-			perror("pwd");
-		pid_add(shell, NOT_FORKED, NOT_FORKED, 1 << 8);
+		perror("pwd");
+		pid_add(shell, NOT_FORKED, NOT_FORKED, errno << 8);
 		return ;
 	}
 	pid_add(shell, NOT_FORKED, NOT_FORKED, 0);

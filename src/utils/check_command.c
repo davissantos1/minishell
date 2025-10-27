@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-int	check_command(t_minishell *shell, t_cmd *cmd)
+int	check_command(t_cmd *cmd, int *i)
 {
 	char	*file;
 
@@ -23,13 +23,13 @@ int	check_command(t_minishell *shell, t_cmd *cmd)
 	{
 		ft_putstr_fd(file, 2);
 		ft_putstr_fd(": command not found\n", 2);
-		shell->exit = 127;
+		*i = 127;
 		return (0);
 	}
 	if (access(file, X_OK) == -1)
 	{
 		perror(file);
-		shell->exit = 126;
+		*i = 126;
 		return (0);
 	}
 	return (1);

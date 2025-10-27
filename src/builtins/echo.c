@@ -49,7 +49,8 @@ static void	just_echo(char **argv, int put_endln)
 	while (argv[i])
 	{
 		ft_putstr_fd(argv[i], 1);
-		ft_putchar_fd(' ', 1);
+		if (argv[i + 1])
+			ft_putchar_fd(' ', 1);
 		i++;
 	}
 	if (put_endln)

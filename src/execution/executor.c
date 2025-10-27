@@ -33,12 +33,14 @@ void	executor(t_minishell *shell, t_ast *node)
 static void	try_exec(t_minishell *shell, t_cmd *cmd)
 {
 	pid_t	pid;
+	int		ret;
 
+	ret = 1;
 	redirection(shell, cmd);
 	which_builtin(cmd);
 	find_path(shell, cmd);
-	if (cmd->std_in < 0 || cmd->std_out < 0 || !check_command(shell, cmd))
-		return (pid_add(shell, NOT_FORKED, NOT_FORKED, 1 << 8));
+	if (cmd->std_in < 0 || cmd->std_out < 0 || !check_command(cmd, &ret))
+		return (pid_add(shell, NOT_FORKED, NOT_FORKED, ret << 8));
 	if (cmd->is_builtin >= 0)
 		return (builtin(shell, cmd));
 	cmd->argv = expand_argv(shell, cmd->argv);
