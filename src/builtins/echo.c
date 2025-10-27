@@ -6,7 +6,7 @@
 /*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 16:25:22 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/10/20 17:19:16 by vitosant         ###   ########.fr       */
+/*   Updated: 2025/10/27 15:32:07 by vitosant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	echo_builtin(t_minishell *shell, t_cmd *cmd)
 			if (ft_strchr("n", cmd->argv[i][j]) == NULL)
 			{
 				just_echo(&cmd->argv[i], put_endln);
-				return ;
+				return (pid_add(shell, NOT_FORKED, NOT_FORKED, 0));
 			}
 			j++;
 		}
