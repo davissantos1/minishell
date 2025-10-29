@@ -38,4 +38,3 @@ char	*av_convert(t_minishell *s, char **av)
 		exit_code(s, EXIT_FAILURE);
 	return (conv);
 }
-

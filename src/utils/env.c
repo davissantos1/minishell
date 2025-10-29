@@ -22,7 +22,7 @@ char	*get_env(char **env, char *var)
 	len = ft_strlen(var);
 	while (env[index])
 	{
-		if ((env[index][len] == '=' || !env[index][len]) 
+		if ((env[index][len] == '=' || !env[index][len])
 			&& !ft_strncmp(env[index], var, len))
 		{
 			result = env[index] + len + 1;

@@ -14,6 +14,7 @@
 
 void	ast_print(t_ast *root)
 {
+	//remover arquivo !!!!!!!!!!!!
 	if (!root)
 		return ;
 	
@@ -39,6 +40,7 @@ void	token_print(t_minishell *s)
 	t_token	*token;
 	int		count;
 
+	//remover arquivo !!!!!!!!!!!!
 	count = 0;
 	token = s->head;
 	while (token)

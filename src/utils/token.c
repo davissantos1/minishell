@@ -26,8 +26,8 @@ t_token	*token_create(t_minishell *s, char *str)
 
 void	token_add(t_minishell *s, char *str)
 {
-	t_token *token;
-	t_token *last;
+	t_token	*token;
+	t_token	*last;
 
 	if (str)
 	{
@@ -49,7 +49,7 @@ void	token_add(t_minishell *s, char *str)
 
 int	token_size(t_token *start, t_token *end)
 {
-	int size;
+	int	size;
 
 	size = 1;
 	while (start != end)
@@ -60,4 +60,3 @@ int	token_size(t_token *start, t_token *end)
 	}
 	return (size);
 }
-

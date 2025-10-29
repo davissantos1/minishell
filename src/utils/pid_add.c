@@ -28,7 +28,7 @@ void	pid_add(t_minishell *shell, pid_t pid, char is_builtin, int rbuiltin)
 		shell->lst_pid = node;
 	else
 	{
-		while(lst->next)
+		while (lst->next)
 			lst = lst->next;
 		lst->next = node;
 	}

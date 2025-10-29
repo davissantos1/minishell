@@ -21,4 +21,3 @@ t_subshell	*subshell_create(t_minishell *s)
 		exit_code(s, EXIT_FAILURE);
 	return (sub);
 }
-	

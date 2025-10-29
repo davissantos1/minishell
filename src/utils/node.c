@@ -69,7 +69,7 @@ t_ast	*subshell_node(t_minishell *s, t_token *start, t_token *end)
 
 t_ast	*operator_node(t_minishell *s, t_token *token)
 {
-	t_ast *node;
+	t_ast	*node;
 
 	node = ast_create(s);
 	node->type = node_type(token->type);
@@ -79,7 +79,7 @@ t_ast	*operator_node(t_minishell *s, t_token *token)
 
 void	node_insert(t_ast **root, t_ast *node)
 {
-	t_ast *tmp;
+	t_ast	*tmp;
 
 	tmp = *root;
 	if (!tmp->left)

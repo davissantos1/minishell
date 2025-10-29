@@ -13,20 +13,19 @@
 #include "minishell.h"
 
 t_redir	*redirect_create(t_minishell *s)
-{	
+{
 	t_redir	*redirect;
 
 	redirect = gc_calloc(sizeof(t_redir), s->gc, GC_CMD);
 	if (!redirect)
 		exit_code(s, EXIT_FAILURE);
-	
 	return (redirect);
 }
 
 void	redirect_add(t_minishell *s, t_cmd *cmd, t_token *token)
 {
-	t_redir *new;
-	t_redir *tmp;
+	t_redir	*new;
+	t_redir	*tmp;
 
 	tmp = cmd->redir;
 	new = redirect_create(s);
@@ -46,4 +45,3 @@ void	redirect_add(t_minishell *s, t_cmd *cmd, t_token *token)
 		new->prev = tmp;
 	}
 }
-	

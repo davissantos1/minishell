@@ -33,5 +33,5 @@ void	add_var(t_minishell *shell, char *ovar)
 	}
 	shell->env = ft_mtxadd(shell->env, var);
 	if (!shell->env || !gc_addptr(shell->env, shell->gc, GC_LOCALVARS))
-			exit_code(shell, errno);
+		exit_code(shell, errno);
 }

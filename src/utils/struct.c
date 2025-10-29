@@ -42,7 +42,7 @@ t_minishell	*shell_init(char **env)
 
 t_ast	*ast_create(t_minishell *s)
 {
-	t_ast *node;
+	t_ast	*node;
 
 	node = gc_calloc(sizeof(t_ast), s->gc, GC_AST);
 	if (!node)
@@ -52,7 +52,7 @@ t_ast	*ast_create(t_minishell *s)
 
 t_cmd	*cmd_create(t_minishell *s, int ac)
 {
-	t_cmd *cmd;
+	t_cmd	*cmd;
 
 	cmd = gc_calloc(sizeof(t_cmd), s->gc, GC_CMD);
 	if (!cmd)

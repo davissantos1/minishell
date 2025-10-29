@@ -14,7 +14,7 @@
 
 static void	set_cmd_node(t_minishell *shell, t_ast *node, int *fd, char flag);
 static void	add_fdlst(t_minishell *shell, int fd);
-static void *is_redir(t_cmd *cmd, char flag);
+static void	*is_redir(t_cmd *cmd, char flag);
 static void	close_pipes(t_minishell *shell);
 
 void	pipe_node(t_minishell *shell, t_ast *node)
@@ -73,18 +73,18 @@ static void	close_pipes(t_minishell *shell)
 	shell->lstfd = lst->next;
 }
 
-static void *is_redir(t_cmd *cmd, char flag)
+static void	*is_redir(t_cmd *cmd, char flag)
 {
 	t_redir	*redir;
 
 	redir = cmd->redir;
-	while(flag == STDOUT_FD && redir)
+	while (flag == STDOUT_FD && redir)
 	{
 		if (redir->type == APPEND || redir->type == REDOUT)
 			return (redir);
 		redir = redir->next;
 	}
-	while(flag == STDIN_FD && redir)
+	while (flag == STDIN_FD && redir)
 	{
 		if (redir->type == HEREDOC || redir->type == REDIN)
 			return (redir);

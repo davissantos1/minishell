@@ -12,33 +12,36 @@
 
 #include "minishell.h"
 
-static int 	is_dir(char *file);
+static int	is_dir(char *file);
+static void	error_msg(char *file, char *error);
 
 int	check_command(t_cmd *cmd, int *i)
 {
 	char		*file;
 
+	errno = 0;
 	file = cmd->argv[0];
 	if (cmd->is_builtin >= 0)
 		return (1);
 	if (access(file, F_OK) == -1 || !ft_strchr(file, '/'))
 	{
-		ft_putstr_fd(file, 2);
-		ft_putstr_fd(": command not found\n", 2);
+		error_msg(file, ": command not found\n");
 		*i = 127;
 		return (0);
 	}
 	if (access(file, X_OK) == -1 || is_dir(file))
 	{
-		perror(file);
+		if (errno)
+			perror(file);
+		else
+			error_msg(file, ": is a directory\n");
 		*i = 126;
 		return (0);
 	}
 	return (1);
-	
 }
 
-static int 	is_dir(char *file)
+static int	is_dir(char *file)
 {
 	struct stat	sfile;
 
@@ -46,4 +49,10 @@ static int 	is_dir(char *file)
 	if ((sfile.st_mode & TYPE_MASK) == DIR_MASK)
 		return (1);
 	return (0);
+}
+
+static void	error_msg(char *file, char *error)
+{
+	ft_putstr_fd(file, 2);
+	ft_putstr_fd(error, 2);
 }

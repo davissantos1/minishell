@@ -52,7 +52,7 @@ int	check_quotes(char *token)
 
 int	word_size(char *token)
 {
-	int index;
+	int	index;
 	int	size;
 
 	size = 0;

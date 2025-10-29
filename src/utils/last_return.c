@@ -23,7 +23,6 @@ int	last_return(t_minishell *shell)
 	return (exit_child);
 }
 
-
 static int	get_return(t_minishell *shell)
 {
 	t_lstpid	*lst;

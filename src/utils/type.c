@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-int		token_type(char *token)
+int	token_type(char *token)
 {
 	if (!token)
 		return (TOKEN_EOL);

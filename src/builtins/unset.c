@@ -17,6 +17,7 @@ static void	remove_var(t_minishell *shell, char *var);
 void	unset_builtin(t_minishell *shell, t_cmd *cmd)
 {
 	int	i;
+
 	i = 1;
 	while (cmd->argv[i])
 	{

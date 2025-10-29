@@ -52,8 +52,8 @@ void	validate_duplicate(t_minishell *s)
 
 void	validate_single(t_minishell *s)
 {
-	t_token *token;
-	
+	t_token	*token;
+
 	token = s->head;
 	if (token->type != 0 && token->type != 12 && token->type != 5)
 	{
