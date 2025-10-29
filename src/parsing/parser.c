@@ -6,7 +6,7 @@
 /*   By: dasimoes <dasimoes@42sp.org.br>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 19:13:40 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/10/16 13:36:19 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/10/26 10:56:05 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_ast	*node_handler(t_minishell *s, t_token *start, t_token *end)
 {
 	t_ast *node;
 
-	if (start->type >= TOKEN_WORD && start->type <= TOKEN_QUOTES)
+	if (start->type >= TOKEN_WORD && start->type <= TOKEN_VAR)
 		node = cmd_node(s, start, end);
 	else if (start->type == TOKEN_LPAREN)
 	{
@@ -40,9 +40,9 @@ t_token	*parser_handler(t_token *start)
 	t_token	*end;
 
 	end = start;
-	if (start->type >= TOKEN_WORD && start->type <= TOKEN_QUOTES)
+	if (start->type >= TOKEN_WORD && start->type <= TOKEN_VAR)
 	{
-		while (end->next->type >= 0 && end->next->type <= 5)
+		while (end->next->type >= 0 && end->next->type <= 7)
 			end = end->next;
 	}
 	else if (start->type == TOKEN_LPAREN)
@@ -72,9 +72,4 @@ void	parser(t_minishell *s)
 		node_insert(&s->root, node);
 		start = end->next;
 	}
-	//if (!ast_validate(s->root))
-	//{
-	//	error_code(s, 2)
-	//	s->root = NULL;
-	//}
 }

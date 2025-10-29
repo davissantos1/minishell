@@ -1,6 +1,6 @@
 CC= cc
 
-CFLAGS= -Wall -Wextra -Werror -Wpedantic -Wnull-dereference -Wcast-align -I.
+CFLAGS= -Wall -Wextra -Werror -Wpedantic -Wnull-dereference -Wcast-align -I. -g
 
 SRCS= \
 	ft_isalpha.c \
@@ -53,6 +53,8 @@ EXTRA_SRCS = \
 		ft_bubble_sort_int.c \
 		ft_putmtx_fd.c \
 		ft_mtxdup.c \
+		ft_merge.c \
+		ft_mtxndup.c \
 		ft_mtxlen.c \
 		ft_mtxjoin.c \
 		ft_mtxfree.c \
@@ -74,7 +76,8 @@ SHELL_SRCS = \
 		ft_mtxfind.c \
 		ft_mtxdel.c \
 		ft_mtxadd.c \
-		ft_reverse_split.c
+		ft_reverse_split.c \
+		ft_break.c
 
 EXTRA_OBJS = $(EXTRA_SRCS:.c=.o)
 

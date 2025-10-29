@@ -6,7 +6,7 @@
 /*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 11:42:33 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/10/20 09:04:55 by vitosant         ###   ########.fr       */
+/*   Updated: 2025/10/26 12:02:54 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -196,9 +196,15 @@ size_t		ft_mtxlen(char **mtx)
 			__attribute__((nonnull));
 char		**ft_mtxdup(char **mtx)
 			__attribute__((nonnull));
+char		**ft_mtxndup(char **mtx, size_t n)
+			__attribute__((nonnull(1)));
 void		ft_putmtx_fd(char **mtx, int fd)
 			__attribute__((nonnull(1)));
 int			*ft_bubble_sort_int(int	*arr, int size)
+			__attribute__((nonnull(1)));
+char		**ft_break(char *str, size_t index)
+			__attribute__((nonnull(1)));
+char		*ft_merge(char **mtx)
 			__attribute__((nonnull(1)));
 
 // Part 7 - Minishell Extras

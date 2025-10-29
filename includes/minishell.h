@@ -42,7 +42,9 @@ typedef enum e_token_type
 	TOKEN_REDOUT,
 	TOKEN_APPEND,
 	TOKEN_HEREDOC,
-	TOKEN_QUOTES,
+	TOKEN_SQUOTES,
+	TOKEN_DQUOTES,
+	TOKEN_VAR,
 	TOKEN_RPAREN,
 	TOKEN_LPAREN,
 	TOKEN_PIPE,
@@ -155,6 +157,7 @@ int			shell_process(t_minishell *shell, char *input);
 int			shell_read(t_minishell *shell, char *input);
 int			is_space(char c);
 int			is_meta(char c);
+int			is_operator(char c);
 void		exit_code(t_minishell *shell, int code);
 void		token_print(t_minishell *s);
 void		token_add(t_minishell *s, char *str);
@@ -163,9 +166,8 @@ t_token		*token_create(t_minishell *s, char *str);
 void		lexer(t_minishell *s);
 int			check_quotes(char *token);
 int			word_size(char *token);
-char		*remove_quotes(t_gc *gc, char *token);
+char		*remove_quotes(t_minishell *s, char *t);
 void		error_code(t_minishell *shell, int code);
-
 void		parser(t_minishell *s);
 char		*av_convert(t_minishell *s, char **av);
 t_token		*parser_handler(t_token *s);
@@ -184,9 +186,9 @@ int			redir_type(int token_type);
 void		node_insert(t_ast **root, t_ast *node);
 void		ast_flip(t_ast **root);
 int			token_size(t_token *start, t_token *end);
-char		**expand_argv(t_minishell *s, char **av);
 int			count_single_quotes(char *str);
 char		*get_env(char **env, char *var);
+char		**expand_argv(t_minishell *s, char **av);
 void		signal_interrupt(int sig);
 void		signal_child(int sig);
 void		register_parent_signals(void);
@@ -195,5 +197,17 @@ void		validate_terminal(t_minishell *s);
 void		validate_single(t_minishell *s);
 void		validate_duplicate(t_minishell *s);
 void		token_validate(t_minishell *s);
+char		*token_special(t_minishell *s, int i);
+char		*token_word(t_minishell *s, int i);
+char		*token_quotes(t_minishell *s, int i);
+int		check_wildcard_char(char *str);
+int			check_wildcard_str(char *str, char *match);
+int			dir_len(char *dir);
+char		**check_wildcard(t_minishell *s, char **result);
+char		*find_meta(char *str);
+char		*expand_tilde(t_minishell *s, char *var);
+int			only_quotes(char *str);
+char		*find_blank(char *str);
+int			expand_check(char *str);
 
 #endif

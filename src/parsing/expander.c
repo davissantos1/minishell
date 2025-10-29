@@ -6,88 +6,115 @@
 /*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 21:32:55 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/10/23 11:37:01 by vitosant         ###   ########.fr       */
+/*   Updated: 2025/10/29 16:06:49 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	expand_check(char **spl, int pos)
+static char	*expand_var_aux(t_minishell *s, char *var, char *dollar, char *meta)
 {
-	if (pos == 0 || !spl[pos + 1])
-		return (1);
-	if (count_single_quotes(*spl - 1) % 2 != 0)
-		if (count_single_quotes(*spl + 1) % 2 != 0)
-			return (0);
-	return (1);
+	char	*expand;
+	char	*preffix;
+	char	*suffix;
+	char	*temp;
+
+	preffix = ft_substr(var, 0, dollar - var);
+	suffix = ft_substr(var, meta - var, var + ft_strlen(var) - meta);
+	if (meta)
+		*meta = '\0';
+	temp = get_env(s, dollar + 1);
+	if (!temp)
+		temp = ft_strdup("");
+	else
+		temp = ft_strdup(temp);
+	expand = ft_strjoin(preffix, temp);
+	free(temp);
+	temp = expand;
+	expand = ft_strjoin(expand, suffix);
+	free(temp);
+	free(preffix);
+	free(suffix);
+	return (expand);
 }
 
-static char	*expand_string_aux(t_minishell *s, char **spl, int i, int cd)
+static char	*expand_var(t_minishell *s, char *var)
 {
-	char *res;
+	char	*expand;
+	char	*dollar;
+	char	*meta;
 
-	res = NULL;
-	if (expand_check(spl, i))
+	meta = NULL;
+	expand = NULL;
+	if (expand_check(var))
 	{
-		if (!ft_strncmp(spl[i], "~", 2))
-			res = ft_strdup(get_env(s->env, "HOME"));
-		else if (!ft_strncmp(spl[i], "?", 2))
-			res = ft_itoa(s->exit + s->signal);
-		else if (cd && !ft_strncmp(spl[i], "-", 2))
-			res = ft_strdup(get_env(s->env, "OLDPWD"));
-		else
-			res = ft_strdup(get_env(s->env, spl[i]));
-		if (!gc_addptr(res, s->gc, GC_AST))
+		var = remove_quotes(s, var);
+		dollar = ft_strchr(var, '$');
+		if (dollar)
+			meta = find_meta(dollar + 1);
+		expand = expand_var_aux(s, var, dollar, meta);
+		if (!gc_addptr(expand, s->gc, GC_AST))
 			exit_code(s, EXIT_FAILURE);
+		return (expand);
 	}
-	return (res);
+	return (var);
 }
 
-static char	*expand_string(t_minishell *s, char *str, int cd)
+static char	*expand_quotes(t_minishell *s, char *str)
 {
 	char	**spl;
-	char	*res;
-	int		i;
+	char	*exp;
+	int		index;
 
-	i = 0;
-	if (str[0] != '$' && str[1])
-		i = 1;
-	spl = ft_split(str, '$');
-	if (!gc_addmtx(spl, s->gc, GC_AST))
+	index = -1;
+	exp = NULL;
+	if (only_quotes(str))
+		return (ft_strdup(""));
+	if (str[0] == '\'')
+		return (ft_strtrim(str, "'"));
+	if (str[0] == '\"')
+		spl = ft_split(str, ' ');
+	else
+		spl = ft_split(str, '\"');
+	while (spl[++index])
+		spl[index] = expand_var(s, spl[index]);
+	if (find_blank(str))
+		exp = ft_reverse_split(spl, ' ');
+	else
+		exp = ft_merge(spl);
+	if (!gc_addptr(exp, s->gc, GC_TOKEN))
 		exit_code(s, EXIT_FAILURE);
-	while (spl[i])
-	{
-		spl[i] = expand_string_aux(s, spl, i, cd);
-		i++;
-	}
-	res = ft_reverse_split(spl, ' ');
-	if (!gc_addptr(res, s->gc, GC_AST))
+	if (!gc_addmtx(spl, s->gc, GC_TOKEN))
 		exit_code(s, EXIT_FAILURE);
-	return (res);
+	exp = remove_quotes(s, exp);
+	return (exp);
 }
 
 char	**expand_argv(t_minishell *s, char **av)
 {
 	char	**result;
-	char	*dollar;
-	int		index;
+	char	*dol;
+	int		i;
 
-	index = 0;
+	i = 0;
 	result = ft_calloc(sizeof(char *), (ft_mtxlen(av) + 1));
 	if (!result)
 		exit_code(s, EXIT_FAILURE);
-	while (av[index])
+	while (av[i])
 	{
-		dollar = ft_strchr(av[index], '$');
-		if (!dollar && ft_strcmp(av[index], "~") && ft_strcmp(av[index], "-"))
-			result[index] = ft_strdup(av[index]);
-		else if (index > 0 && !ft_strcmp(av[0], "cd"))
-			result[index] = expand_string(s, av[index], 1);
+		dol = ft_strchr(av[i], '$');
+		if (ft_strchr(av[i], '\"') || ft_strchr(av[i], '\''))
+			result[i] = expand_quotes(s, av[i]);
+		else if (dol && !is_meta(*(dol + 1)))
+			result[i] = expand_var(s, av[i]);
+		else if (av[i][0] == '~')
+			result[i] = expand_tilde(s, av[i]);
 		else
-			result[index] = expand_string(s, av[index], 1);
-		index++;
+			result[i] = ft_strdup(av[i]);
+		i++;
 	}
 	if (!gc_addmtx(result, s->gc, GC_AST))
 		exit_code(s, EXIT_FAILURE);
+	result = check_wildcard(s, result);
 	return (result);
 }
