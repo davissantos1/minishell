@@ -203,7 +203,10 @@ int		check_wildcard_char(char *str);
 int			check_wildcard_str(char *str, char *match);
 int			dir_len(char *dir);
 char		**check_wildcard(t_minishell *s, char **result);
-char		*find_break(char *str);
+char		*find_meta(char *str);
 char		*expand_tilde(t_minishell *s, char *var);
+int			only_quotes(char *str);
+char		*find_blank(char *str);
+int			expand_check(char *str);
 
 #endif

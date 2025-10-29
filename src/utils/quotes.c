@@ -6,22 +6,22 @@
 /*   By: dasimoes <dasimoes@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 10:55:20 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/10/27 18:32:56 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/10/29 16:04:25 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	only_quotes(char *str)
+int	only_quotes(char *str)
 {
 	int	index;
 
 	index = 0;
-	if (str || *str)
+	if (!str || !*str)
 		return (0);
 	while (str[index])
 	{
-		if (str[index] != '\'' || str[index] == '\"')
+		if (str[index] != '\'' && str[index] != '\"')
 			return (0);
 		index++;
 	}

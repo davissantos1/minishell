@@ -6,7 +6,7 @@
 /*   By: dasimoes <dasimoes@42sp.org.br>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 19:35:09 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/10/28 23:38:14 by daviss           ###   ########.fr       */
+/*   Updated: 2025/10/29 12:53:09 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,3 +40,28 @@ char	*expand_tilde(t_minishell *s, char *var)
 	return (ft_strdup(var));
 }
 
+int	expand_check(char *str)
+{
+	char	*dollar;
+	int		quotes;
+	int		index;
+
+	index = 0;
+	quotes = 0;
+	dollar = ft_strchr(str, '$');
+	if (!dollar && !ft_strchr(str, '~') && !ft_strchr(str, '*'))
+		return (0);
+	if (dollar && is_meta(*(dollar + 1)))
+		return (0);
+	while (str[index])
+	{
+		if (str[index] == '\'')
+			quotes++;
+		if (str[index] == '$')
+			break ;
+		index++;
+	}
+	if (quotes % 2 != 0)
+		return (0);
+	return (1);
+}

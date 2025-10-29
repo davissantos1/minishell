@@ -6,7 +6,7 @@
 /*   By: dasimoes <dasimoes@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/26 11:52:25 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/10/28 23:54:31 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/10/29 13:00:23 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,10 @@ char	*ft_merge(char **mtx)
 		tmp = res;
 		res = ft_strjoin(res, mtx[index]);
 		if (!res)
+		{
+			free(tmp);
 			return (NULL);
+		}
 		free(tmp);
 		index++;
 	}

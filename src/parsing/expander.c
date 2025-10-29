@@ -6,31 +6,11 @@
 /*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 21:32:55 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/10/29 00:01:46 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/10/29 16:06:49 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-static int	expand_check(char *str)
-{
-	int	quotes;
-	int	index;
-
-	index = 0;
-	quotes = 0;
-	while (str[index])
-	{
-		if (str[index] == '\'')
-			quotes++;
-		if (str[index] == '$')
-			break ;
-		index++;
-	}
-	if (quotes % 2 != 0)
-		return (0);
-	return (1);
-}
 
 static char	*expand_var_aux(t_minishell *s, char *var, char *dollar, char *meta)
 {
@@ -64,12 +44,14 @@ static char	*expand_var(t_minishell *s, char *var)
 	char	*dollar;
 	char	*meta;
 
+	meta = NULL;
 	expand = NULL;
 	if (expand_check(var))
 	{
 		var = remove_quotes(s, var);
 		dollar = ft_strchr(var, '$');
-		meta = find_break(dollar + 1);
+		if (dollar)
+			meta = find_meta(dollar + 1);
 		expand = expand_var_aux(s, var, dollar, meta);
 		if (!gc_addptr(expand, s->gc, GC_AST))
 			exit_code(s, EXIT_FAILURE);
@@ -81,29 +63,31 @@ static char	*expand_var(t_minishell *s, char *var)
 static char	*expand_quotes(t_minishell *s, char *str)
 {
 	char	**spl;
-	char	*res;
-	char	*tmp;
-	int	i;
+	char	*exp;
+	int		index;
 
-	i = 0;
-	spl = ft_split(str, '\"');
-	if (!gc_addmtx(spl, s->gc, GC_AST))
+	index = -1;
+	exp = NULL;
+	if (only_quotes(str))
+		return (ft_strdup(""));
+	if (str[0] == '\'')
+		return (ft_strtrim(str, "'"));
+	if (str[0] == '\"')
+		spl = ft_split(str, ' ');
+	else
+		spl = ft_split(str, '\"');
+	while (spl[++index])
+		spl[index] = expand_var(s, spl[index]);
+	if (find_blank(str))
+		exp = ft_reverse_split(spl, ' ');
+	else
+		exp = ft_merge(spl);
+	if (!gc_addptr(exp, s->gc, GC_TOKEN))
 		exit_code(s, EXIT_FAILURE);
-	while (spl[i])
-	{
-		tmp = NULL;
-		if (ft_strchr(spl[i], '$'))
-			tmp = expand_var(s, spl[i]);
-		if (tmp)
-			spl[i] = tmp;
-		i++;
-	}
-	if (*spl)
-		res = ft_merge(spl);
-	if (!gc_addptr(res, s->gc, GC_AST))
+	if (!gc_addmtx(spl, s->gc, GC_TOKEN))
 		exit_code(s, EXIT_FAILURE);
-	res = remove_quotes(s, res);
-	return (res);
+	exp = remove_quotes(s, exp);
+	return (exp);
 }
 
 char	**expand_argv(t_minishell *s, char **av)
