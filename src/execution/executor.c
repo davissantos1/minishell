@@ -36,6 +36,9 @@ static void	try_exec(t_minishell *shell, t_cmd *cmd)
 	int		ret;
 
 	ret = 1;
+	cmd->argv = expand_argv(shell, cmd->argv);
+	while (cmd->argv[0][0] == '\0')
+		cmd->argv++;
 	redirection(shell, cmd);
 	which_builtin(cmd);
 	find_path(shell, cmd);
@@ -43,15 +46,11 @@ static void	try_exec(t_minishell *shell, t_cmd *cmd)
 		return (pid_add(shell, NOT_FORKED, NOT_FORKED, ret << 8));
 	if (cmd->is_builtin >= 0)
 		return (builtin(shell, cmd));
-	cmd->argv = expand_argv(shell, cmd->argv);
 	pid = fork();
 	if (pid == -1)
 		exit_code(shell, errno);
 	if (pid == 0)
-	{
-		register_child_signals();
 		exec_program(shell, cmd);
-	}
 	pid_add(shell, pid, FORKED, FORKED);
 	close_redir(shell, cmd);
 }
@@ -61,7 +60,13 @@ static void	exec_program(t_minishell *shell, t_cmd *cmd)
 	char		**argv;
 	char		**env;
 
-	argv = expand_argv(shell, cmd->argv);
+	register_child_signals();
+	argv = cmd->argv;
+	if (!argv)
+	{
+		gc_free_all(shell->gc);
+		exit(0);
+	}
 	env = shell->env;
 	if (!argv)
 		exit_code(shell, errno);

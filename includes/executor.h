@@ -18,6 +18,9 @@
 # define FORKED 0
 # define NOT_FORKED 1
 # define EXIT_SUCCESS 0
+# define EXIT_FAILURE 1
+# define TYPE_MASK 0170000
+# define DIR_MASK 0040000
 
 # include "minishell.h"
 
