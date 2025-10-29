@@ -6,7 +6,7 @@
 /*   By: dasimoes <dasimoes@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/25 15:45:28 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/10/27 11:00:10 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/10/28 23:41:48 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ char	*token_special(t_minishell *s, int i)
 	if (s->input[i] == '*')
 		return (token_word(s, i));
 	if (s->input[i] == '~')
+		return (token_word(s, i));
+	if (s->input[i] == '$')
 		return (token_word(s, i));
 	if (s->input[i] == '-')
 		return (token_word(s, i));
@@ -97,27 +99,4 @@ char	*token_quotes(t_minishell *s, int i)
 		s->error = token + ft_strlen(token) - 1;
 	return (token);
 	
-}
-
-char	*token_var(t_minishell *s, int i)
-{
-	char	*token;
-	int		j;
-
-	j = i + 1;
-	token = NULL;
-	while (1)
-	{
-		if (s->input[j] == '\0')
-			break ;
-		else if (is_meta(s->input[j]) && j > i + 1)
-			break ;
-		else if (is_space(s->input[j]))
-			break ;
-		j++;
-	}
-	if (i + 1 == j)
-		return (ft_strdup("$"));
-	token = ft_substr(s->input, i, j - i + 1);
-	return (token);
 }

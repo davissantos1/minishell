@@ -199,10 +199,11 @@ void		token_validate(t_minishell *s);
 char		*token_special(t_minishell *s, int i);
 char		*token_word(t_minishell *s, int i);
 char		*token_quotes(t_minishell *s, int i);
-char		*token_var(t_minishell *s, int i);
-int			check_wildcard_char(char *str);
+int		check_wildcard_char(char *str);
 int			check_wildcard_str(char *str, char *match);
 int			dir_len(char *dir);
 char		**check_wildcard(t_minishell *s, char **result);
+char		*find_break(char *str);
+char		*expand_tilde(t_minishell *s, char *var);
 
 #endif

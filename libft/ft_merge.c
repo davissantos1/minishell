@@ -6,7 +6,7 @@
 /*   By: dasimoes <dasimoes@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/26 11:52:25 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/10/26 12:59:07 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/10/28 23:54:31 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,10 @@ char	*ft_merge(char **mtx)
 	char	*tmp;
 	int		index;
 
-	index = 0;
-	res = ft_strdup("");
-	if (!mtx[index + 1])
-		return (ft_strdup(mtx[index]));
+	index = 1;
+	if (!mtx[1])
+		return (ft_strdup(mtx[0]));
+	res = ft_strdup(mtx[0]);
 	while (mtx[index])
 	{
 		tmp = res;

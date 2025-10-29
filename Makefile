@@ -12,6 +12,7 @@ SRC= \
 	src/parsing/validator.c \
 	src/parsing/wildcard.c \
 	src/utils/struct.c \
+	src/utils/expander.c \
 	src/utils/subshell.c \
 	src/utils/ast.c \
 	src/utils/print.c \
@@ -34,6 +35,7 @@ SRC= \
 	src/utils/wildcard.c \
 	src/utils/close_fdlst.c \
 	src/utils/add_var.c \
+	src/utils/find_char.c \
 	src/execution/and_handle.c \
 	src/execution/or_handle.c \
 	src/execution/builtin_handler.c \
@@ -79,12 +81,12 @@ $(NAME): $(OBJ) $(LIBFT)
 	@$(CC) $(CFLAGS) $(OBJ) $(LIBFT) -o $(NAME) $(LIBRL)
 
 %.o: %.c
-	@echo "🛠️  ${BLUE}Compiling:${RESET} $< to $@"
+	@echo "🛠️ ${BLUE}Compiling:${RESET} $< to $@"
 	@$(CC) $(CFLAGS) -c $< -o $@
 
 debug: CFLAGS += -g -o0
 debug: re
-	@echo "⚠️  ${RED}Compilation mode:${RESET} debug"
+	@echo "⚠️ ${RED}Compilation mode:${RESET} debug"
 
 clean:
 	@echo "🧹 ${YELLOW}Cleaning: ${RESET}project objects"

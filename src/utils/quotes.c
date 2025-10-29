@@ -6,11 +6,27 @@
 /*   By: dasimoes <dasimoes@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 10:55:20 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/10/26 13:48:54 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/10/27 18:32:56 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static int	only_quotes(char *str)
+{
+	int	index;
+
+	index = 0;
+	if (str || *str)
+		return (0);
+	while (str[index])
+	{
+		if (str[index] != '\'' || str[index] == '\"')
+			return (0);
+		index++;
+	}
+	return (1);
+}
 
 int	count_single_quotes(char *str)
 {
@@ -74,9 +90,11 @@ char	*remove_quotes(t_minishell *s, char *t)
 
 	i = 0;
 	j = 0;
-	result = gc_malloc(word_size(t) * sizeof(char), s->gc, GC_TOKEN);
+	result = gc_calloc((word_size(t) + 1)* sizeof(char), s->gc, GC_TOKEN);
 	if (!result)
 		exit_code(s, 2);
+	if (only_quotes(t))
+		return (result);
 	while (t[i])
 	{
 		if (t[i] != '\'' && t[i] != '\"')
@@ -86,6 +104,5 @@ char	*remove_quotes(t_minishell *s, char *t)
 		}
 		i++;
 	}
-	result[j] = '\0';
 	return (result);
 }

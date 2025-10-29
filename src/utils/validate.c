@@ -6,7 +6,7 @@
 /*   By: dasimoes <dasimoes@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/28 15:00:45 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/10/26 10:41:54 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/10/28 22:46:12 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	validate_single(t_minishell *s)
 	t_token *t;
 	
 	t = s->head;
-	if (t->type != 0 && t->type > 7 && t->type < 5 && t->type != 13)
+	if ((t->type > 0 && t->type < 5) || (t->type > 7 && t->type < 13))
 	{
 		if (t->type > 0 && t->type < 5)
 			s->error = "newline";

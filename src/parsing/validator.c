@@ -6,7 +6,7 @@
 /*   By: dasimoes <dasimoes@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/25 15:38:30 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/10/26 13:22:44 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/10/28 22:20:43 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void	token_validate(t_minishell *s)
 {
-	s->error = NULL;
 	if (!s->head)
 		return ;
 	if (s->head->type == TOKEN_EOL)

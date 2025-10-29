@@ -1,40 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer.c                                            :+:      :+:    :+:   */
+/*   find_char.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dasimoes <dasimoes@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/29 17:32:22 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/10/28 20:14:18 by dasimoes         ###   ########.fr       */
+/*   Created: 2025/10/28 20:31:06 by dasimoes          #+#    #+#             */
+/*   Updated: 2025/10/28 23:58:59 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	lexer(t_minishell *s)
+char	*find_break(char *str)
 {
-	char	*str;
-	int		index;
+	int	index;
 
 	index = 0;
-	while (s->input[index])
+	while (str[index])
 	{
-		str = NULL;
-		if (is_meta(s->input[index]))
-			str = token_special(s, index);
-		else if (s->input[index] == '\'' || s->input[index] == '\"')
-			str = token_quotes(s, index);
-		else if (!is_space(s->input[index]))
-			str = token_word(s, index);
-		if (str)
-		{
-			token_add(s, str);
-			index += ft_strlen(str);
-		}
-		else
-			index++;
+		if (is_meta(str[index]))
+			return (&str[index]);
+		if (is_space(str[index]))
+			return (&str[index]);
+		index++;
 	}
-	if (s->head)
-		token_add(s, NULL);
+	return (NULL);
 }
