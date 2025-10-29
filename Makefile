@@ -73,29 +73,29 @@ RESET := \033[0m
 all: $(NAME)
 
 $(LIBFT):
-	@echo "📚 ${BLUE}Compiling:${RESET} libft"
+	@echo " 📚 ${BLUE}Compiling:${RESET} libft"
 	@$(MAKE) -C $(LIBFT_DIR) bonus
 
 $(NAME): $(OBJ) $(LIBFT)
-	@echo "💻 ${GREEN}Building:${RESET} ${NAME}"
+	@echo " 💻 ${GREEN}Building:${RESET} ${NAME}"
 	@$(CC) $(CFLAGS) $(OBJ) $(LIBFT) -o $(NAME) $(LIBRL)
 
 %.o: %.c
-	@echo "🛠️ ${BLUE}Compiling:${RESET} $< to $@"
+	@echo " 🛠️ ${BLUE} Compiling:${RESET} $< to $@"
 	@$(CC) $(CFLAGS) -c $< -o $@
 
 debug: CFLAGS += -g -o0
 debug: re
-	@echo "⚠️ ${RED}Compilation mode:${RESET} debug"
+	@echo " ⚠️  ${RED}Compilation mode:${RESET} debug"
 
 clean:
-	@echo "🧹 ${YELLOW}Cleaning: ${RESET}project objects"
+	@echo " 🧹 ${YELLOW}Cleaning: ${RESET}project objects"
 	@rm -rf $(OBJ)
 	@$(MAKE) -C $(LIBFT_DIR) clean
-	@echo "🧹 ${YELLOW}Cleaning: ${RESET}libft objects"
+	@echo " 🧹 ${YELLOW}Cleaning: ${RESET}libft objects"
 
 fclean: clean
-	@echo "💣 ${YELLOW}Cleaning: ${RESET}everything"
+	@echo " 💣 ${YELLOW}Cleaning: ${RESET}everything"
 	@rm -rf $(NAME)
 	@$(MAKE) -C $(LIBFT_DIR) fclean
 

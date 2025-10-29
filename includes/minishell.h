@@ -1,10 +1,12 @@
+/* ************************************************************************** */
+/*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dasimoes <dasimoes@42sp.org.br>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/19 16:02:56 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/10/20 18:33:58 by dasimoes         ###   ########.fr       */
+/*   Created: 2025/10/29 16:35:01 by dasimoes          #+#    #+#             */
+/*   Updated: 2025/10/29 20:00:52 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -199,7 +201,7 @@ void		token_validate(t_minishell *s);
 char		*token_special(t_minishell *s, int i);
 char		*token_word(t_minishell *s, int i);
 char		*token_quotes(t_minishell *s, int i);
-int		check_wildcard_char(char *str);
+int			check_wildcard_char(char *str);
 int			check_wildcard_str(char *str, char *match);
 int			dir_len(char *dir);
 char		**check_wildcard(t_minishell *s, char **result);
@@ -208,5 +210,6 @@ char		*expand_tilde(t_minishell *s, char *var);
 int			only_quotes(char *str);
 char		*find_blank(char *str);
 int			expand_check(char *str);
+char		*expand_special(t_minishell *s, char *var);
 
 #endif
