@@ -25,14 +25,14 @@ char	*expand_tilde(t_minishell *s, char *var)
 	}
 	if (var[1] == '-')
 	{
-		env_var = get_env(s, "OLDPWD");
+		env_var = get_env(s->env, "OLDPWD");
 		if (env_var)
 			return (ft_strdup(env_var));
 		return (ft_strdup(""));
 	}
 	if (var[1] == '+')
 	{
-		env_var = get_env(s, "PWD");
+		env_var = get_env(s->env, "PWD");
 		if (env_var)
 			return (ft_strdup(env_var));
 		return (ft_strdup(""));

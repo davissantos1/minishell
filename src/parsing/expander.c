@@ -23,7 +23,7 @@ static char	*expand_var_aux(t_minishell *s, char *var, char *dollar, char *meta)
 	suffix = ft_substr(var, meta - var, var + ft_strlen(var) - meta);
 	if (meta)
 		*meta = '\0';
-	temp = get_env(s, dollar + 1);
+	temp = get_env(s->env, dollar + 1);
 	if (!temp)
 		temp = ft_strdup("");
 	else
