@@ -6,7 +6,7 @@
 /*   By: dasimoes <dasimoes@42sp.org.br>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 19:35:09 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/10/29 12:53:09 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/10/29 20:01:21 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,19 +23,35 @@ char	*expand_tilde(t_minishell *s, char *var)
 			return (ft_strdup(env_var));
 		return (ft_strdup(""));
 	}
-	if (var[1] == '-')
+	if (var[1] == '-' && (!var[2] || is_space(var[2])))
 	{
 		env_var = get_env(s->env, "OLDPWD");
 		if (env_var)
 			return (ft_strdup(env_var));
 		return (ft_strdup(""));
 	}
-	if (var[1] == '+')
+	if (var[1] == '+' && (!var[2] || is_space(var[2])))
 	{
 		env_var = get_env(s->env, "PWD");
 		if (env_var)
 			return (ft_strdup(env_var));
 		return (ft_strdup(""));
+	}
+	return (ft_strdup(var));
+}
+
+char	*expand_special(t_minishell *s, char *var)
+{
+	if (var[0] == '~')
+		return (expand_tilde(s, var));
+	if (var[0] == '$')
+	{
+		if (is_space(var[1]) || !var[1])
+			return (ft_strdup("$"));
+		if (var[1] == '?' && (!var[2] || is_space(var[2])))
+			return (ft_itoa(s->exit + g_signal));
+		if (var[1] == '$' && (!var[2] || is_space(var[2])))
+			return (ft_strdup("PID"));
 	}
 	return (ft_strdup(var));
 }

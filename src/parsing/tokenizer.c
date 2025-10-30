@@ -6,7 +6,7 @@
 /*   By: dasimoes <dasimoes@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/25 15:45:28 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/10/28 23:41:48 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/10/29 21:26:24 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,19 @@ char	*token_special(t_minishell *s, int i)
 	if (s->input[i] == '~')
 		return (token_word(s, i));
 	if (s->input[i] == '$')
+	{
+		if (s->input[i + 1] == '$')
+			if (is_space(s->input[i + 2]))
+				return (ft_strdup("$$"));
 		return (token_word(s, i));
+	}
 	if (s->input[i] == '-')
+		return (token_word(s, i));
+	if (s->input[i] == '.')
+		return (token_word(s, i));
+	if (s->input[i] == '/')
+		return (token_word(s, i));
+	if (s->input[i] == '\\')
 		return (token_word(s, i));
 	return (token_special_aux(s, i));
 }
