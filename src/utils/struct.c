@@ -6,7 +6,7 @@
 /*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/26 11:16:48 by vitosant          #+#    #+#             */
-/*   Updated: 2025/10/16 14:03:45 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/10/30 15:10:36 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ t_minishell	*shell_init(char **env)
 	if (shell->std_in == -1 || shell->std_out == -1 || shell->std_err == -1)
 		exit_code(shell, EXIT_FAILURE);
 	shell->exit = 0;
+	shell->name = "Minishell";
 	return (shell);
 }
 

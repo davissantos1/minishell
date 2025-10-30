@@ -6,7 +6,7 @@
 /*   By: dasimoes <dasimoes@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/25 15:45:28 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/10/29 21:26:24 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/10/30 16:55:34 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,9 +64,11 @@ char	*token_special(t_minishell *s, int i)
 char	*token_word(t_minishell *s, int i)
 {
 	char	*token;
+	int		dollar;
 	int		j;
 
 	j = i + 1;
+	dollar = 0;
 	token = NULL;
 	while (1)
 	{
@@ -75,6 +77,10 @@ char	*token_word(t_minishell *s, int i)
 		else if (is_operator(s->input[j]))
 			break ;
 		else if (is_space(s->input[j]))
+			break ;
+		else if (s->input[j] == '$')
+			dollar++;
+		if (dollar == 2)
 			break ;
 		j++;
 	}

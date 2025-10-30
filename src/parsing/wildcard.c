@@ -6,7 +6,7 @@
 /*   By: dasimoes <dasimoes@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/25 21:04:28 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/10/29 17:47:47 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/10/30 14:39:42 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,35 +61,12 @@ static char	**expand_wildcard(t_minishell *s, char *str)
 	return (res);
 }
 
-char	**check_wildcard(t_minishell *s, char **result)
+void	handle_wildcard(t_minishell *s, char ***result, int pos)
 {
-	int		index;
 	char	**res;
-	char	**tmp;
-	char	**exp;
 
-	index = 0;
-	exp = NULL;
-	while (result[index])
-	{
-		if (ft_strchr(result[index], '*'))
-		{
-			res = expand_wildcard(s, result[index]);
-			tmp = ft_mtxndup(result, index - 1);
-			exp = ft_mtxjoin(tmp, res);
-			tmp = ft_mtxfree(tmp);
-			res = ft_mtxfree(res);
-			tmp = exp;
-			res = ft_mtxdup(result + index);
-			exp = ft_mtxjoin(exp, res);
-			tmp = ft_mtxfree(tmp);
-			res = ft_mtxfree(res);
-		}
-		index++;
-	}
-	if (!exp)
-		return (result);
-	if (!gc_addmtx(exp, s->gc, GC_TOKEN))
+	res = expand_wildcard(s, *(result)[pos]);
+	*result = ft_mtxinsert(*result, res, pos);
+	if (!gc_addmtx(*result, s->gc, GC_TOKEN))
 		exit_code(s, EXIT_FAILURE);
-	return (exp);
 }

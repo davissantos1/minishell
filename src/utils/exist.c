@@ -6,7 +6,7 @@
 /*   By: dasimoes <dasimoes@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/25 15:28:33 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/10/29 20:05:53 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/10/30 16:57:12 by dasimoes         ###   ########.fr       */
 /* ************************************************************************** */
 
 #include "minishell.h"
@@ -31,7 +31,15 @@ int	is_meta(char c)
 		return (1);
 	else if (c == '*' || c == '$' || c == '.' || c == '/')
 		return (1);
-	else if (c == '\\')
+	else if (c == '\\' || c == '?' || c == '#' || c == '@')
+		return (1);
+	else if (c == '^' || c == '%' || c == '_' || c == '+')
+		return (1);
+	else if (c == ';' || c == ',' || c == '[' || c == ']')
+		return (1);
+	else if (c == '{' || c == '}' || c == '!' || c == '`')
+		return (1);
+	else if (c == ':')
 		return (1);
 	return (0);
 }
@@ -39,8 +47,6 @@ int	is_meta(char c)
 int	is_operator(char c)
 {
 	if (c == '|' || c == '>' || c == '<' || c == '&')
-		return (1);
-	else if (c == '$')
 		return (1);
 	return (0);
 }

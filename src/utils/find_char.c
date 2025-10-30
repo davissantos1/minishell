@@ -6,22 +6,24 @@
 /*   By: dasimoes <dasimoes@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/28 20:31:06 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/10/29 12:32:08 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/10/30 16:33:50 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*find_meta(char *str)
+char	*find_break(char *str)
 {
-	int	index;
+	int	i;
 
-	index = 0;
-	while (str[index])
+	i = 0;
+	while (str[i])
 	{
-		if (is_meta(str[index]))
-			return (&str[index]);
-		index++;
+		if (str[i] == '?' || ft_isdigit(str[i]) || str[i] == '$')
+			return (&str[i + 1]);
+		if (is_meta(str[i]))
+			return (&str[i]);
+		i++;
 	}
 	return (NULL);
 }

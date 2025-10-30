@@ -6,7 +6,7 @@
 /*   By: dasimoes <dasimoes@42sp.org.br>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 16:35:01 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/10/29 20:00:52 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/10/30 16:35:03 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,7 @@ typedef struct s_minishell
 	char			**paths;
 	char			**env;
 	char			**tmp_var;
+	char			*name;
 	char			*input;
 	char			*error;
 	char			*path;
@@ -205,12 +206,13 @@ char		*token_quotes(t_minishell *s, int i);
 int			check_wildcard_char(char *str);
 int			check_wildcard_str(char *str, char *match);
 int			dir_len(char *dir);
-char		**check_wildcard(t_minishell *s, char **result);
-char		*find_meta(char *str);
+char		*find_break(char *str);
 char		*expand_tilde(t_minishell *s, char *var);
 int			only_quotes(char *str);
 char		*find_blank(char *str);
 int			expand_check(char *str);
 char		*expand_special(t_minishell *s, char *var);
+void		handle_wildcard(t_minishell *s, char ***result, int pos);
+int			dollar_expand(char *str);
 
 #endif
