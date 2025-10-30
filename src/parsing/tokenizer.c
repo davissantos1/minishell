@@ -6,7 +6,7 @@
 /*   By: dasimoes <dasimoes@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/25 15:45:28 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/10/30 16:55:34 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/10/30 17:52:01 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,18 +65,21 @@ char	*token_word(t_minishell *s, int i)
 {
 	char	*token;
 	int		dollar;
+	int		closed;
 	int		j;
 
 	j = i + 1;
+	closed = 1;
 	dollar = 0;
-	token = NULL;
 	while (1)
 	{
-		if (s->input[j] == '\0')
+		if (is_operator(s->input[j]))
 			break ;
-		else if (is_operator(s->input[j]))
-			break ;
-		else if (is_space(s->input[j]))
+		else if ((s->input[j] == '\'' || s->input[j] == '\"') && closed)
+			closed = 0;
+		else if ((s->input[j] == '\'' || s->input[j] == '\"') && !closed)
+			closed = 1;
+		else if (is_space(s->input[j]) && closed)
 			break ;
 		else if (s->input[j] == '$')
 			dollar++;
@@ -85,8 +88,6 @@ char	*token_word(t_minishell *s, int i)
 		j++;
 	}
 	token = ft_substr(s->input, i, j - i);
-	if (!check_quotes(token))
-		s->error = token + ft_strlen(token) - 1;
 	return (token);
 }
 
@@ -112,8 +113,6 @@ char	*token_quotes(t_minishell *s, int i)
 		j++;
 	}
 	token = ft_substr(s->input, i, j - i + 1);
-	if (!check_quotes(token))
-		s->error = token + ft_strlen(token) - 1;
 	return (token);
 	
 }
