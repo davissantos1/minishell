@@ -6,7 +6,7 @@
 /*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/30 11:48:35 by vitosant          #+#    #+#             */
-/*   Updated: 2025/10/29 16:17:08 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/10/30 17:31:44 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ static void	try_exec(t_minishell *shell, t_cmd *cmd)
 
 	ret = 1;
 	cmd->argv = expand_argv(shell, cmd->argv);
+	expand_redirect(shell, cmd->redir);
 	while (cmd->argv[0][0] == '\0')
 		cmd->argv++;
 	redirection(shell, cmd);

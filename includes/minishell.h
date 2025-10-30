@@ -6,7 +6,7 @@
 /*   By: dasimoes <dasimoes@42sp.org.br>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 16:35:01 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/10/30 16:35:03 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/10/30 17:24:50 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -214,5 +214,6 @@ int			expand_check(char *str);
 char		*expand_special(t_minishell *s, char *var);
 void		handle_wildcard(t_minishell *s, char ***result, int pos);
 int			dollar_expand(char *str);
+void		expand_redirect(t_minishell *s, t_redir *redir);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 21:32:55 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/10/30 17:01:47 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/10/30 17:28:31 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,27 @@ static char	*expand_quotes(t_minishell *s, char *str)
 		exit_code(s, EXIT_FAILURE);
 	exp = remove_quotes(s, exp);
 	return (exp);
+}
+
+void	expand_redirect(t_minishell *s, t_redir *redir)
+{
+	t_redir	*cur;
+	char	*dol;
+
+	cur = redir;
+	while (cur)
+	{
+		dol = ft_strchr(cur->file, '$');
+		if (ft_strchr(cur->file, '\"') || ft_strchr(cur->file, '\''))
+			cur->file = expand_quotes(s, cur->file);
+		else if (dol)
+			cur->file = expand_var(s, cur->file);
+		else if (ft_strchr(cur->file, '*'))
+			handle_wildcard(s, NULL, 0);
+		else
+			cur->file = ft_strdup(cur->file);
+		cur = cur->next;
+	}
 }
 
 char	**expand_argv(t_minishell *s, char **av)
