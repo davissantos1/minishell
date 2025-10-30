@@ -6,7 +6,7 @@
 /*   By: dasimoes <dasimoes@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/25 15:45:28 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/10/30 18:08:20 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/10/30 20:37:11 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,9 +96,9 @@ char	*token_quotes(t_minishell *s, int i)
 	{
 		if (s->input[j] == '\0')
 			break ;
-		else if ((s->input[j] == '\'' || s->input[j] == '\"') && closed)
+		else if (s->input[j] == s->input[i] && closed)
 			closed = 0;
-		else if ((s->input[j] == '\'' || s->input[j] == '\"') && !closed)
+		else if (s->input[j] == s->input[i] && !closed)
 			closed = 1;
 		else if (is_space(s->input[j]) && closed)
 			break ;
