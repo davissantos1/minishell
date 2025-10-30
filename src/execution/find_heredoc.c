@@ -6,7 +6,7 @@
 /*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/04 14:18:46 by vitosant          #+#    #+#             */
-/*   Updated: 2025/10/13 17:29:25 by vitosant         ###   ########.fr       */
+/*   Updated: 2025/10/30 09:32:13 by vitosant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,11 @@ void	find_heredoc(t_minishell *shell, t_ast *node)
 		while (redir && shell->exit != 130)
 		{
 			if (redir->type == HEREDOC)
+			{
+				if (cmd->std_in != 0)
+					close(cmd->std_in);
 				cmd->std_in = heredoc(redir->file);
+			}
 			redir = redir->next;
 		}
 		return ;
