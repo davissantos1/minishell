@@ -6,14 +6,13 @@
 /*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 11:40:01 by vitosant          #+#    #+#             */
-/*   Updated: 2025/10/23 15:03:49 by vitosant         ###   ########.fr       */
+/*   Updated: 2025/10/30 10:16:06 by vitosant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 static int	open_redir(t_cmd *cmd, char *file, int flags);
-static int	there_is_heredoc(t_redir *redir);
 
 void	redirection(t_minishell *shell, t_cmd *cmd)
 {
@@ -24,13 +23,13 @@ void	redirection(t_minishell *shell, t_cmd *cmd)
 	redir = cmd->redir;
 	while (redir)
 	{
-		if (redir->type == APPEND)
+		if (cmd->std_out != -1 && redir->type == APPEND)
 			cmd->std_out = open_redir(cmd, redir->file,
 					O_CREAT | O_APPEND | O_WRONLY);
-		else if (redir->type == REDOUT)
+		else if (cmd->std_out != -1 && redir->type == REDOUT)
 			cmd->std_out = open_redir(cmd, redir->file,
 					O_CREAT | O_TRUNC | O_WRONLY);
-		else if (redir->type == REDIN)
+		else if (cmd->std_in != -1 && redir->type == REDIN)
 			cmd->std_in = open_redir(cmd, redir->file, O_RDONLY);
 		redir = redir->next;
 	}
@@ -45,26 +44,9 @@ static int	open_redir(t_cmd *cmd, char *file, int flags)
 	fd = open(file, flags, 0644);
 	if (fd == -1)
 		perror(file);
-	if (flags == O_RDONLY && there_is_heredoc(cmd->redir))
-	{
-		if (fd != -1)
-		{
-			close(fd);
-			return (cmd->std_in);
-		}
+	if (flags == O_RDONLY && cmd->std_in != 0)
 		close(cmd->std_in);
-		return (-1);
-	}
+	else if (flags != O_RDONLY && cmd->std_out != 1)
+		close(cmd->std_out);
 	return (fd);
-}
-
-static int	there_is_heredoc(t_redir *redir)
-{
-	while (redir)
-	{
-		if (redir->type == HEREDOC)
-			return (1);
-		redir = redir->next;
-	}
-	return (0);
 }
