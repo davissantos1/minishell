@@ -6,39 +6,30 @@
 /*   By: dasimoes <dasimoes@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/25 21:04:28 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/10/26 10:09:00 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/10/29 17:47:47 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static char	**wild_aux(t_minishell *s, char *str, DIR *dir, struct dirent *cur)
+static char	*wild_aux(char *str, struct dirent *cur)
 {
-	char	**res;
-	int		index;
+	char	*wild;
+	char	*name;
 
-	index = 0;
-	res = gc_calloc(dir_len("."), s->gc, GC_TOKEN);
-	if (!res)
-		exit_code(s, EXIT_FAILURE);
-	while (cur)
+	errno = 0;
+	wild = NULL;
+	name = (char *)cur->d_name;
+	if (check_wildcard_char(str))
 	{
-		errno = 0;
-		if (check_wildcard_char(str))
-		{
-			res[index] = ft_strdup(cur->d_name);
-			index++;
-		}
-		else if (check_wildcard_str(str, cur->d_name))
-		{
-			res[index] = ft_strdup(cur->d_name);
-			index++;
-		}
-		cur = readdir(dir);
-		if (!cur && errno)
-			exit_code(s, EXIT_FAILURE);
+		if (name[0] != '.')
+			wild = ft_strdup(name);
 	}
-	return (res);
+	else if (check_wildcard_str(str, cur->d_name))
+		wild = ft_strdup(name);
+	if (!wild)
+		return (ft_strdup(""));
+	return (wild);
 }
 
 static char	**expand_wildcard(t_minishell *s, char *str)
@@ -46,15 +37,27 @@ static char	**expand_wildcard(t_minishell *s, char *str)
 	char			**res;
 	DIR 			*dir;
 	struct dirent	*cur;
+	int				index;
 
+	index = 0;
 	errno = 0;
-	dir = opendir(".");
+	dir = opendir(getenv("PWD"));
+	res = gc_calloc(dir_len(getenv("PWD")), s->gc, GC_TOKEN);
+	if (!res)
+		exit_code(s, EXIT_FAILURE);
 	if (!dir && errno)
 		exit_code(s, EXIT_FAILURE);
 	cur = readdir(dir);
 	if (!cur && errno)
 		exit_code(s, EXIT_FAILURE);
-	res = wild_aux(s, str, dir, cur);
+	while (cur)
+	{
+		res[index] = wild_aux(str, cur);
+		index++;
+		cur = readdir(dir);
+		if (!cur && errno)
+			exit_code(s, EXIT_FAILURE);
+	}
 	return (res);
 }
 
