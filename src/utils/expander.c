@@ -6,7 +6,7 @@
 /*   By: dasimoes <dasimoes@42sp.org.br>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 19:35:09 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/10/30 16:41:09 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/10/30 19:53:19 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,8 @@ int	expand_check(char *str)
 	quotes = 0;
 	dollar = ft_strchr(str, '$');
 	if (!dollar && !ft_strchr(str, '~') && !ft_strchr(str, '*'))
+		return (0);
+	if (!dollar && str[0] == '\"')
 		return (0);
 	if (dollar && !dollar_expand(str))
 		return (0);

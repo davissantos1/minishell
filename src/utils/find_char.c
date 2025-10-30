@@ -6,7 +6,7 @@
 /*   By: dasimoes <dasimoes@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/28 20:31:06 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/10/30 16:33:50 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/10/30 18:31:38 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,20 @@ char	*find_blank(char *str)
 	while (str[index])
 	{
 		if (is_space(str[index]))
+			return (&str[index]);
+		index++;
+	}
+	return (NULL);
+}
+
+char	*find_quotes(char *str)
+{
+	int index;
+
+	index = 0;
+	while (str[index])
+	{
+		if (str[index] == '\'' || str[index] == '\"')
 			return (&str[index]);
 		index++;
 	}

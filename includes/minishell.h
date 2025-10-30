@@ -6,7 +6,7 @@
 /*   By: dasimoes <dasimoes@42sp.org.br>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 16:35:01 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/10/30 17:24:50 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/10/30 18:37:06 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,7 +168,7 @@ int			token_type(char *token);
 t_token		*token_create(t_minishell *s, char *str);
 void		lexer(t_minishell *s);
 int			check_quotes(char *token);
-int			word_size(char *token);
+int			word_size(char *token, char quotes);
 char		*remove_quotes(t_minishell *s, char *t);
 void		error_code(t_minishell *shell, int code);
 void		parser(t_minishell *s);
@@ -208,12 +208,13 @@ int			check_wildcard_str(char *str, char *match);
 int			dir_len(char *dir);
 char		*find_break(char *str);
 char		*expand_tilde(t_minishell *s, char *var);
-int			only_quotes(char *str);
+int			only_quotes(char *str, char quotes);
 char		*find_blank(char *str);
 int			expand_check(char *str);
 char		*expand_special(t_minishell *s, char *var);
 void		handle_wildcard(t_minishell *s, char ***result, int pos);
 int			dollar_expand(char *str);
 void		expand_redirect(t_minishell *s, t_redir *redir);
+char		*find_quotes(char *str);
 
 #endif

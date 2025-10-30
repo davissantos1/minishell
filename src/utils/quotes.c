@@ -6,13 +6,13 @@
 /*   By: dasimoes <dasimoes@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 10:55:20 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/10/29 16:04:25 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/10/30 18:37:15 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	only_quotes(char *str)
+int	only_quotes(char *str, char quotes)
 {
 	int	index;
 
@@ -21,7 +21,7 @@ int	only_quotes(char *str)
 		return (0);
 	while (str[index])
 	{
-		if (str[index] != '\'' && str[index] != '\"')
+		if (str[index] != quotes)
 			return (0);
 		index++;
 	}
@@ -66,7 +66,7 @@ int	check_quotes(char *token)
 	return (1);
 }
 
-int	word_size(char *token)
+int	word_size(char *token, char quotes)
 {
 	int	index;
 	int	size;
@@ -75,7 +75,7 @@ int	word_size(char *token)
 	index = 0;
 	while (token[index])
 	{
-		if (token[index] != '\'' && token[index] != '\"')
+		if (token[index] != quotes)
 			size++;
 		index++;
 	}
@@ -85,19 +85,21 @@ int	word_size(char *token)
 char	*remove_quotes(t_minishell *s, char *t)
 {
 	char	*result;
+	char	quotes;
 	int		i;
 	int		j;
 
 	i = 0;
 	j = 0;
-	result = gc_calloc((word_size(t) + 1)* sizeof(char), s->gc, GC_TOKEN);
+	quotes = *(find_quotes(t));
+	result = gc_calloc((word_size(t, quotes) + 1)* sizeof(char), s->gc, GC_TOKEN);
 	if (!result)
 		exit_code(s, 2);
-	if (only_quotes(t))
+	if (only_quotes(t, quotes))
 		return (result);
 	while (t[i])
 	{
-		if (t[i] != '\'' && t[i] != '\"')
+		if (t[i] != quotes)
 		{
 			result[j] = t[i];
 			j++;
