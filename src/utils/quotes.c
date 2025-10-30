@@ -6,7 +6,7 @@
 /*   By: dasimoes <dasimoes@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 10:55:20 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/10/30 18:37:15 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/10/30 20:10:29 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,21 +85,23 @@ int	word_size(char *token, char quotes)
 char	*remove_quotes(t_minishell *s, char *t)
 {
 	char	*result;
-	char	quotes;
+	char	*quotes;
 	int		i;
 	int		j;
 
 	i = 0;
 	j = 0;
-	quotes = *(find_quotes(t));
-	result = gc_calloc((word_size(t, quotes) + 1)* sizeof(char), s->gc, GC_TOKEN);
+	quotes = find_quotes(t);
+	if (!quotes)
+		return (t);
+	result = gc_calloc((word_size(t, *quotes) + 1)* sizeof(char), s->gc, GC_TOKEN);
 	if (!result)
 		exit_code(s, 2);
-	if (only_quotes(t, quotes))
+	if (only_quotes(t, *quotes))
 		return (result);
 	while (t[i])
 	{
-		if (t[i] != quotes)
+		if (t[i] != *quotes)
 		{
 			result[j] = t[i];
 			j++;
