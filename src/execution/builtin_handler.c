@@ -6,7 +6,7 @@
 /*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/10 11:47:50 by vitosant          #+#    #+#             */
-/*   Updated: 2025/10/27 10:39:51 by vitosant         ###   ########.fr       */
+/*   Updated: 2025/10/30 12:20:30 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ void	builtin(t_minishell *shell, t_cmd *cmd)
 	func	builtins[7];
 	pid_t	pid;
 
-	cmd->argv = expand_argv(shell, cmd->argv);
 	fill_functions(builtins);
 	if (!shell->lstfd)
 		builtins[cmd->is_builtin](shell, cmd);
