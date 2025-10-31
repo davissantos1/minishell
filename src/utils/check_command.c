@@ -6,7 +6,7 @@
 /*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/07 12:01:22 by vitosant          #+#    #+#             */
-/*   Updated: 2025/10/20 17:17:17 by vitosant         ###   ########.fr       */
+/*   Updated: 2025/10/31 09:29:03 by vitosant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	check_command(t_cmd *cmd, int *i)
 
 	errno = 0;
 	file = cmd->argv[0];
-	if (cmd->is_builtin >= 0)
+	if (!cmd->argv[0] || cmd->is_builtin >= 0)
 		return (1);
 	if (access(file, F_OK) == -1 || !ft_strchr(file, '/'))
 	{
