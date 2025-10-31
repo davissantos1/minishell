@@ -36,6 +36,7 @@ SRC= \
 	src/utils/close_fdlst.c \
 	src/utils/add_var.c \
 	src/utils/find_char.c \
+	src/utils/find_fdlst.c \
 	src/execution/and_handle.c \
 	src/execution/or_handle.c \
 	src/execution/builtin_handler.c \

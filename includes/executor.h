@@ -6,7 +6,7 @@
 /*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/06 15:52:51 by vitosant          #+#    #+#             */
-/*   Updated: 2025/10/25 13:29:01 by vitosant         ###   ########.fr       */
+/*   Updated: 2025/10/31 08:31:52 by vitosant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void	builtin(t_minishell *shell, t_cmd *cmd);
 void	handler(t_minishell *shell);
 void	build_path(t_minishell *shell);
 void	find_path(t_minishell *shell, t_cmd *cmd);
+void	*find_fd(t_lstint *lst, int fd);
 void	close_fdlst(t_lstint *lst);
 void	add_var(t_minishell *shell, char *ovar);
 
@@ -50,6 +51,7 @@ void	pipe_node(t_minishell *shell, t_ast *node);
 void	and_node(t_minishell *shell, t_ast *node);
 
 int		nvalid(char *var, int *ret);
+void	print_mtx(char **mtx, int fd);
 void	remove_plus(char *var, char *cpy_var);
 void	export_builtin(t_minishell *shell, t_cmd *cmd);
 void	pwd_builtin(t_minishell *shell, t_cmd *cmd);

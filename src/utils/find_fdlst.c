@@ -1,28 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   close_redir.c                                      :+:      :+:    :+:   */
+/*   find_fdlst.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/08 19:40:00 by vitosant          #+#    #+#             */
-/*   Updated: 2025/10/31 08:07:19 by vitosant         ###   ########.fr       */
+/*   Created: 2025/10/31 08:05:53 by vitosant          #+#    #+#             */
+/*   Updated: 2025/10/31 08:07:11 by vitosant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	close_redir(t_minishell *shell, t_cmd *cmd)
+void	*find_fd(t_lstint *lst, int fd)
 {
-	t_lstint	*lst;
-	int			std_in;
-	int			std_out;
-
-	lst = shell->lstfd;
-	std_in = cmd->std_in;
-	std_out = cmd->std_out;
-	if (std_in != -1 && std_in != 0 && !find_fd(lst, std_in))
-		close(cmd->std_in);
-	if (std_out != -1 && std_out != 1 && !find_fd(lst, std_out))
-		close(cmd->std_out);
+	if (!lst)
+		return (NULL);
+	while (lst && lst->value != fd)
+		lst = lst->next;
+	return (lst);
 }
