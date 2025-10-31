@@ -6,7 +6,7 @@
 /*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 21:32:55 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/10/31 11:30:42 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/10/31 14:59:09 by vitosant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,8 @@ void	expand_redirect(t_minishell *s, t_redir *redir)
 			handle_wildcard(s, NULL, 0);
 		else
 			cur->file = ft_strdup(cur->file);
+		if (!cur->file || !gc_addptr(cur->file, s->gc, GC_AST))
+			exit_code(s, errno);
 		cur = cur->next;
 	}
 }
