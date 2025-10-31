@@ -6,7 +6,7 @@
 /*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 21:32:55 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/10/31 14:59:09 by vitosant         ###   ########.fr       */
+/*   Updated: 2025/10/31 17:00:48 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,10 +122,10 @@ char	**expand_argv(t_minishell *s, char **av)
 			result[i] = expand_quotes(s, av[i]);
 		else if (dol)
 			result[i] = expand_var(s, av[i]);
-		else if (ft_strchr(av[i], '*'))
-			handle_wildcard(s, &result, i);
 		else
 			result[i] = ft_strdup(av[i]);
+		if (ft_strchr(av[i], '*'))
+			handle_wildcard(s, &result, i);
 		i++;
 	}
 	if (!gc_addmtx(result, s->gc, GC_AST))
