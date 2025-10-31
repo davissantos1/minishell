@@ -6,13 +6,13 @@
 /*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 16:25:22 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/10/27 15:32:07 by vitosant         ###   ########.fr       */
+/*   Updated: 2025/10/31 08:21:29 by vitosant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	just_echo(char **argv, int put_endln);
+static void	just_echo(t_minishell *shell, t_cmd *cmd, char **argv, int endln);
 
 void	echo_builtin(t_minishell *shell, t_cmd *cmd)
 {
@@ -29,7 +29,7 @@ void	echo_builtin(t_minishell *shell, t_cmd *cmd)
 		{
 			if (ft_strchr("n", cmd->argv[i][j]) == NULL)
 			{
-				just_echo(&cmd->argv[i], put_endln);
+				just_echo(shell, cmd, &cmd->argv[i], put_endln);
 				return (pid_add(shell, NOT_FORKED, NOT_FORKED, 0));
 			}
 			j++;
@@ -37,22 +37,26 @@ void	echo_builtin(t_minishell *shell, t_cmd *cmd)
 		put_endln = 0;
 		i++;
 	}
-	just_echo(&cmd->argv[i], put_endln);
+	just_echo(shell, cmd, &cmd->argv[i], put_endln);
 	pid_add(shell, NOT_FORKED, NOT_FORKED, 0);
 }
 
-static void	just_echo(char **argv, int put_endln)
+static void	just_echo(t_minishell *shell, t_cmd *cmd, char **argv, int endln)
 {
+	int	fd;
 	int	i;
 
 	i = 0;
+	fd = 1;
+	if (!shell->lstfd)
+		fd = cmd->std_out;
 	while (argv[i])
 	{
-		ft_putstr_fd(argv[i], 1);
+		ft_putstr_fd(argv[i], fd);
 		if (argv[i + 1])
-			ft_putchar_fd(' ', 1);
+			ft_putchar_fd(' ', fd);
 		i++;
 	}
-	if (put_endln)
-		ft_putchar_fd('\n', 1);
+	if (endln)
+		ft_putchar_fd('\n', fd);
 }

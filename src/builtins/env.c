@@ -6,7 +6,7 @@
 /*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/19 16:55:06 by vitosant          #+#    #+#             */
-/*   Updated: 2025/10/20 17:19:59 by vitosant         ###   ########.fr       */
+/*   Updated: 2025/10/31 08:26:07 by vitosant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,11 @@
 void	env_builtin(t_minishell *shell, t_cmd *cmd)
 {
 	char	**env;
+	int		fd;
 
+	fd = 1;
+	if (!shell->lstfd)
+		fd = cmd->std_in;
 	env = shell->env;
 	if (cmd->argv[1])
 	{
@@ -25,7 +29,7 @@ void	env_builtin(t_minishell *shell, t_cmd *cmd)
 	}
 	while (*env)
 	{
-		ft_putendl_fd(*env, 1);
+		ft_putendl_fd(*env, fd);
 		env++;
 	}
 	pid_add(shell, NOT_FORKED, NOT_FORKED, 0);

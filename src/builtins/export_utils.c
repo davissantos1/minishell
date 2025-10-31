@@ -6,7 +6,7 @@
 /*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/25 11:19:46 by vitosant          #+#    #+#             */
-/*   Updated: 2025/10/25 13:31:01 by vitosant         ###   ########.fr       */
+/*   Updated: 2025/10/31 10:04:14 by vitosant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,4 +41,14 @@ void	remove_plus(char *var, char *cpy_var)
 	var_len = ft_strlen(var);
 	ft_memmove(cpy_var + var_len, cpy_var + var_len + 1,
 		ft_strlen(cpy_var + var_len));
+}
+
+void	print_mtx(char **mtx, int fd)
+{
+	while (*mtx)
+	{
+		ft_putstr_fd("declare -x ", fd);
+		ft_putendl_fd(*mtx, fd);
+		mtx++;
+	}
 }

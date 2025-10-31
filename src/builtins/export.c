@@ -6,14 +6,14 @@
 /*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/20 08:53:11 by vitosant          #+#    #+#             */
-/*   Updated: 2025/10/25 13:36:28 by vitosant         ###   ########.fr       */
+/*   Updated: 2025/10/31 08:33:40 by vitosant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 static void	sort_env(char **env);
-static void	print_vars(t_minishell *shell);
+static void	print_vars(t_minishell *shell, t_cmd *cmd);
 static void	maybe_add(t_minishell *shell, char *var);
 static int	no_value(t_minishell *shell, char *str);
 
@@ -26,7 +26,7 @@ void	export_builtin(t_minishell *shell, t_cmd *cmd)
 	i = 0;
 	ret = 0;
 	if (!cmd->argv[1])
-		print_vars(shell);
+		print_vars(shell, cmd);
 	while (cmd->argv[i + 1])
 	{
 		i++;
@@ -46,31 +46,23 @@ void	export_builtin(t_minishell *shell, t_cmd *cmd)
 	pid_add(shell, NOT_FORKED, NOT_FORKED, ret << 8);
 }
 
-static void	print_vars(t_minishell *shell)
+static void	print_vars(t_minishell *shell, t_cmd *cmd)
 {
 	char	**env;
 	char	**tmp_vars;
-	int		i;
+	int		fd;
 
 	env = ft_mtxdup(shell->env);
-	i = 0;
+	fd = 1;
+	if (!shell->lstfd)
+		fd = cmd->std_out;
 	if (!env)
 		return ;
 	tmp_vars = shell->tmp_var;
 	sort_env(env);
 	sort_env(tmp_vars);
-	while (env[i])
-	{
-		ft_putstr_fd("declare -x ", 1);
-		ft_putendl_fd(env[i], 1);
-		i++;
-	}
-	while (*tmp_vars)
-	{
-		ft_putstr_fd("declare -x ", 1);
-		ft_putendl_fd(*tmp_vars, 1);
-		tmp_vars++;
-	}
+	print_mtx(env, fd);
+	print_mtx(shell->tmp_var, fd);
 	ft_mtxfree(env);
 }
 
