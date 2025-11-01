@@ -6,7 +6,7 @@
 /*   By: dasimoes <dasimoes@42sp.org.br>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 16:35:01 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/10/31 11:30:41 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/11/01 16:12:27 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@
 # include "libft.h"
 
 // Globals
-static volatile sig_atomic_t g_signal = 0;
+extern volatile sig_atomic_t g_signal;
 
 // Enums
 typedef enum e_token_type
