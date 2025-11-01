@@ -6,11 +6,13 @@
 /*   By: dasimoes <dasimoes@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 13:53:21 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/10/19 16:52:01 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/11/01 16:19:27 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+volatile sig_atomic_t g_signal = 0;
 
 void	signal_interrupt(int sig)
 {
@@ -26,6 +28,7 @@ void	signal_interrupt(int sig)
 void	signal_child(int sig)
 {
 	g_signal = (volatile sig_atomic_t) sig;
+	printf("\n%i\n", g_signal);
 	while (waitpid(-1, NULL, WNOHANG) > 0)
 		;
 }

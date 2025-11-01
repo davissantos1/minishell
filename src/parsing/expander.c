@@ -6,7 +6,7 @@
 /*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 21:32:55 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/10/31 17:00:48 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/11/01 16:41:14 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,8 @@ static char	*expand_quotes(t_minishell *s, char *str)
 		spl = ft_split(str, ' ');
 	else
 		spl = ft_split(str, '\"');
+	if (!gc_addmtx(spl, s->gc, GC_TOKEN))
+		exit_code(s, EXIT_FAILURE);
 	while (spl[++index])
 		spl[index] = expand_var(s, spl[index]);
 	if (str[0] == '\"')
@@ -75,8 +77,6 @@ static char	*expand_quotes(t_minishell *s, char *str)
 	else
 		exp = ft_merge(spl);
 	if (!gc_addptr(exp, s->gc, GC_TOKEN))
-		exit_code(s, EXIT_FAILURE);
-	if (!gc_addmtx(spl, s->gc, GC_TOKEN))
 		exit_code(s, EXIT_FAILURE);
 	exp = remove_quotes(s, exp);
 	return (exp);

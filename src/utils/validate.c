@@ -6,7 +6,7 @@
 /*   By: dasimoes <dasimoes@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/28 15:00:45 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/10/28 22:46:12 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/11/01 16:47:59 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ void	validate_duplicate(t_minishell *s)
 		a = b->next;
 		if (a)
 		{
-			if (b->type != 0 && b->type > 7 && b->type < 5 && b->type != 13)
-				if (a->type != 0 && a->type > 7 && a->type < 5 && a->type != 13)
-					s->error = b->value;
+			if ((b->type > 0 && b->type < 5) || (b->type > 7 && b->type < 13))
+				if ((a->type > 0 && a->type < 5) || (a->type > 7 && a->type < 13))
+					s->error = a->value;
 		}
 		b = b->next;
 	}
