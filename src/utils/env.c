@@ -6,7 +6,7 @@
 /*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/16 18:54:25 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/10/25 10:12:44 by vitosant         ###   ########.fr       */
+/*   Updated: 2025/11/01 10:28:38 by vitosant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,22 @@
 char	*get_env(char **env, char *var)
 {
 	int		index;
-	int		len;
-	char	*result;
+	char	*equal;
 
 	index = 0;
-	len = ft_strlen(var);
 	while (env[index])
 	{
-		if ((env[index][len] == '=' || !env[index][len])
-			&& !ft_strncmp(env[index], var, len))
+		equal = ft_strchr(env[index], '=');
+		if (equal)
+			*equal = '\0';
+		if (!ft_strcmp(env[index], var))
 		{
-			result = env[index] + len + 1;
-			return (result);
+			if (equal)
+				*equal = '=';
+			return (equal + 1);
 		}
+		if (equal)
+			*equal = '=';
 		index++;
 	}
 	return (NULL);
