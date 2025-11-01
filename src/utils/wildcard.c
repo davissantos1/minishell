@@ -6,7 +6,7 @@
 /*   By: dasimoes <dasimoes@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/25 19:53:16 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/10/31 16:54:05 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/11/01 19:39:47 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,5 +60,6 @@ int	dir_len(char *dir)
 	stream = opendir(dir);
 	while (readdir(stream))
 		size++;
+	closedir(stream);
 	return (size);
 }

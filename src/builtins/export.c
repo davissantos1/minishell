@@ -6,13 +6,12 @@
 /*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/20 08:53:11 by vitosant          #+#    #+#             */
-/*   Updated: 2025/10/31 08:33:40 by vitosant         ###   ########.fr       */
+/*   Updated: 2025/11/01 20:03:28 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	sort_env(char **env);
 static void	print_vars(t_minishell *shell, t_cmd *cmd);
 static void	maybe_add(t_minishell *shell, char *var);
 static int	no_value(t_minishell *shell, char *str);
@@ -59,8 +58,8 @@ static void	print_vars(t_minishell *shell, t_cmd *cmd)
 	if (!env)
 		return ;
 	tmp_vars = shell->tmp_var;
-	sort_env(env);
-	sort_env(tmp_vars);
+	sort_table(env);
+	sort_table(tmp_vars);
 	print_mtx(env, fd);
 	print_mtx(shell->tmp_var, fd);
 	ft_mtxfree(env);
@@ -83,33 +82,6 @@ static int	no_value(t_minishell *shell, char *str)
 		exit_code(shell, errno);
 	shell->tmp_var = new_tmp;
 	return (1);
-}
-
-static void	sort_env(char **env)
-{
-	char	*tmp;
-	int		len;
-	int		i;
-	int		j;
-
-	len = ft_mtxlen(env);
-	i = 0;
-	j = 0;
-	while (i < len)
-	{
-		j = i + 1;
-		while (j < len)
-		{
-			if (ft_strcmp(env[i], env[j]) > 0)
-			{
-				tmp = env[i];
-				env[i] = env[j];
-				env[j] = tmp;
-			}
-			j++;
-		}
-		i++;
-	}
 }
 
 static void	maybe_add(t_minishell *shell, char *var)

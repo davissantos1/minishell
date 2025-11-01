@@ -31,6 +31,7 @@ SRC= \
 	src/utils/build_path.c \
 	src/utils/find_path.c \
 	src/utils/env.c \
+	src/utils/sort.c \
 	src/utils/exist.c \
 	src/utils/wildcard.c \
 	src/utils/close_fdlst.c \
