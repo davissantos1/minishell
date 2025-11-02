@@ -13,19 +13,19 @@
 static char	*wild_aux(t_minishell *s, char *str, char *name)
 {
 	char	*wild;
+	char	*path;
 
 	wild = NULL;
-	if (check_wildcard_char(str))
+	path = get_wildcard_path(s, str);
+	if (check_wildcard_char(str + ft_strlen(path)))
 	{
 		if (name[0] != '.')
 			wild = ft_strdup(name);
-		else
-			wild = ft_strdup("");
 	}
-	else if (check_wildcard_str(str, name))
+	else if (check_wildcard_str(str + ft_strlen(path), name))
 		wild = ft_strdup(name);
-	else
-		wild = ft_strdup("");
+	if (!wild)
+		return (NULL);
 	if (!gc_addptr(wild, s->gc, GC_TOKEN))
 		exit_code(s, EXIT_FAILURE);
 	return (wild);
@@ -52,12 +52,12 @@ static char	**expand_wildcard(t_minishell *s, char *str)
 		if (!cur)
 			break ;
 		res[index] = wild_aux(s, str, (char *)cur->d_name);
-		index++;
+		if (res[index])
+			index++;
 	}
 	closedir(dir);
 	if (errno)
 		exit_code(s, EXIT_FAILURE);
-	sort_table(res);
 	return (res);
 }
 
@@ -66,6 +66,12 @@ void	handle_wildcard(t_minishell *s, char ***result, int pos)
 	char	**res;
 
 	res = expand_wildcard(s, (*result)[pos]);
+	sort_table(res);
+	if (!gc_addmtx(res, s->gc, GC_TOKEN))
+		exit_code(s, EXIT_FAILURE);
+	(*result)[pos] = ft_strdup("");
+	if (!gc_addmtx(*result, s->gc, GC_TOKEN))
+		exit_code(s, EXIT_FAILURE);
 	*result = ft_mtxinsert(*result, res, pos);
 	if (!gc_addmtx(*result, s->gc, GC_TOKEN))
 		exit_code(s, EXIT_FAILURE);

@@ -6,7 +6,7 @@
 /*   By: dasimoes <dasimoes@42sp.org.br>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 16:35:01 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/11/01 20:03:14 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/11/02 12:21:36 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -218,5 +218,6 @@ void		expand_redirect(t_minishell *s, t_redir *redir);
 char		*find_quotes(char *str);
 int			expand_check_quotes(char *str);
 void		sort_table(char **table);
+char		*get_wildcard_path(t_minishell *s, char *str);
 
 #endif
