@@ -80,7 +80,8 @@ void	handle_wildcard(t_minishell *s, char ***result, int pos)
 	sort_table(res);
 	if (!gc_addmtx(res, s->gc, GC_TOKEN))
 		exit_code(s, EXIT_FAILURE);
-	(*result)[pos] = ft_strdup("");
+	if (res[0])
+		(*result)[pos] = ft_strdup("");
 	if (!gc_addmtx(*result, s->gc, GC_TOKEN))
 		exit_code(s, EXIT_FAILURE);
 	*result = ft_mtxinsert(*result, res, pos);
