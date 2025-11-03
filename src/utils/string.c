@@ -6,7 +6,7 @@
 /*   By: dasimoes <dasimoes@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 15:45:56 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/10/03 19:26:59 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/11/02 22:22:27 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,4 +37,20 @@ char	*av_convert(t_minishell *s, char **av)
 	if (!gc_addptr(conv, s->gc, GC_TEMP))
 		exit_code(s, EXIT_FAILURE);
 	return (conv);
+}
+
+int	wild_size(char *str)
+{
+	int	size;
+	int	i;
+
+	i = 0;
+	size = 0;
+	while (str[i])
+	{
+		if (str[i] != '*')
+			size++;
+		i++;
+	}
+	return (size);
 }

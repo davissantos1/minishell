@@ -10,7 +10,21 @@
 
 #include "minishell.h"
 
-static char	*wild_aux(t_minishell *s, char *str, char *name)
+static char	*wildcard_flow(char *name, char *path)
+{
+	if (!ft_strcmp(path, "."))
+	{
+		if (name[0] == '.')
+			return (ft_strdup(name));
+	}
+	else if (!ft_strcmp(path, ".."))
+		return (path);
+	else if (name[0] != '.')
+		return (ft_strjoin(path, name));
+	return (NULL);
+}
+
+static char	*expand_wildcard_aux(t_minishell *s, char *str, char *name)
 {
 	char	*wild;
 	char	*path;
@@ -18,12 +32,9 @@ static char	*wild_aux(t_minishell *s, char *str, char *name)
 	wild = NULL;
 	path = get_wildcard_path(s, str);
 	if (check_wildcard_char(str + ft_strlen(path)))
-	{
-		if (name[0] != '.')
-			wild = ft_strdup(name);
-	}
-	else if (check_wildcard_str(str + ft_strlen(path), name))
-		wild = ft_strdup(name);
+		wild = wildcard_flow(name, path);
+	else if (check_wildcard_str(s, str + ft_strlen(path), name))
+		wild = ft_strjoin(path, name);
 	if (!wild)
 		return (NULL);
 	if (!gc_addptr(wild, s->gc, GC_TOKEN))
@@ -40,10 +51,10 @@ static char	**expand_wildcard(t_minishell *s, char *str)
 
 	index = 0;
 	errno = 0;
-	res = gc_calloc((dir_len(".") + 1) * sizeof(char *), s->gc, GC_TOKEN);
+	res = gc_calloc((dlen(gdir(s, str)) + 1) * sizeof(char *), s->gc, GC_TOKEN);
 	if (!res)
 		exit_code(s, EXIT_FAILURE);
-	dir = opendir(getenv("PWD"));
+	dir = opendir(gdir(s, str));
 	if (!dir && errno)
 		exit_code(s, EXIT_FAILURE);
 	while (1)
@@ -51,7 +62,7 @@ static char	**expand_wildcard(t_minishell *s, char *str)
 		cur = readdir(dir);
 		if (!cur)
 			break ;
-		res[index] = wild_aux(s, str, (char *)cur->d_name);
+		res[index] = expand_wildcard_aux(s, str, (char *)cur->d_name);
 		if (res[index])
 			index++;
 	}

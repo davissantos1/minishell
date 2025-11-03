@@ -6,7 +6,7 @@
 /*   By: dasimoes <dasimoes@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/25 19:53:16 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/11/02 12:27:46 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/11/02 22:31:20 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,40 +28,62 @@ int	check_wildcard_char(char *str)
 	return (1);
 }
 
-int	check_wildcard_str(char *str, char *match)
+int	check_wildcard_str(t_minishell *s, char *str, char *match)
 {
-	int	index;
+	char	*normalized;
+	int		size;
+	int		i;
+	int		j;
 
-	index = 0;
-	if (!str)
-		return (0);
-	if (ft_strlen(str) != ft_strlen(match))
-		return (0);
-	while (str[index])
+	i = -1;
+	j = -1;
+	size = wild_size(str);
+	normalized = gc_calloc((size + 1) * sizeof(char *), s->gc, GC_TOKEN);
+	if (!normalized)
+		exit_code(s, EXIT_FAILURE);
+	while (str[++i])
 	{
-		if (str[index] == '*')
-			index++;
-		else
-		{
-			if (str[index] != match[index])
-				return (0);
-			index++;
-		}
+		if (str[i] != '*')
+			normalized[++j] = str[i];
 	}
-	return (1);
+	if (ft_strnstr(match, normalized, ft_strlen(match)))
+		return (1);
+	return (0);
 }
 
-int	dir_len(char *dir)
+int	dlen(char *dir)
 {
-	int	size;
-	DIR	*stream;
+	DIR		*stream;
+	int		size;
 
 	size = 0;
+	if (!dir[0])
+		dir = ".";
 	stream = opendir(dir);
 	while (readdir(stream))
 		size++;
 	closedir(stream);
 	return (size);
+}
+
+char	*gdir(t_minishell *s, char *str)
+{
+	char	*path;
+	char	*wild;
+
+	wild = ft_strchr(str, '*');
+	if (!(wild - str))
+	{
+		path = ft_strdup(".");
+		if (!gc_addptr(path, s->gc, GC_TOKEN))
+			exit_code(s, EXIT_FAILURE);
+		return (path);
+	}
+	path = gc_calloc((wild - str + 1) * sizeof(char *), s->gc, GC_TOKEN);
+	if (!path)
+		exit_code(s, EXIT_FAILURE);
+	path = ft_memcpy(path, str, wild - str);
+	return (path);
 }
 
 char	*get_wildcard_path(t_minishell *s, char *str)
@@ -77,9 +99,9 @@ char	*get_wildcard_path(t_minishell *s, char *str)
 			exit_code(s, EXIT_FAILURE);
 		return (path);
 	}
-	path = gc_calloc((wild - str) * sizeof(char *), s->gc, GC_TOKEN);
+	path = gc_calloc((wild - str + 1) * sizeof(char *), s->gc, GC_TOKEN);
 	if (!path)
 		exit_code(s, EXIT_FAILURE);
-	path = ft_memcpy(path, str, wild - str - 1);
+	path = ft_memcpy(path, str, wild - str);
 	return (path);
 }
