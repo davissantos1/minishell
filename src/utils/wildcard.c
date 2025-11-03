@@ -6,7 +6,7 @@
 /*   By: dasimoes <dasimoes@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/25 19:53:16 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/11/02 22:31:20 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/11/02 23:07:14 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ int	check_wildcard_char(char *str)
 int	check_wildcard_str(t_minishell *s, char *str, char *match)
 {
 	char	*normalized;
+	char	*found;
 	int		size;
 	int		i;
 	int		j;
@@ -46,7 +47,10 @@ int	check_wildcard_str(t_minishell *s, char *str, char *match)
 		if (str[i] != '*')
 			normalized[++j] = str[i];
 	}
-	if (ft_strnstr(match, normalized, ft_strlen(match)))
+	found = ft_strnstr(match, normalized, ft_strlen(match)); 
+	if (found && *(found + ft_strlen(found)) == '*')
+		return (1);
+	if (found && *(found + ft_strlen(found)) == '\0')
 		return (1);
 	return (0);
 }
