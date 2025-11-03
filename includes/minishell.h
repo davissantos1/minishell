@@ -6,7 +6,7 @@
 /*   By: dasimoes <dasimoes@42sp.org.br>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 16:35:01 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/11/02 22:20:42 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/11/03 20:05:39 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -204,7 +204,7 @@ char		*token_special(t_minishell *s, int i);
 char		*token_word(t_minishell *s, int i);
 char		*token_quotes(t_minishell *s, int i);
 int			check_wildcard_char(char *str);
-int			check_wildcard_str(t_minishell *s, char *str, char *match);
+int			check_wildcard_str(char *input, char *match);
 int			dlen(char *dir);
 char		*find_break(char *str);
 char		*expand_tilde(t_minishell *s, char *var);
@@ -220,6 +220,7 @@ int			expand_check_quotes(char *str);
 void		sort_table(char **table);
 char		*gdir(t_minishell *s, char *str);
 char		*get_wildcard_path(t_minishell *s, char *str);
-int			wild_size(char *str);
+char		*remove_duplicate(t_minishell *s, char str, char c);
+int			match_str(char *input, char *match);
 
 #endif

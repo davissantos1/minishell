@@ -6,7 +6,7 @@
 /*   By: dasimoes <dasimoes@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 15:45:56 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/11/02 22:22:27 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/11/03 20:04:30 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,18 +39,22 @@ char	*av_convert(t_minishell *s, char **av)
 	return (conv);
 }
 
-int	wild_size(char *str)
+int	match_str(char *input, char *match)
 {
-	int	size;
-	int	i;
+	int	result;
 
-	i = 0;
-	size = 0;
-	while (str[i])
+	result = 0;
+	if (*input == '\0')
+		return (*match == '\0');
+	if (*input == '*')
 	{
-		if (str[i] != '*')
-			size++;
-		i++;
+		if (match_str(input + 1, match))
+			return (1);
+		if (*match && *match != *input)
+			return (match_str(input, match + 1));
+		return (0);
 	}
-	return (size);
+	if (*match && *match == *input)
+		return (match_str(input + 1, match + 1));
+	return (result);
 }

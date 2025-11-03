@@ -33,7 +33,7 @@ static char	*expand_wildcard_aux(t_minishell *s, char *str, char *name)
 	path = get_wildcard_path(s, str);
 	if (check_wildcard_char(str + ft_strlen(path)))
 		wild = wildcard_flow(name, path);
-	else if (check_wildcard_str(s, str + ft_strlen(path), name))
+	else if (check_wildcard_str(str + ft_strlen(path), name))
 		wild = ft_strjoin(path, name);
 	if (!wild)
 		return (NULL);

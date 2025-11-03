@@ -6,7 +6,7 @@
 /*   By: dasimoes <dasimoes@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/25 19:53:16 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/11/02 23:07:14 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/11/03 20:05:19 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,31 +28,11 @@ int	check_wildcard_char(char *str)
 	return (1);
 }
 
-int	check_wildcard_str(t_minishell *s, char *str, char *match)
+int	check_wildcard_str(char *input, char *match)
 {
-	char	*normalized;
-	char	*found;
-	int		size;
-	int		i;
-	int		j;
-
-	i = -1;
-	j = -1;
-	size = wild_size(str);
-	normalized = gc_calloc((size + 1) * sizeof(char *), s->gc, GC_TOKEN);
-	if (!normalized)
-		exit_code(s, EXIT_FAILURE);
-	while (str[++i])
-	{
-		if (str[i] != '*')
-			normalized[++j] = str[i];
-	}
-	found = ft_strnstr(match, normalized, ft_strlen(match)); 
-	if (found && *(found + ft_strlen(found)) == '*')
-		return (1);
-	if (found && *(found + ft_strlen(found)) == '\0')
-		return (1);
-	return (0);
+	if (match[0] == '.' && input[0] != '.')
+		return (0);
+	return (match_str(input, match));
 }
 
 int	dlen(char *dir)
