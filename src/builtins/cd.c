@@ -21,6 +21,7 @@ void	cd_builtin(t_minishell *shell, t_cmd *cmd)
 {
 	char	*varhome;
 
+	close_redir(shell, cmd);
 	if (!cmd->argv[1])
 	{
 		varhome = get_env(shell->env, "HOME");

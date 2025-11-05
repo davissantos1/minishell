@@ -21,6 +21,7 @@ void	env_builtin(t_minishell *shell, t_cmd *cmd)
 	if (!shell->lstfd)
 		fd = cmd->std_in;
 	env = shell->env;
+	close_redir(shell, cmd);
 	if (cmd->argv[1])
 	{
 		ft_putstr_fd("env: Too many arguments\n", 2);

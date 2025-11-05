@@ -59,4 +59,5 @@ static void	just_echo(t_minishell *shell, t_cmd *cmd, char **argv, int endln)
 	}
 	if (endln)
 		ft_putchar_fd('\n', fd);
+	close_redir(shell, cmd);
 }

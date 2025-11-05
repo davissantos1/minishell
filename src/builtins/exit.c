@@ -17,8 +17,9 @@ static void	just_exit(t_minishell *shell, t_cmd *cmd);
 
 void	exit_builtin(t_minishell *shell, t_cmd *cmd)
 {
-	if (cmd->std_out == 1)
-		ft_putendl_fd("exit", 2);
+	if (cmd->std_out == 1 && shell->lstfd == NULL)
+		ft_putendl_fd("exit", 1);
+	close_redir(shell, cmd);
 	just_exit(shell, cmd);
 	ft_putstr_fd("exit: too many arguments\n", 2);
 	pid_add(shell, NOT_FORKED, NOT_FORKED, 1 << 8);

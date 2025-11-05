@@ -25,6 +25,7 @@ void	unset_builtin(t_minishell *shell, t_cmd *cmd)
 		i++;
 	}
 	pid_add(shell, NOT_FORKED, NOT_FORKED, 0);
+	close_redir(shell, cmd);
 }
 
 static void	remove_var(t_minishell *shell, char *var)

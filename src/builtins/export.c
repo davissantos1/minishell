@@ -43,6 +43,7 @@ void	export_builtin(t_minishell *shell, t_cmd *cmd)
 		}
 	}
 	pid_add(shell, NOT_FORKED, NOT_FORKED, ret << 8);
+	close_redir(shell, cmd);
 }
 
 static void	print_vars(t_minishell *shell, t_cmd *cmd)

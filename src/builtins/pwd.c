@@ -25,8 +25,10 @@ void	pwd_builtin(t_minishell *shell, t_cmd *cmd)
 	{
 		perror("pwd");
 		pid_add(shell, NOT_FORKED, NOT_FORKED, errno << 8);
+		close_redir(shell, cmd);
 		return ;
 	}
 	ft_putendl_fd(cwd, fd);
+	close_redir(shell, cmd);
 	pid_add(shell, NOT_FORKED, NOT_FORKED, 0);
 }
