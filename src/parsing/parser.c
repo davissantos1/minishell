@@ -6,7 +6,7 @@
 /*   By: dasimoes <dasimoes@42sp.org.br>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 19:13:40 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/10/26 10:56:05 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/11/05 17:00:44 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,21 +55,13 @@ t_token	*parser_handler(t_token *start)
 
 void	parser(t_minishell *s)
 {
-	t_token	*start;
 	t_token	*end;
-	t_ast	*node;
 
 	if (!s->head)
 		return ;
-	start = s->head;
-	end = parser_handler(start);
-	s->root = node_handler(s, start, end);
-	start = end->next;
-	while (start->value)
-	{
-		end = parser_handler(start);
-		node = node_handler(s, start, end);
-		node_insert(&s->root, node);
-		start = end->next;
-	}
+	end = s->head;
+	while (end->type != TOKEN_EOL)
+		end = end->next;
+	s->root = parse_logic(s, s->head, end);
+	ast_print(s->root);
 }

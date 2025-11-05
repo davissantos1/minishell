@@ -6,7 +6,7 @@
 /*   By: dasimoes <dasimoes@42sp.org.br>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 16:35:01 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/11/03 20:05:39 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/11/05 16:59:14 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -222,5 +222,8 @@ char		*gdir(t_minishell *s, char *str);
 char		*get_wildcard_path(t_minishell *s, char *str);
 char		*remove_duplicate(t_minishell *s, char str, char c);
 int			match_str(char *input, char *match);
+t_ast		*parse_logic(t_minishell *s, t_token *start, t_token *end);
+t_ast		*parse_pipe(t_minishell *s, t_token *start, t_token *end);
+t_ast		*parse_command(t_minishell *s, t_token *start, t_token *end);
 
 #endif

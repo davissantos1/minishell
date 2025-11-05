@@ -12,6 +12,7 @@ SRC= \
 	src/parsing/validator.c \
 	src/parsing/wildcard.c \
 	src/utils/struct.c \
+	src/utils/parser.c \
 	src/utils/expander.c \
 	src/utils/subshell.c \
 	src/utils/ast.c \
