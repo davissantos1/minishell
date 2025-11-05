@@ -14,16 +14,18 @@
 
 void	handler(t_minishell *shell)
 {
+	if (g_signal)
+		shell->exit = g_signal + 128;
+	g_signal = 0;
 	find_heredoc(shell, shell->root);
 	build_path(shell);
-	if (shell->exit != 130)
+	if (g_signal != 2)
 		executor(shell, shell->root);
-	if (shell->lst_pid)
+	if (shell->lst_pid && g_signal != 2)
 		shell->exit = last_return(shell);
 	gc_free_tag(shell->gc, GC_PIDLIST);
 	gc_free_tag(shell->gc, GC_FDLIST);
 	gc_free_tag(shell->gc, GC_PATHS);
 	shell->paths = NULL;
-	printf("\n%i\n", g_signal);
-	//printf("%d\n", shell->exit);
+	g_signal = 0;
 }

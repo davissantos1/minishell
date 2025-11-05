@@ -18,19 +18,19 @@ void	signal_interrupt(int sig)
 {
 	if (sig == SIGINT)
 	{
-		write(1, "\n", 1);
+		write(STDOUT_FILENO, "\n", 1);
 		rl_replace_line("", 0);
 		rl_on_new_line();
+		rl_redisplay();
 		g_signal = (volatile sig_atomic_t) sig;
 	}
 }
 
 void	signal_child(int sig)
 {
-	g_signal = (volatile sig_atomic_t) sig;
-	printf("\n%i\n", g_signal);
-	while (waitpid(-1, NULL, WNOHANG) > 0)
-		;
+	if (sig)
+		while (waitpid(-1, NULL, WNOHANG) > 0)
+			;
 }
 
 void register_parent_signals(void)
@@ -52,6 +52,8 @@ void register_parent_signals(void)
 		perror("Minishell");
 	sa_quit.sa_handler = SIG_IGN;
 	sigemptyset(&sa_quit.sa_mask);
+	if (sigaction(SIGQUIT, &sa_quit, NULL) == -1)
+		perror("Minishell");
 	sa_int.sa_flags = 0;
 }
 
