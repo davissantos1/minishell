@@ -6,7 +6,7 @@
 /*   By: dasimoes <dasimoes@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/28 15:00:45 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/11/02 20:09:36 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/11/06 18:37:12 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ void	validate_duplicate(t_minishell *s)
 		a = b->next;
 		if (a)
 		{
-			if ((b->type > 0 && b->type < 5) || (b->type > 7 && b->type < 13))
-				if ((a->type > 0 && a->type < 5) || (a->type > 7 && a->type < 13))
+			if (token_check_range(b) > 0)
+				if (token_check_range(a) > 0)
 					s->error = a->value;
 		}
 		b = b->next;
@@ -36,7 +36,7 @@ void	validate_single(t_minishell *s)
 	t_token *t;
 	
 	t = s->head;
-	if ((t->type > 0 && t->type < 5) || (t->type > 7 && t->type < 13))
+	if (token_check_range(t) > 0)
 	{
 		if (t->type > 0 && t->type < 5)
 			s->error = "newline";
@@ -63,4 +63,32 @@ void	validate_terminal(t_minishell *s)
 		else
 			s->error = end->value;
 	}
+}
+
+void	validate_subshell(t_minishell *s)
+{
+	t_token		*cur;
+	int			rparen;
+	int			lparen;
+
+	rparen = 0;
+	lparen = 0;
+	cur = s->head;
+	while (cur)
+	{
+		if ((cur->type == TOKEN_LPAREN) || (cur->type == TOKEN_RPAREN))
+		{
+			if (cur->type == TOKEN_LPAREN)
+				lparen++;
+			if (cur->type == TOKEN_RPAREN)
+				rparen++;
+			if (cur->type == TOKEN_LPAREN && token_check_range(cur->prev) < 2)
+				s->error = cur->value;
+		}
+		if (s->error)
+			return ;
+		cur = cur->next;
+	}
+	if (rparen - lparen)
+		s->error = "syntax error: unexpected end of file";
 }

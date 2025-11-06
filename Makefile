@@ -14,7 +14,6 @@ SRC= \
 	src/utils/struct.c \
 	src/utils/parser.c \
 	src/utils/expander.c \
-	src/utils/subshell.c \
 	src/utils/ast.c \
 	src/utils/print.c \
 	src/utils/redirect.c \

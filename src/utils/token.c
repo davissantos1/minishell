@@ -6,7 +6,7 @@
 /*   By: dasimoes <dasimoes@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/30 15:42:28 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/10/25 21:40:50 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/11/06 16:12:52 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,4 +61,13 @@ int	token_size(t_token *start, t_token *end)
 			size++;
 	}
 	return (size);
+}
+
+int	token_check_range(t_token *token)
+{
+	if (token->type > 0 && token->type < 5)
+		return (1);
+	if (token->type > 9 && token->type < 13)
+		return (2);
+	return (0); 
 }

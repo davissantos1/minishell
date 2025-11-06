@@ -6,7 +6,7 @@
 /*   By: dasimoes <dasimoes@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 15:45:56 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/11/05 13:52:27 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/11/06 19:02:15 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,4 +54,26 @@ int	match_str(char *input, char *match)
 	if (*match && *match == *input)
 		return (match_str(input + 1, match + 1));
 	return (0);
+}
+
+char	*join_subshell(t_minishell *s, t_token *start)
+{
+	char		*join;
+	char		*temp;
+
+	join = ft_strdup("");
+	start = start->next;
+	while (start->type != TOKEN_RPAREN)
+	{
+		temp = join;
+		join = ft_strjoin(temp, start->value);
+		free(temp);
+		temp = join;
+		join = ft_strjoin(join, " ");
+		free(temp);
+		start = start->next;
+	}
+	if (!gc_addptr(join, s->gc, GC_AST))
+		exit_code(s, EXIT_FAILURE);
+	return (join);
 }

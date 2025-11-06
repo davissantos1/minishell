@@ -6,7 +6,7 @@
 /*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/30 11:48:35 by vitosant          #+#    #+#             */
-/*   Updated: 2025/10/31 09:23:50 by vitosant         ###   ########.fr       */
+/*   Updated: 2025/11/06 18:51:31 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,8 @@ static void	which_builtin(t_cmd *cmd);
 
 void	executor(t_minishell *shell, t_ast *node)
 {
-	if (node->type == NODE_CMD)
+	if (node->type == NODE_CMD || node->type == NODE_SUBSHELL)
 		try_exec(shell, node->data);
-	else if (node->type == NODE_SUBSHELL)
-		printf("subshell\n");
 	else if (node->type == NODE_AND)
 		and_node(shell, node);
 	else if (node->type == NODE_OR)
