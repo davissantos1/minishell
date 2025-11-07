@@ -61,6 +61,8 @@ NAME= minishell
 LIBFT_DIR= libft
 LIBFT= $(LIBFT_DIR)/libft.a
 LIBRL= -lreadline
+DESTDIR= $(HOME)/bin
+INSTALL_PATH= $(DESTDIR)/$(NAME)
 
 # Makeflags
 MAKEFLAGS += --no-print-directory
@@ -73,7 +75,12 @@ BLUE := \033[34m
 RESET := \033[0m
 
 # Rules
-all: $(NAME)
+all: $(INSTALL_PATH)
+
+$(INSTALL_PATH): $(NAME)
+	@echo " 📁 ${RED}Installing:${RESET} ${INSTALL_PATH}"
+	@mkdir -p $(DESTDIR)
+	@install -m 755 $(NAME) $(DESTDIR)/
 
 $(LIBFT):
 	@echo " 📚 ${BLUE}Compiling:${RESET} libft"
@@ -101,6 +108,10 @@ fclean: clean
 	@echo " 💣 ${YELLOW}Cleaning: ${RESET}everything"
 	@rm -rf $(NAME)
 	@$(MAKE) -C $(LIBFT_DIR) fclean
+
+uninstall:
+	@echo " 📁 ${RED}Uninstalling:${RESET} ${INSTALL_PATH}"
+	@rm -f $(INSTALL_PATH)
 
 re: fclean all
 

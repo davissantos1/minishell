@@ -6,7 +6,7 @@
 /*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 21:32:55 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/11/01 16:41:14 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/11/07 15:35:51 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,8 @@ void	expand_redirect(t_minishell *s, t_redir *redir)
 			cur->file = expand_quotes(s, cur->file);
 		else if (dol)
 			cur->file = expand_var(s, cur->file);
+		else if (ft_strchr(cur->file, '~'))
+			cur->file = expand_tilde(s, cur->file);
 		else if (ft_strchr(cur->file, '*'))
 			handle_wildcard(s, NULL, 0);
 		else
@@ -122,6 +124,8 @@ char	**expand_argv(t_minishell *s, char **av)
 			result[i] = expand_quotes(s, av[i]);
 		else if (dol)
 			result[i] = expand_var(s, av[i]);
+		else if (ft_strchr(av[i], '~'))
+			result[i] = expand_tilde(s, av[i]);
 		else
 			result[i] = ft_strdup(av[i]);
 		if (ft_strchr(av[i], '*'))

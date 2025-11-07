@@ -6,7 +6,7 @@
 /*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/26 11:16:48 by vitosant          #+#    #+#             */
-/*   Updated: 2025/11/06 19:00:00 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/11/07 15:59:24 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ t_minishell	*shell_init(char **env)
 	if (!shell)
 		exit_code(NULL, EXIT_FAILURE);
 	shell->gc = garbage;
-	shell->path = ft_strjoin(getcwd(NULL, 0), "/minishell");
+	shell->path = ft_strjoin(getenv("HOME"), "/bin/minishell");
 	shell->tmp_var = gc_calloc(sizeof(char *), garbage, GC_LOCALVARS);
 	if (!shell->path)
 		exit_code(shell, EXIT_FAILURE);
