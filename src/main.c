@@ -37,7 +37,7 @@ int	shell_process(t_minishell *shell, char *input)
 	if (shell_read(shell, input) == -1)
 		return (-1);
 	lexer(shell);
-	token_print(shell);
+//	token_print(shell);
 	token_validate(shell);
 	if (shell->error || !shell->head )
 	{

@@ -70,7 +70,7 @@ char	*expand_special(t_minishell *s, char *var)
 		if (is_space(var[1]) || !var[1])
 			return (ft_strdup("$"));
 		if (var[1] == '?') 
-			return (ft_itoa(s->exit + g_signal));
+			return (ft_itoa(s->exit));
 		if (var[1] == '$')
 			return (ft_strdup("PID"));
 		if (var[1] == '0')
