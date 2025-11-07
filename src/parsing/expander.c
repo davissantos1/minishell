@@ -6,53 +6,11 @@
 /*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 21:32:55 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/11/07 15:35:51 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/11/07 17:23:25 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-static char	*expand_var_aux(t_minishell *s, char *var, char *dollar, char *end)
-{
-	char	*expand;
-	char	*preffix;
-	char	*suffix;
-	char	*temp;
-
-	preffix = ft_substr(var, 0, dollar - var);
-	suffix = ft_substr(var, end - var, var + ft_strlen(var) - end);
-	temp = expand_special(s, dollar);
-	expand = ft_strjoin(preffix, temp);
-	free(temp);
-	temp = expand;
-	expand = ft_strjoin(expand, suffix);
-	free(temp);
-	free(preffix);
-	free(suffix);
-	return (expand);
-}
-
-static char	*expand_var(t_minishell *s, char *var)
-{
-	char	*expand;
-	char	*dollar;
-	char	*end;
-
-	end = NULL;
-	expand = NULL;
-	if (expand_check(var))
-	{
-		var = remove_quotes(s, var);
-		dollar = ft_strchr(var, '$');
-		if (dollar)
-			end = find_break(dollar + 1);
-		expand = expand_var_aux(s, var, dollar, end);
-		if (!gc_addptr(expand, s->gc, GC_AST))
-			exit_code(s, EXIT_FAILURE);
-		return (expand);
-	}
-	return (var);
-}
 
 static char	*expand_quotes(t_minishell *s, char *str)
 {
@@ -105,6 +63,26 @@ void	expand_redirect(t_minishell *s, t_redir *redir)
 			exit_code(s, errno);
 		cur = cur->next;
 	}
+}
+
+char	*expand_line(t_minishell *s, char *line)
+{
+	char	*result;
+	char	*dol;
+
+	result = gc_calloc((ft_strlen(line) + 1), s->gc, GC_AST);
+	if (!result)
+		exit_code(s, EXIT_FAILURE);
+	if (!line)
+		return (result);
+	dol = ft_strchr(line, '$');
+	if (dol)
+		result = expand_var(s, line);
+	else
+		result = ft_strdup(line);
+	if (!gc_addptr(result, s->gc, GC_AST))
+		exit_code(s, EXIT_FAILURE);
+	return (result);
 }
 
 char	**expand_argv(t_minishell *s, char **av)

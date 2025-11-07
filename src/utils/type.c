@@ -6,7 +6,7 @@
 /*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 11:47:45 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/10/25 19:10:15 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/11/07 16:58:21 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static	int	token_type_aux(char *token)
 	return (TOKEN_WORD);
 }
 
-int		token_type(char *token)
+int	token_type(char *token)
 {
 	if (!token)
 		return (TOKEN_EOL);

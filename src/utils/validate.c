@@ -6,7 +6,7 @@
 /*   By: dasimoes <dasimoes@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/28 15:00:45 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/11/07 16:46:37 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/11/07 17:08:32 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ void	validate_duplicate(t_minishell *s)
 
 void	validate_single(t_minishell *s)
 {
-	t_token *t;
-	
+	t_token	*t;
+
 	t = s->head;
 	if (token_check_range(t) > 0)
 	{

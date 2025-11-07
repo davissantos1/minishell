@@ -6,7 +6,7 @@
 /*   By: dasimoes <dasimoes@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/30 13:38:35 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/10/30 14:00:10 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/11/07 16:53:06 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,10 @@ char	**ft_mtxinsert(char **src, char **insert, int pos)
 	if (!result)
 		return (NULL);
 	while (++i < pos)
-		result[i] = ft_strdup(src[i]);	
+		result[i] = ft_strdup(src[i]);
 	while (insert[j])
 		result[i++] = ft_strdup(insert[j++]);
 	while (src[pos])
 		result[i++] = ft_strdup(src[pos++]);
 	return (result);
 }
-	

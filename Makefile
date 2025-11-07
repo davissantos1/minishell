@@ -8,6 +8,7 @@ SRC= \
 	src/parsing/lexer.c \
 	src/parsing/parser.c \
 	src/parsing/expander.c \
+	src/parsing/expand_var.c \
 	src/parsing/tokenizer.c \
 	src/parsing/validator.c \
 	src/parsing/wildcard.c \

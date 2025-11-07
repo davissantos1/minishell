@@ -6,7 +6,7 @@
 /*   By: dasimoes <dasimoes@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 10:55:20 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/10/30 20:10:29 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/11/07 16:55:18 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ char	*remove_quotes(t_minishell *s, char *t)
 	quotes = find_quotes(t);
 	if (!quotes)
 		return (t);
-	result = gc_calloc((word_size(t, *quotes) + 1)* sizeof(char), s->gc, GC_TOKEN);
+	result = gc_calloc((word_size(t, *quotes) + 1), s->gc, GC_TOKEN);
 	if (!result)
 		exit_code(s, 2);
 	if (only_quotes(t, *quotes))
