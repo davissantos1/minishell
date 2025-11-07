@@ -6,7 +6,7 @@
 /*   By: dasimoes <dasimoes@42sp.org.br>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 19:13:40 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/11/05 17:00:44 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/11/07 17:40:46 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,5 +63,4 @@ void	parser(t_minishell *s)
 	while (end->type != TOKEN_EOL)
 		end = end->next;
 	s->root = parse_logic(s, s->head, end);
-	ast_print(s->root);
 }
