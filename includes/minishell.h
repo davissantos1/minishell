@@ -6,7 +6,7 @@
 /*   By: dasimoes <dasimoes@42sp.org.br>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 16:35:01 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/11/06 18:26:18 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/11/07 16:23:43 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -211,5 +211,6 @@ t_ast		*parse_command(t_minishell *s, t_token *start, t_token *end);
 void		validate_subshell(t_minishell *s);
 int			token_check_range(t_token *token);
 char		*join_subshell(t_minishell *s, t_token *start);
+void		validate_quotes(t_minishell *s);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: dasimoes <dasimoes@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/28 15:00:45 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/11/06 18:37:12 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/11/07 16:46:37 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,4 +91,35 @@ void	validate_subshell(t_minishell *s)
 	}
 	if (rparen - lparen)
 		s->error = "syntax error: unexpected end of file";
+}
+
+void	validate_quotes(t_minishell *s)
+{
+	t_token	*cur;
+	int		open;
+	int		index;
+	char	quotes;
+
+	cur = s->head;
+	while (cur)
+	{
+		index = -1;
+		open = 0;
+		while (cur->value && cur->value[++index])
+		{
+			if (cur->value[index] == '\'' || cur->value[index] == '\"')
+			{
+				if (!open)
+				{
+					open = 1;
+					quotes = cur->value[index];
+				}
+				else if (cur->value[index] == quotes && open)
+					open = 0;
+			}
+		}
+		if (open)
+			s->error = "<newline>";
+		cur = cur->next;
+	}
 }
