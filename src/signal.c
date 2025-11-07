@@ -3,22 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dasimoes <dasimoes@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 13:53:21 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/11/01 16:19:27 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/11/07 14:30:36 by vitosant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-volatile sig_atomic_t g_signal = 0;
+volatile sig_atomic_t	g_signal = 0;
 
 void	signal_interrupt(int sig)
 {
 	if (sig == SIGINT)
 	{
-		write(STDOUT_FILENO, "\n", 1);
+		ft_putchar_fd('\n', 1);
 		rl_replace_line("", 0);
 		rl_on_new_line();
 		rl_redisplay();
@@ -26,40 +26,14 @@ void	signal_interrupt(int sig)
 	}
 }
 
-void	signal_child(int sig)
+void	register_parent_signals(void)
 {
-	if (sig)
-		while (waitpid(-1, NULL, WNOHANG) > 0)
-			;
-}
-
-void register_parent_signals(void)
-{
-	struct sigaction sa_int;
-	struct sigaction sa_quit;
-	struct sigaction sa_child;
-
-	rl_catch_signals = 0;
-	sa_int.sa_handler = &signal_interrupt;
-	sigemptyset(&sa_int.sa_mask);
-	sa_int.sa_flags = 0;
-	if (sigaction(SIGINT, &sa_int, NULL) == -1)
-		perror("Minishell");
-	sa_child.sa_handler = &signal_child;
-	sigemptyset(&sa_child.sa_mask);
-	sa_child.sa_flags = SA_RESTART;
-	if (sigaction(SIGCHLD, &sa_child, NULL) == -1)
-		perror("Minishell");
-	sa_quit.sa_handler = SIG_IGN;
-	sigemptyset(&sa_quit.sa_mask);
-	if (sigaction(SIGQUIT, &sa_quit, NULL) == -1)
-		perror("Minishell");
-	sa_int.sa_flags = 0;
+	signal(SIGINT, signal_interrupt);
+	signal(SIGQUIT, SIG_IGN);
 }
 
 void	register_child_signals(void)
 {
 	signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_DFL);
-	signal(SIGCHLD, SIG_DFL);
 }

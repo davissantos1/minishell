@@ -6,13 +6,14 @@
 /*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 14:24:53 by vitosant          #+#    #+#             */
-/*   Updated: 2025/10/09 12:41:28 by vitosant         ###   ########.fr       */
+/*   Updated: 2025/11/07 14:23:09 by vitosant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 static void	tmp_file(char path[PATH_MAX]);
+static void	warning(char *limiter);
 
 int	heredoc(char *limiter)
 {
@@ -21,19 +22,24 @@ int	heredoc(char *limiter)
 	int		fd;
 
 	tmp_file(path);
-	fd = open(path, O_CREAT | O_TRUNC | O_APPEND | O_WRONLY, 0644);
+	fd = open(path, O_CREAT | O_TRUNC | O_WRONLY, 0644);
 	while (1)
 	{
 		str = readline("> ");
-		if (str == NULL || !ft_strcmp(str, limiter))
+		if (g_signal || str == NULL || !ft_strcmp(str, limiter))
 			break ;
 		ft_putendl_fd(str, fd);
 		free(str);
 	}
 	if (str)
 		free(str);
+	else
+		warning(limiter);
 	close(fd);
-	fd = open(path, O_RDONLY);
+	if (g_signal)
+		fd = -1;
+	else
+		fd = open(path, O_RDONLY);
 	unlink(path);
 	return (fd);
 }
@@ -53,4 +59,12 @@ static void	tmp_file(char path[PATH_MAX])
 		num++;
 		free(str);
 	}
+}
+
+static void	warning(char *limiter)
+{
+	ft_putstr_fd("warning: here-document delimited by end-of-file", 2);
+	ft_putstr_fd(" (wanted `", 2);
+	ft_putstr_fd(limiter, 2);
+	ft_putendl_fd("')", 2);
 }
