@@ -6,7 +6,7 @@
 /*   By: dasimoes <dasimoes@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/25 15:45:28 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/10/31 14:11:19 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/11/05 19:54:25 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ char	*token_word(t_minishell *s, int i)
 			break ;
 		else if (s->input[j] == '$')
 			dollar++;
-		if (dollar == 2)
+		if (dollar == 2 || s->input[j] == ')')
 			break ;
 		j++;
 	}

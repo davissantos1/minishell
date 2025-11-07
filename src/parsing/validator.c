@@ -6,7 +6,7 @@
 /*   By: dasimoes <dasimoes@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/25 15:38:30 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/10/28 22:20:43 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/11/06 15:18:09 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,4 +25,5 @@ void	token_validate(t_minishell *s)
 	}
 	validate_duplicate(s);
 	validate_terminal(s);
+	validate_subshell(s);
 }

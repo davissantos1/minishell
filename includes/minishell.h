@@ -6,7 +6,7 @@
 /*   By: dasimoes <dasimoes@42sp.org.br>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 16:35:01 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/11/05 16:59:14 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/11/06 18:26:18 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,23 +134,6 @@ typedef struct s_cmd
 	t_redir		*redir;
 }	t_cmd;
 
-typedef struct s_subshell
-{
-	char		*input;
-	int			std_in;
-	int			std_out;
-}	t_subshell;
-
-//typedef struct s_pipe
-//{
-//	// to be defined
-//}	t_pipe;
-//
-//typedef struct s_logic
-//{
-//	// to be defined
-//}	t_logic;
-
 //Prototypes
 # include "redir.h"
 # include "executor.h"
@@ -183,7 +166,7 @@ t_ast		*cmd_node(t_minishell *s, t_token *start, t_token *end);
 t_ast		*subshell_node(t_minishell *s, t_token *start, t_token *end);
 t_ast		*operator_node(t_minishell *s, t_token *token);
 void		ast_print(t_ast *root);
-t_subshell	*subshell_create(t_minishell *s);
+t_cmd		*subshell_create(t_minishell *s);
 int			node_type(int token_type);
 int			redir_type(int token_type);
 void		node_insert(t_ast **root, t_ast *node);
@@ -225,5 +208,8 @@ int			match_str(char *input, char *match);
 t_ast		*parse_logic(t_minishell *s, t_token *start, t_token *end);
 t_ast		*parse_pipe(t_minishell *s, t_token *start, t_token *end);
 t_ast		*parse_command(t_minishell *s, t_token *start, t_token *end);
+void		validate_subshell(t_minishell *s);
+int			token_check_range(t_token *token);
+char		*join_subshell(t_minishell *s, t_token *start);
 
 #endif
