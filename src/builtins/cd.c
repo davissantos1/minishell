@@ -6,7 +6,7 @@
 /*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/20 10:44:54 by vitosant          #+#    #+#             */
-/*   Updated: 2025/10/21 16:19:49 by vitosant         ###   ########.fr       */
+/*   Updated: 2025/11/07 12:40:37 by vitosant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ void	cd_builtin(t_minishell *shell, t_cmd *cmd)
 {
 	char	*varhome;
 
-	close_redir(shell, cmd);
 	if (!cmd->argv[1])
 	{
 		varhome = get_env(shell->env, "HOME");

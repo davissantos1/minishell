@@ -6,7 +6,7 @@
 /*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/18 19:31:10 by vitosant          #+#    #+#             */
-/*   Updated: 2025/10/23 14:31:21 by vitosant         ###   ########.fr       */
+/*   Updated: 2025/11/07 12:54:19 by vitosant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 static int	only_nums(char *str);
 static void	just_exit(t_minishell *shell, t_cmd *cmd);
+static void	credirs(t_minishell *shell, t_ast *node);
 
 void	exit_builtin(t_minishell *shell, t_cmd *cmd)
 {
 	if (cmd->std_out == 1 && shell->lstfd == NULL)
 		ft_putendl_fd("exit", 1);
-	close_redir(shell, cmd);
 	just_exit(shell, cmd);
 	ft_putstr_fd("exit: too many arguments\n", 2);
 	pid_add(shell, NOT_FORKED, NOT_FORKED, 1 << 8);
@@ -41,6 +41,7 @@ static void	just_exit(t_minishell *shell, t_cmd *cmd)
 	}
 	if (ret != 2 && cmd->argv[1] && cmd->argv[2])
 		return ;
+	credirs(shell, shell->root);
 	gc_free_all(shell->gc);
 	exit(ret);
 }
@@ -60,4 +61,14 @@ static int	only_nums(char *str)
 		str++;
 	}
 	return (1);
+}
+
+static void	credirs(t_minishell *shell, t_ast *node)
+{
+	if (node->type == NODE_CMD)
+		close_redir(shell, node->data);
+	if (node->left)
+		credirs(shell, node->left);
+	if (node->right)
+		credirs(shell, node->right);
 }

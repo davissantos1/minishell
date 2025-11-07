@@ -6,7 +6,7 @@
 /*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/10 11:47:50 by vitosant          #+#    #+#             */
-/*   Updated: 2025/10/30 12:20:30 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/11/07 12:50:51 by vitosant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void	builtin(t_minishell *shell, t_cmd *cmd)
 		else
 			pid_add(shell, pid, FORKED, FORKED);
 	}
+	close_redir(shell, cmd);
 }
 
 static void	child_process(t_minishell *shell, t_cmd *cmd, func	builtins[7])

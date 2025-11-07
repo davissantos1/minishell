@@ -6,7 +6,7 @@
 /*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/19 17:16:11 by vitosant          #+#    #+#             */
-/*   Updated: 2025/10/20 17:19:29 by vitosant         ###   ########.fr       */
+/*   Updated: 2025/11/07 12:40:04 by vitosant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ void	unset_builtin(t_minishell *shell, t_cmd *cmd)
 		i++;
 	}
 	pid_add(shell, NOT_FORKED, NOT_FORKED, 0);
-	close_redir(shell, cmd);
 }
 
 static void	remove_var(t_minishell *shell, char *var)

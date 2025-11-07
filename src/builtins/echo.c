@@ -6,7 +6,7 @@
 /*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 16:25:22 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/10/31 08:21:29 by vitosant         ###   ########.fr       */
+/*   Updated: 2025/11/07 13:21:52 by vitosant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,9 @@ static void	just_echo(t_minishell *shell, t_cmd *cmd, char **argv, int endln)
 	int	i;
 
 	i = 0;
-	fd = 1;
-	if (!shell->lstfd)
-		fd = cmd->std_out;
+	fd = cmd->std_out;
+	if (shell->lstfd)
+		fd = 1;
 	while (argv[i])
 	{
 		ft_putstr_fd(argv[i], fd);
