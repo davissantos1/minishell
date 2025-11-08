@@ -6,7 +6,7 @@
 /*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 16:35:01 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/11/08 16:27:13 by vitosant         ###   ########.fr       */
+/*   Updated: 2025/11/08 19:21:25 by vitosant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,5 +117,6 @@ char		*join_subshell(t_minishell *s, t_token *start);
 void		validate_quotes(t_minishell *s);
 char		*expand_var(t_minishell *s, char *var);
 char		*expand_line(t_minishell *s, char *line);
+char		*get_pid(t_minishell *shell);
 
 #endif

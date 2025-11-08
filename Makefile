@@ -40,6 +40,7 @@ SRC= \
 	src/utils/find_char.c \
 	src/utils/find_fdlst.c \
 	src/utils/validate_quotes.c \
+	src/utils/get_pid.c \
 	src/execution/and_handle.c \
 	src/execution/or_handle.c \
 	src/execution/builtin_handler.c \

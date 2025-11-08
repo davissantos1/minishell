@@ -6,7 +6,7 @@
 /*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 19:35:09 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/11/08 17:07:03 by vitosant         ###   ########.fr       */
+/*   Updated: 2025/11/08 19:21:00 by vitosant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ char	*expand_special(t_minishell *s, char *var)
 		if (var[1] == '?')
 			return (ft_itoa(s->exit));
 		if (var[1] == '$')
-			return (ft_strdup("PID"));
+			return (get_pid(s));
 		if (var[1] == '0')
 			return (ft_strdup(s->name));
 		env_var = get_env(s->env, &var[1]);
