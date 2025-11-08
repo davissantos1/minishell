@@ -17,9 +17,13 @@ void	exit_code(t_minishell *shell, int code)
 	ft_putstr_fd("minishell: ", 2);
 	if (code == EXIT_FAILURE)
 		perror("minishell");
-	else if (code == errno)
+	else if (code == 2)
 	{
-		ft_putstr_fd(strerror(errno), 2);
+		ft_putstr_fd("syntax error near unexpected token `", 2);
+		if (shell->error)
+			ft_putstr_fd(shell->error, 2);
+		else
+			ft_putstr_fd(strerror(errno), 2);
 		ft_putstr_fd("'\n", 2);
 	}
 	if (shell)
