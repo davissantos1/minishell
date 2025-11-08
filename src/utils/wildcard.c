@@ -6,7 +6,7 @@
 /*   By: dasimoes <dasimoes@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/25 19:53:16 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/11/05 17:32:29 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/11/08 16:38:35 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ int	dlen(char *dir)
 	if (!dir[0])
 		dir = ".";
 	stream = opendir(dir);
+	if (!stream)
+		return (0);
 	while (readdir(stream))
 		size++;
 	closedir(stream);
@@ -53,20 +55,20 @@ int	dlen(char *dir)
 char	*gdir(t_minishell *s, char *str)
 {
 	char	*path;
-	char	*wild;
+	char	*slash;
 
-	wild = ft_strchr(str, '*');
-	if (!(wild - str))
+	slash = ft_strrchr(str, '/');
+	if (!slash)
 	{
 		path = ft_strdup(".");
 		if (!gc_addptr(path, s->gc, GC_TOKEN))
 			exit_code(s, EXIT_FAILURE);
 		return (path);
 	}
-	path = gc_calloc((wild - str + 1) * sizeof(char *), s->gc, GC_TOKEN);
+	path = gc_calloc((slash - str + 2) * sizeof(char *), s->gc, GC_TOKEN);
 	if (!path)
 		exit_code(s, EXIT_FAILURE);
-	path = ft_memcpy(path, str, wild - str);
+	path = ft_memcpy(path, str, slash - str + 1);
 	return (path);
 }
 

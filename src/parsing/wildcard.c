@@ -49,14 +49,14 @@ static char	**expand_wildcard(t_minishell *s, char *str)
 	char					**res;
 	int						index;
 
-	index = 0;
 	errno = 0;
+	index = 0;
 	res = gc_calloc((dlen(gdir(s, str)) + 1) * sizeof(char *), s->gc, GC_TOKEN);
 	if (!res)
 		exit_code(s, EXIT_FAILURE);
 	dir = opendir(gdir(s, str));
-	if (!dir && errno)
-		exit_code(s, EXIT_FAILURE);
+	if (!dir)
+		return (NULL);
 	while (1)
 	{
 		cur = readdir(dir);
@@ -67,8 +67,6 @@ static char	**expand_wildcard(t_minishell *s, char *str)
 			index++;
 	}
 	closedir(dir);
-	if (errno)
-		exit_code(s, EXIT_FAILURE);
 	return (res);
 }
 
@@ -77,6 +75,11 @@ void	handle_wildcard(t_minishell *s, char ***result, int pos)
 	char	**res;
 
 	res = expand_wildcard(s, (*result)[pos]);
+	if (!res)
+	{
+		error_code(s, EXIT_FAILURE);
+		return ;
+	}
 	sort_table(res, ALPHA_ORDER);
 	if (!gc_addmtx(res, s->gc, GC_TOKEN))
 		exit_code(s, EXIT_FAILURE);
