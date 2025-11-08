@@ -6,18 +6,18 @@
 /*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/10 11:47:50 by vitosant          #+#    #+#             */
-/*   Updated: 2025/11/07 12:50:51 by vitosant         ###   ########.fr       */
+/*   Updated: 2025/11/08 16:24:35 by vitosant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	fill_functions(func *functions);
-static void	child_process(t_minishell *shell, t_cmd *cmd, func	builtins[7]);
+static void	fill_functions(t_func *functions);
+static void	child_process(t_minishell *shell, t_cmd *cmd, t_func builtins[7]);
 
 void	builtin(t_minishell *shell, t_cmd *cmd)
 {
-	func	builtins[7];
+	t_func	builtins[7];
 	pid_t	pid;
 
 	fill_functions(builtins);
@@ -36,7 +36,7 @@ void	builtin(t_minishell *shell, t_cmd *cmd)
 	close_redir(shell, cmd);
 }
 
-static void	child_process(t_minishell *shell, t_cmd *cmd, func	builtins[7])
+static void	child_process(t_minishell *shell, t_cmd *cmd, t_func builtins[7])
 {
 	int		last_return;
 
@@ -52,7 +52,7 @@ static void	child_process(t_minishell *shell, t_cmd *cmd, func	builtins[7])
 	exit(last_return << 8);
 }
 
-static void	fill_functions(func *functions)
+static void	fill_functions(t_func *functions)
 {
 	functions[0] = echo_builtin;
 	functions[1] = cd_builtin;

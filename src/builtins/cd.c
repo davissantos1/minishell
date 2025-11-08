@@ -6,7 +6,7 @@
 /*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/20 10:44:54 by vitosant          #+#    #+#             */
-/*   Updated: 2025/11/07 12:40:37 by vitosant         ###   ########.fr       */
+/*   Updated: 2025/11/08 16:13:57 by vitosant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static void	disco(t_minishell *shell, char *dir)
 	{
 		if (dir)
 			perror("cd");
-		pid_add(shell, NOT_FORKED, NOT_FORKED, 1 << 8);
+		pid_add(shell, NOT_FORKED, NOT_FORKED, (dir != 0) << 8);
 		return ;
 	}
 	pid_add(shell, NOT_FORKED, NOT_FORKED, 0);

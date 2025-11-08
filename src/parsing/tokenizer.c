@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dasimoes <dasimoes@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/25 15:45:28 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/11/05 19:54:25 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/11/08 16:32:59 by vitosant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,23 +15,23 @@
 static char	*token_special_aux(t_minishell *s, int i)
 {
 	if (s->input[i] == '(')
-		return ft_strdup("(");
+		return (ft_strdup("("));
 	if (s->input[i] == ')')
-		return ft_strdup(")");
+		return (ft_strdup(")"));
 	if (s->input[i] == '>' && s->input[i + 1] == '>')
-		return ft_strdup(">>");
+		return (ft_strdup(">>"));
 	if (s->input[i] == '>' && s->input[i + 1] != '>')
-		return ft_strdup(">");
+		return (ft_strdup(">"));
 	if (s->input[i] == '<' && s->input[i + 1] == '<')
-		return ft_strdup("<<");
+		return (ft_strdup("<<"));
 	if (s->input[i] == '<' && s->input[i + 1] != '<')
-		return ft_strdup("<");
+		return (ft_strdup("<"));
 	if (s->input[i] == '|' && s->input[i + 1] == '|')
-		return ft_strdup("||");
+		return (ft_strdup("||"));
 	if (s->input[i] == '|' && s->input[i + 1] != '|')
-		return ft_strdup("|");
+		return (ft_strdup("|"));
 	if (s->input[i] == '&' && s->input[i + 1] == '&')
-		return ft_strdup("&&");
+		return (ft_strdup("&&"));
 	if (s->input[i] == '&' && s->input[i + 1] != '&')
 		s->error = "&";
 	return (NULL);
@@ -55,7 +55,6 @@ char	*token_special(t_minishell *s, int i)
 
 char	*token_word(t_minishell *s, int i)
 {
-	char	*token;
 	int		dollar;
 	int		closed;
 	int		j;
@@ -79,8 +78,7 @@ char	*token_word(t_minishell *s, int i)
 			break ;
 		j++;
 	}
-	token = ft_substr(s->input, i, j - i);
-	return (token);
+	return (ft_substr(s->input, i, j - i));
 }
 
 char	*token_quotes(t_minishell *s, int i)

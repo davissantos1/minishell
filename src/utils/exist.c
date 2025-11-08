@@ -3,13 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   exist.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dasimoes <dasimoes@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/25 15:28:33 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/10/30 16:57:12 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/11/08 17:06:31 by vitosant         ###   ########.fr       */
+/*                                                                            */
 /* ************************************************************************** */
-
-#include "minishell.h"
 
 int	is_space(char c)
 {

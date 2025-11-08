@@ -1,10 +1,12 @@
 /* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
 /*   wildcard.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dasimoes <dasimoes@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/25 21:04:28 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/11/01 20:06:32 by dasimoes         ###   ########.fr       */
+/*   Created: 2025/11/08 16:33:19 by vitosant          #+#    #+#             */
+/*   Updated: 2025/11/08 17:14:46 by vitosant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,15 +47,13 @@ static char	*expand_wildcard_aux(t_minishell *s, char *str, char *name)
 static char	**expand_wildcard(t_minishell *s, char *str)
 {
 	static struct dirent	*cur;
-	static	DIR 			*dir;
+	static DIR				*dir;
 	char					**res;
 	int						index;
 
 	errno = 0;
 	index = 0;
 	res = gc_calloc((dlen(gdir(s, str)) + 1) * sizeof(char *), s->gc, GC_TOKEN);
-	if (!res)
-		exit_code(s, EXIT_FAILURE);
 	dir = opendir(gdir(s, str));
 	if (!dir)
 		return (NULL);

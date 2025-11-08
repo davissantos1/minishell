@@ -6,7 +6,7 @@
 /*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/06 15:52:51 by vitosant          #+#    #+#             */
-/*   Updated: 2025/10/31 08:31:52 by vitosant         ###   ########.fr       */
+/*   Updated: 2025/11/08 16:25:36 by vitosant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 # define TYPE_MASK 0170000
 # define DIR_MASK 0040000
 
-# include "minishell.h"
+# include "structs.h"
 
 typedef struct s_lstpid
 {
@@ -32,7 +32,7 @@ typedef struct s_lstpid
 	struct s_lstpid	*next;
 }					t_lstpid;
 
-typedef void (*func)(t_minishell *, t_cmd *);
+typedef void	(*t_func)(t_minishell *, t_cmd *);
 
 void	executor(t_minishell *shell, t_ast *node);
 void	pid_add(t_minishell *shell, pid_t pid, char is_builtin, int rbuiltin);

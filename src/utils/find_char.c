@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   find_char.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dasimoes <dasimoes@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/28 20:31:06 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/11/02 12:13:43 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/11/08 17:05:37 by vitosant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ char	*find_blank(char *str)
 
 char	*find_quotes(char *str)
 {
-	int index;
+	int	index;
 
 	index = 0;
 	while (str[index])

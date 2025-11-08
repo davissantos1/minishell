@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dasimoes <dasimoes@42sp.org.br>            +#+  +:+       +#+        */
+/*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 19:35:09 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/10/31 11:31:35 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/11/08 17:07:03 by vitosant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ char	*expand_special(t_minishell *s, char *var)
 	{
 		if (is_space(var[1]) || !var[1])
 			return (ft_strdup("$"));
-		if (var[1] == '?') 
+		if (var[1] == '?')
 			return (ft_itoa(s->exit));
 		if (var[1] == '$')
 			return (ft_strdup("PID"));

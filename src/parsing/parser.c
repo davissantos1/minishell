@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dasimoes <dasimoes@42sp.org.br>            +#+  +:+       +#+        */
+/*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 19:13:40 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/11/07 17:40:46 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/11/08 16:36:33 by vitosant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 t_ast	*node_handler(t_minishell *s, t_token *start, t_token *end)
 {
-	t_ast *node;
+	t_ast	*node;
 
 	if (start->type >= TOKEN_WORD && start->type <= TOKEN_VAR)
 		node = cmd_node(s, start, end);

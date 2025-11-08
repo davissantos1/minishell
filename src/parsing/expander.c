@@ -6,7 +6,7 @@
 /*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 21:32:55 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/11/07 17:23:25 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/11/08 16:38:04 by vitosant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,9 +93,7 @@ char	**expand_argv(t_minishell *s, char **av)
 
 	i = 0;
 	result = ft_calloc(sizeof(char *), (ft_mtxlen(av) + 2));
-	if (!result)
-		exit_code(s, EXIT_FAILURE);
-	while (av[i])
+	while (av[i] && result)
 	{
 		dol = ft_strchr(av[i], '$');
 		if (ft_strchr(av[i], '\"') || ft_strchr(av[i], '\''))
@@ -110,7 +108,7 @@ char	**expand_argv(t_minishell *s, char **av)
 			handle_wildcard(s, &result, i);
 		i++;
 	}
-	if (!gc_addmtx(result, s->gc, GC_AST))
+	if (!result || !gc_addmtx(result, s->gc, GC_AST))
 		exit_code(s, EXIT_FAILURE);
 	return (result);
 }

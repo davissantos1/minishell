@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dasimoes <dasimoes@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/30 15:42:28 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/11/06 16:12:52 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/11/08 17:05:22 by vitosant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,5 +69,5 @@ int	token_check_range(t_token *token)
 		return (1);
 	if (token->type > 9 && token->type < 13)
 		return (2);
-	return (0); 
+	return (0);
 }
