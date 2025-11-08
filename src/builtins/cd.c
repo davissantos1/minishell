@@ -54,9 +54,10 @@ static void	disco(t_minishell *shell, char *dir)
 		dir = expand_ddot(shell);
 	else if (!ft_strcmp("-", dir))
 		dir = get_env(shell->env, "OLDPWD");
-	if (chdir(dir) == -1)
+	if (!dir || chdir(dir) == -1)
 	{
-		perror("cd");
+		if (dir)
+			perror("cd");
 		pid_add(shell, NOT_FORKED, NOT_FORKED, 1 << 8);
 		return ;
 	}

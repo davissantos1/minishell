@@ -6,7 +6,7 @@
 /*   By: dasimoes <dasimoes@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/07 17:11:19 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/11/07 17:12:43 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/11/08 11:14:09 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ static char	*expand_var_aux(t_minishell *s, char *var, char *dollar, char *end)
 
 	preffix = ft_substr(var, 0, dollar - var);
 	suffix = ft_substr(var, end - var, var + ft_strlen(var) - end);
+	if (end)
+		*end = '\0';
 	temp = expand_special(s, dollar);
 	expand = ft_strjoin(preffix, temp);
 	free(temp);
