@@ -6,7 +6,7 @@
 /*   By: dasimoes <dasimoes@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/28 15:00:45 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/11/07 17:08:32 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/11/08 11:22:01 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,11 +79,13 @@ void	validate_subshell(t_minishell *s)
 		if ((cur->type == TOKEN_LPAREN) || (cur->type == TOKEN_RPAREN))
 		{
 			if (cur->type == TOKEN_LPAREN)
+			{
+				if (cur->prev && token_check_range(cur->prev) < 2)
+					s->error = cur->value;
 				lparen++;
+			}
 			if (cur->type == TOKEN_RPAREN)
 				rparen++;
-			if (cur->type == TOKEN_LPAREN && token_check_range(cur->prev) < 2)
-				s->error = cur->value;
 		}
 		if (s->error)
 			return ;
