@@ -52,6 +52,8 @@ static void	disco(t_minishell *shell, char *dir)
 	getcwd(olddir + 7, PATH_MAX - 7);
 	if (!ft_strcmp(dir, ".."))
 		dir = expand_ddot(shell);
+	else if (!ft_strcmp("-", dir))
+		dir = get_env(shell->env, "OLDPWD");
 	if (chdir(dir) == -1)
 	{
 		perror("cd");

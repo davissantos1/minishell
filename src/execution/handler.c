@@ -17,7 +17,7 @@ static void	sigint_heredoc(int sig)
 	g_signal = (volatile sig_atomic_t) sig;
 	rl_done = 1;
 	write(1, "\n", 1);
-	write(1, "\033[091mMinishell$ \033[0m", 21);
+	write(1, "\001\033[091m\002Minishell$ \001\033[0m\002", 25);
 }
 
 void	handler(t_minishell *shell)

@@ -16,7 +16,7 @@ int	shell_read(t_minishell *shell, char *input)
 {
 	errno = 0;
 	if (!input)
-		shell->input = readline("\033[091mMinishell$ \033[0m");
+		shell->input = readline("\001\033[091m\002Minishell$ \001\033[0m\002");
 	else
 		shell->input = input;
 	if (!shell->input)
@@ -55,25 +55,26 @@ int	shell_process(t_minishell *shell, char *input)
 
 int	main(int ac, char **av, char **env)
 {
-	t_minishell	*shell;
-	int			status;
+	struct termios	tty_conf;
+	t_minishell		*shell;
+	int				status;
 
 	shell = shell_init(env);
 	register_parent_signals();
 	if (ac == 1)
 	{
+		tcgetattr(STDIN_FILENO, &tty_conf);
 		while (1)
 		{
 			if (shell_process(shell, NULL) == -1)
 				break ;
 			shell->head = gc_free_tag(shell->gc, GC_TOKEN);
 			shell->root = gc_free_tag(shell->gc, GC_AST);
+			tcsetattr(STDIN_FILENO, TCSANOW, &tty_conf);
 		}
 	}
 	else
-	{
 		shell_process(shell, av_convert(shell, av));
-	}
 	rl_clear_history();
 	status = shell->exit + g_signal;
 	gc_free_all(shell->gc);
