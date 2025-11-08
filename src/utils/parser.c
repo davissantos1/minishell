@@ -6,7 +6,7 @@
 /*   By: dasimoes <dasimoes@42sp.org.br>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/05 13:21:47 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/11/05 20:03:23 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/11/08 11:42:24 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_ast	*parse_logic(t_minishell *s, t_token *start, t_token *end)
 	while (cur != start)
 	{
 		if (cur->type == TOKEN_RPAREN)
-			while (cur->type != TOKEN_LPAREN)
+			while ((cur->prev)->type != TOKEN_LPAREN)
 				cur = cur->prev;
 		if (cur->type == TOKEN_AND || cur->type == TOKEN_OR)
 		{
@@ -41,12 +41,15 @@ t_ast	*parse_pipe(t_minishell *s, t_token *start, t_token *end)
 	t_token	*cur;
 
 	cur = end;
-	if (start->type == TOKEN_LPAREN && end->type == TOKEN_RPAREN)
-		return (parse_command(s, start, end));
+	if (start->type == TOKEN_LPAREN && end->type == TOKEN_EOL)
+	{
+		if ((end->prev)->type == TOKEN_RPAREN)
+			return (parse_command(s, start, end->prev));
+	}
 	while (cur != start)
 	{
 		if (cur->type == TOKEN_RPAREN)
-			while (cur->type != TOKEN_LPAREN)
+			while ((cur->prev)->type != TOKEN_LPAREN)
 				cur = cur->prev;
 		if (cur->type == TOKEN_PIPE)
 		{
