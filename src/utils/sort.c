@@ -12,9 +12,12 @@
 
 #include "minishell.h"
 
-void	sort_table(char **table)
+static int	ft_strcmp_alpha(const char *s1, const char *s2);
+static void	alpha_order(char **tab, int i, int j);
+static void	ascii_order(char **tab, int i, int j);
+
+void	sort_table(char **table, int order)
 {
-	char	*tmp;
 	int		len;
 	int		i;
 	int		j;
@@ -27,14 +30,50 @@ void	sort_table(char **table)
 		j = i + 1;
 		while (j < len)
 		{
-			if (ft_strcmp(table[i], table[j]) > 0)
-			{
-				tmp = table[i];
-				table[i] = table[j];
-				table[j] = tmp;
-			}
+			if (order)
+				alpha_order(table, i, j);
+			else
+				ascii_order(table, i, j);
 			j++;
 		}
 		i++;
+	}
+}
+
+static void	alpha_order(char **tab, int i, int j)
+{
+	char	*tmp;
+
+	if (ft_strcmp_alpha(tab[i], tab[j]) > 0)
+	{
+		tmp = tab[i];
+		tab[i] = tab[j];
+		tab[j] = tmp;
+	}
+}
+
+static int	ft_strcmp_alpha(const char *s1, const char *s2)
+{
+	size_t	index;
+
+	index = 0;
+	while ((ft_tolower(s1[index]) || ft_tolower(s2[index])))
+	{
+		if (ft_tolower(s1[index]) != ft_tolower(s2[index]))
+			return (ft_tolower(s1[index]) - ft_tolower(s2[index]));
+		index++;
+	}
+	return (0);
+}
+
+static void	ascii_order(char **tab, int i, int j)
+{
+	char	*tmp;
+
+	if (ft_strcmp(tab[i], tab[j]) > 0)
+	{
+		tmp = tab[i];
+		tab[i] = tab[j];
+		tab[j] = tmp;
 	}
 }

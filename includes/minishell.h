@@ -30,6 +30,9 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 
+# define ALPHA_ORDER 1
+# define ASCII_ORDER 0
+
 // Local includes
 # include "libft.h"
 
@@ -175,8 +178,6 @@ int			token_size(t_token *start, t_token *end);
 int			count_single_quotes(char *str);
 char		*get_env(char **env, char *var);
 char		**expand_argv(t_minishell *s, char **av);
-void		signal_interrupt(int sig);
-void		signal_child(int sig);
 void		register_parent_signals(void);
 void		register_child_signals(void);
 void		validate_terminal(t_minishell *s);
@@ -200,7 +201,7 @@ int			dollar_expand(char *str);
 void		expand_redirect(t_minishell *s, t_redir *redir);
 char		*find_quotes(char *str);
 int			expand_check_quotes(char *str);
-void		sort_table(char **table);
+void		sort_table(char **table, int order);
 char		*gdir(t_minishell *s, char *str);
 char		*get_wildcard_path(t_minishell *s, char *str);
 char		*remove_duplicate(t_minishell *s, char str, char c);

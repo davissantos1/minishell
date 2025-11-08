@@ -77,7 +77,7 @@ void	handle_wildcard(t_minishell *s, char ***result, int pos)
 	char	**res;
 
 	res = expand_wildcard(s, (*result)[pos]);
-	sort_table(res);
+	sort_table(res, ALPHA_ORDER);
 	if (!gc_addmtx(res, s->gc, GC_TOKEN))
 		exit_code(s, EXIT_FAILURE);
 	if (res[0])

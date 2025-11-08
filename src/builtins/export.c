@@ -58,8 +58,8 @@ static void	print_vars(t_minishell *shell, t_cmd *cmd)
 	if (!env)
 		return ;
 	tmp_vars = shell->tmp_var;
-	sort_table(env);
-	sort_table(tmp_vars);
+	sort_table(env, ASCII_ORDER);
+	sort_table(tmp_vars, ASCII_ORDER);
 	print_mtx(env, fd);
 	print_mtx(shell->tmp_var, fd);
 	ft_mtxfree(env);
