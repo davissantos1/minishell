@@ -6,13 +6,13 @@
 /*   By: dasimoes <dasimoes@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/07 17:11:19 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/11/08 11:14:09 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/11/09 16:01:02 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static char	*expand_var_aux(t_minishell *s, char *var, char *dollar, char *end)
+static char	*expand(t_minishell *s, char *var, char *dollar, char *end)
 {
 	char	*expand;
 	char	*preffix;
@@ -20,9 +20,13 @@ static char	*expand_var_aux(t_minishell *s, char *var, char *dollar, char *end)
 	char	*temp;
 
 	preffix = ft_substr(var, 0, dollar - var);
-	suffix = ft_substr(var, end - var, var + ft_strlen(var) - end);
-	if (end)
+	if (!*end)
+		suffix = ft_strdup("");
+	else
+	{
+		suffix = ft_substr(var, end - var, var + ft_strlen(var) - end);
 		*end = '\0';
+	}
 	temp = expand_special(s, dollar);
 	expand = ft_strjoin(preffix, temp);
 	free(temp);
@@ -34,24 +38,53 @@ static char	*expand_var_aux(t_minishell *s, char *var, char *dollar, char *end)
 	return (expand);
 }
 
+static char	**get_sub(t_minishell *s, char *var)
+{
+	char	**res;
+	int		start;
+	char	*end;
+	int		i;
+
+	i = -1;
+	res = gc_calloc((2 * cvar(var) + 1) * sizeof(char *), s->gc, GC_AST);
+	if (!res)
+		exit_code(s, EXIT_FAILURE);
+	end = find_break(var);
+	start = find_index(var, var);
+	while (*end)
+	{
+		res[++i] = ft_substr(var, start, find_index(var, end) - start + 1);
+		start = find_index(var, end + 1);
+		end = find_break(end + 1);
+	}
+	res[++i] = ft_substr(var, start, find_index(var, end) - start + 1);
+	if (!gc_addmtx(res, s->gc, GC_AST))
+		exit_code(s, EXIT_FAILURE);
+	return (res);
+}
+
 char	*expand_var(t_minishell *s, char *var)
 {
-	char	*expand;
-	char	*dollar;
-	char	*end;
+	char	**res;
+	char	*exp;
+	int		i;
 
-	end = NULL;
-	expand = NULL;
-	if (expand_check(var))
+	i = -1;
+	res = get_sub(s, var);
+	while (res[++i])
 	{
-		var = remove_quotes(s, var);
-		dollar = ft_strchr(var, '$');
-		if (dollar)
-			end = find_break(dollar + 1);
-		expand = expand_var_aux(s, var, dollar, end);
-		if (!gc_addptr(expand, s->gc, GC_AST))
+		if (expand_check(res[i]))
+		{
+			res[i] = remove_quotes(s, res[i]);
+			res[i] = expand(s, res[i], res[i], find_break(res[i]));
+		}
+		res[i] = remove_quotes(s, res[i]);
+		if (!gc_addptr(res[i], s->gc, GC_AST))
 			exit_code(s, EXIT_FAILURE);
-		return (expand);
 	}
-	return (var);
+	exp = ft_merge(res);
+	if (!gc_addptr(exp, s->gc, GC_AST))
+		exit_code(s, EXIT_FAILURE);
+	return (exp);
+
 }

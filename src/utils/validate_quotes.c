@@ -6,7 +6,7 @@
 /*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/08 17:03:29 by vitosant          #+#    #+#             */
-/*   Updated: 2025/11/08 17:05:03 by vitosant         ###   ########.fr       */
+/*   Updated: 2025/11/09 16:22:51 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,16 @@ void	validate_duplicate(t_minishell *s)
 		a = b->next;
 		if (a)
 		{
-			if (token_check_range(b) > 0)
+			if (token_check_range(b) == 2)
+			{
+				if (token_check_range(a) == 2)
+					s->error = a->value;
+			}
+			if (token_check_range(b) == 1)
+			{
 				if (token_check_range(a) > 0)
 					s->error = a->value;
+			}
 		}
 		b = b->next;
 	}

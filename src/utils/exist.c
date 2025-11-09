@@ -6,7 +6,7 @@
 /*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/25 15:28:33 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/11/08 17:06:31 by vitosant         ###   ########.fr       */
+/*   Updated: 2025/11/09 15:04:55 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	is_meta(char c)
 		return (1);
 	else if (c == '(' || c == ')' || c == '~' || c == '-')
 		return (1);
-	else if (c == '*' || c == '$' || c == '.' || c == '/')
+	else if (c == '*' || c == ':' || c == '.' || c == '/')
 		return (1);
 	else if (c == '\\' || c == '?' || c == '#' || c == '@')
 		return (1);
@@ -37,8 +37,6 @@ int	is_meta(char c)
 	else if (c == ';' || c == ',' || c == '[' || c == ']')
 		return (1);
 	else if (c == '{' || c == '}' || c == '!' || c == '`')
-		return (1);
-	else if (c == ':')
 		return (1);
 	return (0);
 }

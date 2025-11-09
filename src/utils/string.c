@@ -6,7 +6,7 @@
 /*   By: dasimoes <dasimoes@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 15:45:56 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/11/06 19:02:15 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/11/09 15:59:14 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,4 +76,44 @@ char	*join_subshell(t_minishell *s, t_token *start)
 	if (!gc_addptr(join, s->gc, GC_AST))
 		exit_code(s, EXIT_FAILURE);
 	return (join);
+}
+
+int	cvar(char *str)
+{
+	int	size;
+	int	i;
+
+	i = -1;
+	size = 0;
+	while (str[++i])
+	{
+		if (str[i] == '$')
+		{
+			if (str[i + 1] && str[i + 1] == '$')
+				size++;
+			else if (str[i + 1] && !is_space(str[i + 1]))
+			{
+				if (!is_meta(str[i + 1]))
+					size++;
+			}
+			i++;
+		}
+
+	}
+	return (size);
+}
+
+int	find_index(char *str, char *match)
+{
+	int	index;
+
+	index = 0;
+	while (*str)
+	{
+		if (str == match)
+			return (index);
+		index++;
+		str++;
+	}
+	return (index);
 }

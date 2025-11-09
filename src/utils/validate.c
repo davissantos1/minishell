@@ -6,13 +6,11 @@
 /*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/28 15:00:45 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/11/08 17:03:54 by vitosant         ###   ########.fr       */
+/*   Updated: 2025/11/09 14:18:47 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-static void	is_open(int *open, char *quotes, char index);
 
 void	validate_terminal(t_minishell *s)
 {
@@ -90,7 +88,7 @@ void	validate_quotes(t_minishell *s)
 	}
 }
 
-static void	is_open(int *open, char *quotes, char index)
+void	is_open(int *open, char *quotes, char index)
 {
 	*open = 1;
 	*quotes = index;

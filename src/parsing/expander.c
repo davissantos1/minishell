@@ -6,13 +6,13 @@
 /*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 21:32:55 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/11/08 16:38:04 by vitosant         ###   ########.fr       */
+/*   Updated: 2025/11/09 15:51:48 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static char	*expand_quotes(t_minishell *s, char *str)
+char	*expand_quotes(t_minishell *s, char *str)
 {
 	char	**spl;
 	char	*exp;

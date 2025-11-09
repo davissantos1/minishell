@@ -6,7 +6,7 @@
 /*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/25 15:45:28 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/11/08 16:32:59 by vitosant         ###   ########.fr       */
+/*   Updated: 2025/11/09 14:19:30 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,26 +55,23 @@ char	*token_special(t_minishell *s, int i)
 
 char	*token_word(t_minishell *s, int i)
 {
-	int		dollar;
-	int		closed;
+	char	quotes;
+	int		open;
 	int		j;
 
 	j = i + 1;
-	closed = 1;
-	dollar = 0;
+	open = 0;
 	while (1)
 	{
 		if (is_operator(s->input[j]))
 			break ;
-		else if ((s->input[j] == '\'' || s->input[j] == '\"') && closed)
-			closed = 0;
-		else if ((s->input[j] == '\'' || s->input[j] == '\"') && !closed)
-			closed = 1;
-		else if (is_space(s->input[j]) && closed)
+		else if ((s->input[j] == '\'' || s->input[j] == '\"') && !open)
+			is_open(&open, &quotes, s->input[j]);
+		else if (open && s->input[j] == quotes)
+			open = 0;
+		else if (is_space(s->input[j]) && !open)
 			break ;
-		else if (s->input[j] == '$')
-			dollar++;
-		if (dollar == 2 || s->input[j] == ')')
+		if (s->input[j] == ')')
 			break ;
 		j++;
 	}
