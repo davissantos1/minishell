@@ -6,7 +6,7 @@
 /*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/28 20:31:06 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/11/09 15:51:11 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/11/09 16:32:11 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@ char	*find_break(char *str)
 		if (str[i] == '$' && str[i + 1])
 		{
 			if (str[i + 1] == '?' || ft_isdigit(str[i + 1]))
-				return (&str[i + 1]);
+				return (&str[i + 2]);
 			if (str[i + 1] == '$')
-				return (&str[i + 1]);
+				return (&str[i + 2]);
 		}
 		if (is_meta(str[i]))
 			return (&str[i]);
