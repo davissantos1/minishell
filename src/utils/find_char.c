@@ -6,7 +6,7 @@
 /*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/28 20:31:06 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/11/09 16:32:11 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/11/09 18:39:39 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,31 @@ char	*find_break(char *str)
 	i = 0;
 	if (!*str)
 		return (str);
+	if (str[0] == '\'')
+		return (ft_strchr(str + 1, '\'') + 1);
+	while (str[i])
+	{
+		if (str[i] == '$' && str[i + 1])
+		{
+			if (str[i + 1] == '?' || ft_isdigit(str[i + 1]))
+				return (&str[i + 2]);
+			if (str[i + 1] == '$')
+				return (&str[i + 2]);
+		}
+		if (str[i] == '\'')
+			return (&str[i - 1]);
+		if (str[i + 1] == '$')
+			return (&str[i]);
+		i++;
+	}
+	return (&str[i]);
+}
+
+char	*find_meta(char *str)
+{
+	int	i;
+
+	i = 0;
 	while (str[i])
 	{
 		if (str[i] == '$' && str[i + 1])
@@ -29,8 +54,6 @@ char	*find_break(char *str)
 				return (&str[i + 2]);
 		}
 		if (is_meta(str[i]))
-			return (&str[i]);
-		if (is_space(str[i]) && i > 0)
 			return (&str[i]);
 		i++;
 	}
