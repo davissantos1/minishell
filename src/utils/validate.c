@@ -6,7 +6,7 @@
 /*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/28 15:00:45 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/11/09 14:18:47 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/11/09 20:16:45 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,36 +60,25 @@ void	validate_subshell(t_minishell *s)
 		s->error = "syntax error: unexpected end of file";
 }
 
-void	validate_quotes(t_minishell *s)
+void	validate_wildcard(t_minishell *s)
 {
-	t_token	*cur;
-	int		open;
-	int		index;
-	char	quotes;
+	t_token	*b;
+	t_token	*a;
 
-	cur = s->head;
-	while (cur)
+	b = s->head;
+	while (b)
 	{
-		index = -1;
-		open = 0;
-		while (cur->value && cur->value[++index])
+		a = b->next;
+		if (a)
 		{
-			if (cur->value[index] == '\'' || cur->value[index] == '\"')
+			if (token_check_range(b) == 1)
 			{
-				if (!open)
-					is_open(&open, &quotes, cur->value[index]);
-				else if (cur->value[index] == quotes && open)
-					open = 0;
+				if (a->type == TOKEN_WORD && ft_strchr(a->value, '*'))
+					s->error = "ambiguous redirect";
 			}
 		}
-		if (open)
-			s->error = "<newline>";
-		cur = cur->next;
+		b = b->next;
 	}
-}
+	
 
-void	is_open(int *open, char *quotes, char index)
-{
-	*open = 1;
-	*quotes = index;
 }

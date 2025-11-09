@@ -6,7 +6,7 @@
 /*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/26 11:16:55 by vitosant          #+#    #+#             */
-/*   Updated: 2025/10/20 21:16:23 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/11/09 20:20:06 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,11 @@ void	error_code(t_minishell *shell, int code)
 	ft_putstr_fd("minishell: ", 2);
 	if (code == EXIT_FAILURE)
 		perror("minishell");
+	else if (!ft_strcmp(shell->error, "ambiguous redirect"))
+	{
+		ft_putstr_fd(shell->error, 2);
+		ft_putstr_fd("\n", 2);
+	}
 	else if (code == 2)
 	{
 		ft_putstr_fd("syntax error near unexpected token `", 2);
