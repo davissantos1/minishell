@@ -6,7 +6,7 @@
 /*   By: dasimoes <dasimoes@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 10:55:20 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/11/07 16:55:18 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/11/08 21:09:01 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,28 +85,28 @@ int	word_size(char *token, char quotes)
 char	*remove_quotes(t_minishell *s, char *t)
 {
 	char	*result;
-	char	*quotes;
-	int		i;
+	char	quote;
+	int		open;
 	int		j;
 
-	i = 0;
-	j = 0;
-	quotes = find_quotes(t);
-	if (!quotes)
-		return (t);
-	result = gc_calloc((word_size(t, *quotes) + 1), s->gc, GC_TOKEN);
+	j = -1;
+	open = 0;
+	quote = '\0';
+	result = gc_calloc((ft_strlen(t) + 1), s->gc, GC_TOKEN);
 	if (!result)
-		exit_code(s, 2);
-	if (only_quotes(t, *quotes))
-		return (result);
-	while (t[i])
+		exit_code(s, EXIT_FAILURE);
+	while (*t)
 	{
-		if (t[i] != *quotes)
+		if ((*t == '\'' || *t == '\"') && !open)
 		{
-			result[j] = t[i];
-			j++;
+			open = 1;
+			quote = *t;
 		}
-		i++;
+		else if (quote == *t && open)
+			open = 0;
+		if (*t != quote)
+			result[++j] = *t;
+		t++;
 	}
 	return (result);
 }
