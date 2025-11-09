@@ -6,7 +6,7 @@
 /*   By: dasimoes <dasimoes@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/07 17:11:19 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/11/09 18:34:45 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/11/09 20:46:12 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,8 @@ char	*expand_var(t_minishell *s, char *var)
 			res[i] = remove_quotes(s, res[i]);
 			res[i] = expand(s, res[i], res[i], find_meta(res[i]));
 		}
-		res[i] = remove_quotes(s, res[i]);
+		else
+			res[i] = remove_quotes(s, res[i]);
 		if (!gc_addptr(res[i], s->gc, GC_AST))
 			exit_code(s, EXIT_FAILURE);
 	}
