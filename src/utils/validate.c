@@ -6,7 +6,7 @@
 /*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/28 15:00:45 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/11/09 20:16:45 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/11/09 20:28:57 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void	validate_wildcard(t_minishell *s)
 		a = b->next;
 		if (a)
 		{
-			if (token_check_range(b) == 1)
+			if (token_check_range(b) == 1 && b->type != TOKEN_HEREDOC)
 			{
 				if (a->type == TOKEN_WORD && ft_strchr(a->value, '*'))
 					s->error = "ambiguous redirect";
