@@ -116,6 +116,16 @@ uninstall:
 	@echo " 📁 ${RED}Uninstalling:${RESET} ${INSTALL_PATH}"
 	@rm -f $(INSTALL_PATH)
 
+val: readline.supp all
+	@valgrind -q --suppressions=readline.supp \
+				--leak-check=full \
+				--show-leak-kinds=all \
+				--track-origins=yes \
+				--track-fds=yes \
+				--trace-children=yes \
+				--trace-children-skip='*/bin/*,*/sbin/*,/usr/bin/*' \
+				./${NAME}
+
 re: fclean all
 
-.PHONY: all clean fclean re bonus debug
+.PHONY: all clean fclean re bonus debug uninstall val

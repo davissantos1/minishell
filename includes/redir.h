@@ -18,7 +18,7 @@
 # include "structs.h"
 
 void	find_heredoc(t_minishell *shell, t_ast *node);
-int		heredoc(char *limiter);
+int		heredoc(t_minishell *shell, char *limiter);
 void	redirection(t_minishell *shell, t_cmd *cmd);
 void	close_redir(t_minishell *shell, t_cmd *cmd);
 

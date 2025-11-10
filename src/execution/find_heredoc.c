@@ -27,7 +27,7 @@ void	find_heredoc(t_minishell *shell, t_ast *node)
 			{
 				if (cmd->std_in != 0)
 					close(cmd->std_in);
-				cmd->std_in = heredoc(redir->file);
+				cmd->std_in = heredoc(shell, redir->file);
 			}
 			redir = redir->next;
 		}

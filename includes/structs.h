@@ -63,9 +63,6 @@ typedef struct s_minishell
 	char			*path;
 	int				signal;
 	int				exit;
-	int				std_in;
-	int				std_out;
-	int				std_err;
 }	t_minishell;
 
 typedef struct s_cmd
