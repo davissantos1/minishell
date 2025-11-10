@@ -6,26 +6,36 @@
 /*   By: dasimoes <dasimoes@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 10:55:20 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/11/08 21:09:01 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/11/10 14:53:28 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	only_quotes(char *str, char quotes)
+char	*remove_enclosed_quotes(t_minishell *s, char *str)
 {
-	int	index;
+	char	*result;
+	int		i;
+	int		j;
 
-	index = 0;
-	if (!str || !*str)
-		return (0);
-	while (str[index])
+	i = -1;
+	j = -1;
+	result = gc_calloc((ft_strlen(str) + 1), s->gc, GC_TOKEN);
+	if (!result)
+		exit_code(s, EXIT_FAILURE);
+	while (str[++i])
 	{
-		if (str[index] != quotes)
-			return (0);
-		index++;
+		if (str[i] == '\'' || str[i] == '\"')
+		{
+			if (str[i + 1] && str[i] == str[i + 1])
+				i++;
+			else
+				result[++j] = str[i];
+		}
+		else
+			result[++j] = str[i];
 	}
-	return (1);
+	return (result);
 }
 
 int	count_single_quotes(char *str)
