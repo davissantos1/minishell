@@ -6,7 +6,7 @@
 /*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/08 16:33:19 by vitosant          #+#    #+#             */
-/*   Updated: 2025/11/08 17:14:46 by vitosant         ###   ########.fr       */
+/*   Updated: 2025/11/10 17:40:35 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,27 @@ static char	**expand_wildcard(t_minishell *s, char *str)
 	}
 	closedir(dir);
 	return (res);
+}
+
+int	maybe_wildcard(char *str)
+{
+	char	quotes;
+	int		open;
+	int		i;
+
+	i = -1;
+	open = 0;
+	while (str[++i])
+	{
+		if ((str[i] == '\'' || str[i] == '\"') && !open)
+			is_open(&open, &quotes, str[i]);
+		else if (open && str[i] == quotes)
+			open = 0;
+		if (!open && str[i] == '*')
+			return (1);
+		i++;
+	}
+	return (0);
 }
 
 void	handle_wildcard(t_minishell *s, char ***result, int pos)

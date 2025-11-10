@@ -6,7 +6,7 @@
 /*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 21:32:55 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/11/10 14:44:02 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/11/10 17:39:28 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ char	**expand_argv(t_minishell *s, char **av)
 			result[i] = expand_tilde(s, av[i]);
 		else
 			result[i] = ft_strdup(av[i]);
-		if (ft_strchr(av[i], '*'))
+		if (maybe_wildcard(av[i]))
 			handle_wildcard(s, &result, i);
 		i++;
 	}
