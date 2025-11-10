@@ -6,7 +6,7 @@
 /*   By: dasimoes <dasimoes@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/29 17:32:22 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/10/28 20:14:18 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/11/10 11:43:40 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	lexer(t_minishell *s)
 	int		index;
 
 	index = 0;
-	while (s->input[index])
+	while (s->input && s->input[index])
 	{
 		str = NULL;
 		if (is_meta(s->input[index]))

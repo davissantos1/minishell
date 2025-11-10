@@ -6,7 +6,7 @@
 /*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 13:32:47 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/11/08 16:28:32 by vitosant         ###   ########.fr       */
+/*   Updated: 2025/11/10 12:27:54 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	shell_read(t_minishell *shell, char *input)
 	{
 		if (errno != 0)
 			exit_code(shell, EXIT_FAILURE);
-		printf("exit\n");
+		//printf("exit\n");
 		return (-1);
 	}
 	if (!gc_addptr(shell->input, shell->gc, GC_TEMP))
@@ -34,7 +34,21 @@ int	shell_read(t_minishell *shell, char *input)
 
 int	shell_process(t_minishell *shell, char *input)
 {
-	if (shell_read(shell, input) == -1)
+	//if (shell_read(shell, input) == -1)
+	//	return (-1);
+	(void) input;
+	if (isatty(fileno(stdin)))
+		shell->input = readline("minishell> ");
+	else
+	{
+		char *line;
+		line = get_next_line(0);
+		if (!line || !*line)
+			return (-1);
+		shell->input = ft_strtrim(line, "\n");
+		free(line);
+	}
+	if (!shell->input)
 		return (-1);
 	lexer(shell);
 	token_validate(shell);

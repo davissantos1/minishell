@@ -51,6 +51,8 @@ BONUS_SRCS = \
 
 EXTRA_SRCS = \
 		ft_bubble_sort_int.c \
+		get_next_line.c \
+		get_next_line_utils.c \
 		ft_putmtx_fd.c \
 		ft_mtxdup.c \
 		ft_mtxinsert.c \
