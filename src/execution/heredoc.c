@@ -15,7 +15,7 @@
 static void	tmp_file(char path[PATH_MAX]);
 static void	warning(char *limiter);
 
-int	heredoc(char *limiter)
+int	heredoc(t_minishell *shell, char *limiter)
 {
 	char	*str;
 	char	path[PATH_MAX];
@@ -28,7 +28,7 @@ int	heredoc(char *limiter)
 		str = readline("> ");
 		if (g_signal || str == NULL || !ft_strcmp(str, limiter))
 			break ;
-		ft_putendl_fd(str, fd);
+		ft_putendl_fd(expand_line(shell, str), fd);
 		free(str);
 	}
 	if (str)
