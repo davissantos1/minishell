@@ -26,16 +26,13 @@ t_minishell	*shell_init(char **env)
 	shell->gc = garbage;
 	shell->path = ft_strjoin(getenv("HOME"), "/bin/minishell");
 	shell->tmp_var = gc_calloc(sizeof(char *), garbage, GC_LOCALVARS);
+	if (!shell->tmp_var)
+		exit_code(NULL, EXIT_FAILURE);
 	if (!shell->path)
 		exit_code(shell, EXIT_FAILURE);
 	if (!gc_addptr(shell->path, shell->gc, GC_SHELL))
 		exit_code(shell, EXIT_FAILURE);
 	shell->env = env;
-	shell->std_in = dup(STDIN_FILENO);
-	shell->std_out = dup(STDOUT_FILENO);
-	shell->std_err = dup(STDERR_FILENO);
-	if (shell->std_in == -1 || shell->std_out == -1 || shell->std_err == -1)
-		exit_code(shell, EXIT_FAILURE);
 	shell->exit = 0;
 	shell->name = "Minishell";
 	return (shell);
