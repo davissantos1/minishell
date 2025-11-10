@@ -1,0 +1,6 @@
+[1;35m  15:	[m[1;34mSTD_OUT:[m ✅  [1;33mSTD_ERR:[m ✅  [1;36mEXIT_CODE:[m ❌[1;31m [ minishell(126)  bash(127) ][m  [0;90m/home/daviss/42_minishell_tester/cmds/mand/8_syntax_errors.sh:33[m  
+[1;35m  16:	[m[1;34mSTD_OUT:[m ✅  [1;33mSTD_ERR:[m ✅  [1;36mEXIT_CODE:[m ❌[1;31m [ minishell(126)  bash(127) ][m  [0;90m/home/daviss/42_minishell_tester/cmds/mand/8_syntax_errors.sh:35[m  
+[1;35m  20:	[m[1;34mSTD_OUT:[m ✅  [1;33mSTD_ERR:[m ✅  [1;36mEXIT_CODE:[m ❌[1;31m [ minishell(0)  bash(2) ][m  [0;90m/home/daviss/42_minishell_tester/cmds/mand/8_syntax_errors.sh:43[m  
+[1;35m  21:	[m[1;34mSTD_OUT:[m ✅  [1;33mSTD_ERR:[m ✅  [1;36mEXIT_CODE:[m ❌[1;31m [ minishell(0)  bash(2) ][m  [0;90m/home/daviss/42_minishell_tester/cmds/mand/8_syntax_errors.sh:46[m  
+[1;35m  22:	[m[1;34mSTD_OUT:[m ✅  [1;33mSTD_ERR:[m ✅  [1;36mEXIT_CODE:[m ❌[1;31m [ minishell(0)  bash(2) ][m  [0;90m/home/daviss/42_minishell_tester/cmds/mand/8_syntax_errors.sh:49[m  
+[1;31m                                     ❌ 5 [m  

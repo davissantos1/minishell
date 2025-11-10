@@ -1,0 +1,6 @@
+[1;35m  1:	[m[1;34mSTD_OUT:[m ❌  [1;33mSTD_ERR:[m ✅  [1;36mEXIT_CODE:[m ✅  [0;90m/home/daviss/42_minishell_tester/cmds/mand/1_scmds.sh:5[m  
+[1;35m  4:	[m[1;34mSTD_OUT:[m ✅  [1;33mSTD_ERR:[m ❌  [1;36mEXIT_CODE:[m ❌[1;31m [ minishell(0)  bash(127) ][m  [0;90m/home/daviss/42_minishell_tester/cmds/mand/1_scmds.sh:11[m  
+[1;35m  7:	[m[1;34mSTD_OUT:[m ✅  [1;33mSTD_ERR:[m ✅  [1;36mEXIT_CODE:[m ❌[1;31m [ minishell(139)  bash(0) ][m  [0;90m/home/daviss/42_minishell_tester/cmds/mand/1_scmds.sh:19[m  
+[1;35m  16:	[m[1;34mSTD_OUT:[m ❌  [1;33mSTD_ERR:[m ❌  [1;36mEXIT_CODE:[m ❌[1;31m [ minishell(134)  bash(0) ][m  [0;90m/home/daviss/42_minishell_tester/cmds/mand/1_scmds.sh:42[m  
+[1;35m  26:	[m[1;34mSTD_OUT:[m ✅  [1;33mSTD_ERR:[m ✅  [1;36mEXIT_CODE:[m ❌[1;31m [ minishell(126)  bash(127) ][m  [0;90m/home/daviss/42_minishell_tester/cmds/mand/1_scmds.sh:84[m  
+[1;31m                                     ❌ 8 [m  
