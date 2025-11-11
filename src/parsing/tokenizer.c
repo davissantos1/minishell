@@ -6,7 +6,7 @@
 /*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/25 15:45:28 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/11/10 18:33:30 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/11/10 21:11:53 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,8 @@ char	*token_quotes(t_minishell *s, int i)
 		else if (s->input[j] && s->input[j] == s->input[i] && !closed)
 			closed = 1;
 		else if ((is_space(s->input[j]) || is_operator(s->input[j])) && closed)
+			break ;
+		else if (is_operator(s->input[j]) && closed)
 			break ;
 		else if (s->input[j] == '\0')
 			break ;

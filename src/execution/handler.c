@@ -6,7 +6,7 @@
 /*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/30 08:14:39 by vitosant          #+#    #+#             */
-/*   Updated: 2025/11/10 20:19:23 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/11/10 21:11:32 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ void	handler(t_minishell *shell)
 		shell->exit = g_signal + 128;
 	g_signal = 0;
 	signal(SIGINT, sigint_heredoc);
-	find_heredoc(shell, shell->root);
 	register_parent_signals();
+	find_heredoc(shell, shell->root);
 	build_path(shell);
 	if (g_signal != 2)
 		executor(shell, shell->root);
