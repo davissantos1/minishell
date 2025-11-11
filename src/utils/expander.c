@@ -6,7 +6,7 @@
 /*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 19:35:09 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/11/09 20:43:01 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/11/11 16:30:09 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,22 +113,4 @@ int	expand_check(char *str)
 	if (quotes % 2 != 0)
 		return (0);
 	return (1);
-}
-
-int	expand_check_quotes(char *str)
-{
-	char	*dollar;
-	char	*tilde;
-
-	dollar = ft_strchr(str, '$');
-	tilde = ft_strchr(str, '~');
-	if (!dollar && !tilde)
-		return (1);
-	if (str[0] == '\"' && !dollar)
-		return (1);
-	if (str[0] == '\"' && dollar && is_space(*(dollar + 1)))
-		return (1);
-	if (str[0] == '\'')
-		return (1);
-	return (0);
 }

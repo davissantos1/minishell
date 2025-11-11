@@ -6,11 +6,38 @@
 /*   By: dasimoes <dasimoes@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 10:55:20 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/11/10 14:53:28 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/11/11 15:28:03 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static	int	maybe_remove(char *str)
+{
+	int	squote;
+	int	dquote;
+	int	i;
+
+	i = -1;
+	squote = 0;
+	dquote = 0;
+	while (str[++i])
+	{
+		if (str[i] == '\'' && !squote)
+			squote++;
+		else if (str[i] == '\'' && squote)
+			squote--;
+		else if (str[i] == '\"' && !dquote)
+			dquote++;
+		else if (str[i] == '\"' && dquote)
+			dquote--;
+		if (str[i] == '\'' && str[i + 1] == '\'' && (squote || dquote))
+			return (0);
+		if (str[i] == '\'' && str[i + 1] == '\'' && (squote || dquote))
+			return (0);
+	}
+	return (1);
+}
 
 char	*remove_enclosed_quotes(t_minishell *s, char *str)
 {
@@ -23,6 +50,8 @@ char	*remove_enclosed_quotes(t_minishell *s, char *str)
 	result = gc_calloc((ft_strlen(str) + 1), s->gc, GC_TOKEN);
 	if (!result)
 		exit_code(s, EXIT_FAILURE);
+	if (!maybe_remove(str))
+		return (str);
 	while (str[++i])
 	{
 		if (str[i] == '\'' || str[i] == '\"')
@@ -36,22 +65,6 @@ char	*remove_enclosed_quotes(t_minishell *s, char *str)
 			result[++j] = str[i];
 	}
 	return (result);
-}
-
-int	count_single_quotes(char *str)
-{
-	int	count;
-	int	index;
-
-	count = 0;
-	index = 0;
-	while (str[index])
-	{
-		if (str[index] == '\'')
-			count++;
-		index++;
-	}
-	return (count);
 }
 
 int	check_quotes(char *token)
