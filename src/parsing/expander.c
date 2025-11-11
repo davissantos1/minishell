@@ -6,7 +6,7 @@
 /*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 21:32:55 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/11/11 12:43:59 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/11/11 14:52:20 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ char	*expand_quotes(t_minishell *s, char *str)
 		exp = ft_merge(spl);
 	if (!gc_addptr(exp, s->gc, GC_TOKEN))
 		exit_code(s, EXIT_FAILURE);
-	exp = remove_quotes(s, exp);
 	return (exp);
 }
 
