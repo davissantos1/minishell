@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Updated: 2025/11/10 12:27:54 by dasimoes         ###   ########.fr       */
-/*   Updated: 2025/11/11 11:02:55 by dasimoes         ###   ########.fr       */
+/*   Created: 2025/09/21 13:32:47 by dasimoes          #+#    #+#             */
+/*   Updated: 2025/11/11 12:11:53 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,19 @@ int	shell_read(t_minishell *shell, char *input)
 {
 	errno = 0;
 	if (!input)
-		shell->input = readline("\001\033[091m\002Minishell$ \001\033[0m\002");
+	{
+		if (isatty(fileno(stdin)))
+			shell->input = readline("minishell> ");
+		else
+		{
+			char *line;
+			line = get_next_line(0);
+			if (!line || !*line)
+				return (-1);
+			shell->input = ft_strtrim(line, "\n");
+			free(line);
+		}
+	}
 	else
 		shell->input = input;
 	if (!shell->input)
@@ -34,21 +46,7 @@ int	shell_read(t_minishell *shell, char *input)
 
 int	shell_process(t_minishell *shell, char *input)
 {
-	//if (shell_read(shell, input) == -1)
-	//	return (-1);
-	(void) input;
-	if (isatty(fileno(stdin)))
-		shell->input = readline("minishell> ");
-	else
-	{
-		char *line;
-		line = get_next_line(0);
-		if (!line || !*line)
-			return (-1);
-		shell->input = ft_strtrim(line, "\n");
-		free(line);
-	}
-	if (!shell->input)
+	if (shell_read(shell, input) == -1)
 		return (-1);
 	lexer(shell);
 	token_validate(shell);

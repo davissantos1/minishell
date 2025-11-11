@@ -6,7 +6,7 @@
 /*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/18 19:31:10 by vitosant          #+#    #+#             */
-/*   Updated: 2025/11/11 08:42:30 by vitosant         ###   ########.fr       */
+/*   Updated: 2025/11/11 11:07:24 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ static void	credirs(t_minishell *shell, t_ast *node);
 
 void	exit_builtin(t_minishell *shell, t_cmd *cmd)
 {
-	if (cmd->std_out == 1 && shell->lstfd == NULL)
-		ft_putendl_fd("exit", 1);
+//	if (cmd->std_out == 1 && shell->lstfd == NULL)
+//		ft_putendl_fd("exit", 1);
 	just_exit(shell, cmd);
 	ft_putstr_fd("exit: too many arguments\n", 2);
 	pid_add(shell, NOT_FORKED, NOT_FORKED, 1 << 8);
