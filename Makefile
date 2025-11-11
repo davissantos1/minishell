@@ -78,6 +78,11 @@ YELLOW := \033[33m
 BLUE := \033[34m
 RESET := \033[0m
 
+# Bonus adjustment
+ifeq ($(findstring bonus,$(MAKECMDGOALS)),bonus)
+	NAME= minishell_bonus
+endif
+
 # Rules
 all: $(INSTALL_PATH)
 
@@ -102,6 +107,8 @@ debug: CFLAGS += -g -o0
 debug: re
 	@echo " ⚠️  ${RED}Compilation mode:${RESET} debug"
 
+bonus: all 
+
 clean:
 	@echo " 🧹 ${YELLOW}Cleaning: ${RESET}project objects"
 	@rm -rf $(OBJ)
@@ -111,6 +118,7 @@ clean:
 fclean: clean
 	@echo " 💣 ${YELLOW}Cleaning: ${RESET}everything"
 	@rm -rf $(NAME)
+	@rm -rf minishell_bonus
 	@$(MAKE) -C $(LIBFT_DIR) fclean
 
 uninstall:
