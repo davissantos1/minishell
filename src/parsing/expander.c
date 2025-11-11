@@ -6,7 +6,7 @@
 /*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 21:32:55 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/11/10 17:39:28 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/11/11 12:43:59 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ char	*expand_quotes(t_minishell *s, char *str)
 
 	index = -1;
 	exp = NULL;
-	str = remove_enclosed_quotes(s, str);
 	if (expand_check_quotes(str))
 		return (remove_quotes(s, str));
 	if (str[0] == '\"')
@@ -96,7 +95,7 @@ char	**expand_argv(t_minishell *s, char **av)
 	{
 		dol = ft_strchr(av[i], '$');
 		if (ft_strchr(av[i], '\"') || ft_strchr(av[i], '\''))
-			result[i] = expand_quotes(s, av[i]);
+			result[i] = expand_quotes(s,remove_enclosed_quotes(s, av[i]));
 		else if (dol)
 			result[i] = expand_var(s, av[i]);
 		else if (ft_strchr(av[i], '~'))
