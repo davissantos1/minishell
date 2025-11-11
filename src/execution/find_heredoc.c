@@ -6,7 +6,7 @@
 /*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/04 14:18:46 by vitosant          #+#    #+#             */
-/*   Updated: 2025/11/11 08:55:48 by vitosant         ###   ########.fr       */
+/*   Updated: 2025/11/11 18:59:24 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	find_heredoc(t_minishell *shell, t_ast *node)
 	t_redir	*redir;
 
 	cmd = node->data;
-	if (node->type == NODE_CMD || node->type == NODE_SUBSHELL)
+	if (node->type == 0 || node->type == 4)
 	{
 		redir = cmd->redir;
 		while (redir && !g_signal)
@@ -37,7 +37,6 @@ void	find_heredoc(t_minishell *shell, t_ast *node)
 		find_heredoc(shell, node->left);
 	if (node->right && !g_signal)
 		find_heredoc(shell, node->right);
-	if (g_signal && (node->type == NODE_CMD || node->type == NODE_SUBSHELL)
-		&& cmd->std_in > 0)
+	if (g_signal && (node->type == 0 || node->type == 4) && cmd->std_in > 0)
 		close(cmd->std_in);
 }
