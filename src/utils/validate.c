@@ -6,7 +6,7 @@
 /*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/28 15:00:45 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/11/09 20:28:57 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/11/11 09:24:42 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,28 +35,29 @@ void	validate_terminal(t_minishell *s)
 void	validate_subshell(t_minishell *s)
 {
 	t_token		*cur;
-	int			rparen;
-	int			lparen;
+	int			open;
 
-	rparen = 0;
-	lparen = 0;
+	open = 0;
 	cur = s->head;
 	while (cur && !s->error)
 	{
-		if ((cur->type == TOKEN_LPAREN) || (cur->type == TOKEN_RPAREN))
+		if (cur->type == TOKEN_LPAREN)
 		{
-			if (cur->type == TOKEN_LPAREN)
-			{
-				if (cur->prev && token_check_range(cur->prev) < 2)
-					s->error = cur->value;
-				lparen++;
-			}
-			if (cur->type == TOKEN_RPAREN)
-				rparen++;
+			if (cur->prev && token_check_range(cur->prev) < 2)
+				s->error = cur->value;
+			if (cur->next && cur->next->type == TOKEN_RPAREN)
+				s->error = cur->next->value;
+			open++;
+		}
+		if (cur->type == TOKEN_RPAREN)
+		{
+			if (cur->next && token_check_range(cur->next) == 0)
+				s->error = cur->next->value;
+			open--;
 		}
 		cur = cur->next;
 	}
-	if ((rparen - lparen) && !s->error)
+	if (open && !s->error)
 		s->error = "syntax error: unexpected end of file";
 }
 
@@ -79,6 +80,4 @@ void	validate_wildcard(t_minishell *s)
 		}
 		b = b->next;
 	}
-	
-
 }
