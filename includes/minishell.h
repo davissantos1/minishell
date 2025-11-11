@@ -6,7 +6,7 @@
 /*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 16:35:01 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/11/10 17:40:08 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/11/11 12:35:14 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,5 +125,6 @@ char		*find_meta(char *str);
 void		validate_wildcard(t_minishell *s);
 char		*remove_enclosed_quotes(t_minishell *s, char *str);
 int			maybe_wildcard(char *str);
+int			maybe_expand(char *str);
 
 #endif

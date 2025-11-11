@@ -6,7 +6,7 @@
 /*   By: dasimoes <dasimoes@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/07 17:11:19 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/11/10 21:07:03 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/11/11 13:22:51 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,34 +63,6 @@ static char	**get_sub(t_minishell *s, char *var)
 	return (res);
 }
 
-static int	maybe_expand(char *str)
-{
-	char	quotes;
-	int		open;
-	int		i;
-
-	i = -1;
-	open = 0;
-	while (str[++i])
-	{
-		if ((str[i] == '\'' || str[i] == '\"') && !open)
-			is_open(&open, &quotes, str[i]);
-		else if (open && str[i] == quotes)
-			open = 0;
-		if (str[i] == '$')
-		{
-			if ((open && quotes == '\"') || !open)
-			{
-				if (ft_isalnum(str[i + 1]) || str[i + 1] == '_')
-					return (1);
-				if (str[i + 1] == '?' || str[i + 1] == '$')
-					return (1);
-			}
-		}
-	}
-	return (0);
-}
-
 char	*expand_var(t_minishell *s, char *var)
 {
 	char	**res;
@@ -103,13 +75,7 @@ char	*expand_var(t_minishell *s, char *var)
 	res = get_sub(s, var);
 	while (res[++i])
 	{
-		if (expand_check(res[i]))
-		{
-			res[i] = remove_quotes(s, res[i]);
-			res[i] = expand(s, res[i], res[i], find_meta(res[i]));
-		}
-		else
-			res[i] = remove_quotes(s, res[i]);
+		res[i] = expand(s, res[i], res[i], find_meta(res[i]));
 		if (!gc_addptr(res[i], s->gc, GC_AST))
 			exit_code(s, EXIT_FAILURE);
 	}
