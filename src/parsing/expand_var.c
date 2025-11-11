@@ -6,7 +6,7 @@
 /*   By: dasimoes <dasimoes@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/07 17:11:19 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/11/10 18:20:15 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/11/10 21:07:03 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,23 +68,25 @@ static int	maybe_expand(char *str)
 	char	quotes;
 	int		open;
 	int		i;
-	int		j;
 
 	i = -1;
 	open = 0;
 	while (str[++i])
 	{
-		j = i + 1;
 		if ((str[i] == '\'' || str[i] == '\"') && !open)
 			is_open(&open, &quotes, str[i]);
 		else if (open && str[i] == quotes)
 			open = 0;
-		if (!open && str[i] == '$' && !is_meta(str[j]))
+		if (str[i] == '$')
 		{
-			if (ft_isalnum(str[i]) || str[i] == '_')
-				return (1);
+			if ((open && quotes == '\"') || !open)
+			{
+				if (ft_isalnum(str[i + 1]) || str[i + 1] == '_')
+					return (1);
+				if (str[i + 1] == '?' || str[i + 1] == '$')
+					return (1);
+			}
 		}
-		i++;
 	}
 	return (0);
 }
