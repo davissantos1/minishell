@@ -6,7 +6,7 @@
 /*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/08 16:33:19 by vitosant          #+#    #+#             */
-/*   Updated: 2025/11/10 17:40:35 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/11/11 18:49:27 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,6 @@ int	maybe_wildcard(char *str)
 			open = 0;
 		if (!open && str[i] == '*')
 			return (1);
-		i++;
 	}
 	return (0);
 }
@@ -96,6 +95,9 @@ void	handle_wildcard(t_minishell *s, char ***result, int pos)
 	char	**res;
 
 	res = expand_wildcard(s, (*result)[pos]);
+	if (!gc_addptr(*result, s->gc, GC_TOKEN)
+		|| !gc_addptr(result[0][pos], s->gc, GC_TOKEN))
+		exit_code(s, EXIT_FAILURE);
 	if (!res)
 	{
 		error_code(s, EXIT_FAILURE);

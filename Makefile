@@ -42,6 +42,7 @@ SRC= \
 	src/utils/find_fdlst.c \
 	src/utils/validate_string.c \
 	src/utils/get_pid.c \
+	src/utils/credirs.c \
 	src/execution/and_handle.c \
 	src/execution/or_handle.c \
 	src/execution/builtin_handler.c \

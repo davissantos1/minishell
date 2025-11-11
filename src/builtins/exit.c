@@ -6,7 +6,7 @@
 /*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/18 19:31:10 by vitosant          #+#    #+#             */
-/*   Updated: 2025/11/11 11:07:24 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/11/11 18:51:23 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 static int	only_nums(char *str);
 static void	just_exit(t_minishell *shell, t_cmd *cmd);
-static void	credirs(t_minishell *shell, t_ast *node);
 
 void	exit_builtin(t_minishell *shell, t_cmd *cmd)
 {
@@ -42,6 +41,7 @@ static void	just_exit(t_minishell *shell, t_cmd *cmd)
 	if (ret != 2 && cmd->argv[1] && cmd->argv[2])
 		return ;
 	credirs(shell, shell->root);
+	close_fdlst(shell->lstfd);
 	gc_free_all(shell->gc);
 	exit(ret);
 }
@@ -61,14 +61,4 @@ static int	only_nums(char *str)
 		str++;
 	}
 	return (1);
-}
-
-static void	credirs(t_minishell *shell, t_ast *node)
-{
-	if (node->type == NODE_CMD || node->type == NODE_SUBSHELL)
-		close_redir(shell, node->data);
-	if (node->left)
-		credirs(shell, node->left);
-	if (node->right)
-		credirs(shell, node->right);
 }

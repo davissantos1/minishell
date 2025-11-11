@@ -6,7 +6,7 @@
 /*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 21:32:55 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/11/11 16:32:38 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/11/11 18:43:46 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ char	*expand_quotes(t_minishell *s, char *str)
 	if (!gc_addmtx(spl, s->gc, GC_TOKEN))
 		exit_code(s, EXIT_FAILURE);
 	while (spl[++index])
-		spl[index] = expand_var(s, spl[index]);
+		spl[index] = expand_var(s, spl[index], 1);
 	if (str[0] == '\"')
 		exp = ft_reverse_split(spl, ' ');
 	else
@@ -72,7 +72,7 @@ void	expand_redirect(t_minishell *s, t_redir *redir)
 		if (ft_strchr(cur->file, '\"') || ft_strchr(cur->file, '\''))
 			cur->file = expand_quotes(s, cur->file);
 		else if (dol)
-			cur->file = expand_var(s, cur->file);
+			cur->file = expand_var(s, cur->file, 1);
 		else if (ft_strchr(cur->file, '~'))
 			cur->file = expand_tilde(s, cur->file);
 		else
@@ -95,7 +95,7 @@ char	*expand_line(t_minishell *s, char *line)
 		return (result);
 	dol = ft_strchr(line, '$');
 	if (dol)
-		result = expand_var(s, line);
+		result = expand_var(s, line, 0);
 	else
 		result = ft_strdup(line);
 	if (!gc_addptr(result, s->gc, GC_AST))
@@ -117,7 +117,7 @@ char	**expand_argv(t_minishell *s, char **av)
 		if (ft_strchr(av[i], '\"') || ft_strchr(av[i], '\''))
 			result[i] = expand_quotes(s,remove_enclosed_quotes(s, av[i]));
 		else if (dol)
-			result[i] = expand_var(s, av[i]);
+			result[i] = expand_var(s, av[i], 1);
 		else if (ft_strchr(av[i], '~'))
 			result[i] = expand_tilde(s, av[i]);
 		else

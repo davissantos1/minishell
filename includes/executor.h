@@ -6,7 +6,7 @@
 /*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/06 15:52:51 by vitosant          #+#    #+#             */
-/*   Updated: 2025/11/08 16:25:36 by vitosant         ###   ########.fr       */
+/*   Updated: 2025/11/11 17:11:46 by vitosant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ void	find_path(t_minishell *shell, t_cmd *cmd);
 void	*find_fd(t_lstint *lst, int fd);
 void	close_fdlst(t_lstint *lst);
 void	add_var(t_minishell *shell, char *ovar);
+void	credirs(t_minishell *shell, t_ast *node);
 
 void	or_node(t_minishell *shell, t_ast *node);
 void	pipe_node(t_minishell *shell, t_ast *node);

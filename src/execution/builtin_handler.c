@@ -6,7 +6,7 @@
 /*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/10 11:47:50 by vitosant          #+#    #+#             */
-/*   Updated: 2025/11/08 16:24:35 by vitosant         ###   ########.fr       */
+/*   Updated: 2025/11/11 18:13:46 by vitosant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,9 @@ static void	child_process(t_minishell *shell, t_cmd *cmd, t_func builtins[7])
 		dup2(cmd->std_in, STDIN_FILENO);
 	if (cmd->std_out != STDOUT_FILENO)
 		dup2(cmd->std_out, STDOUT_FILENO);
-	close_fdlst(shell->lstfd);
-	close_redir(shell, cmd);
 	builtins[cmd->is_builtin](shell, cmd);
+	credirs(shell, shell->root);
+	close_fdlst(shell->lstfd);
 	last_return = shell->lst_pid->rbuiltin;
 	gc_free_all(shell->gc);
 	exit(last_return << 8);
