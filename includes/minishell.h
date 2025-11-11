@@ -6,7 +6,7 @@
 /*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 16:35:01 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/11/11 12:35:14 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/11/11 18:41:05 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,6 @@ void		validate_subshell(t_minishell *s);
 int			token_check_range(t_token *token);
 char		*join_subshell(t_minishell *s, t_token *start);
 void		validate_quotes(t_minishell *s);
-char		*expand_var(t_minishell *s, char *var);
 char		*expand_line(t_minishell *s, char *line);
 char		*get_pid(t_minishell *shell);
 int			cvar(char *str);
@@ -126,5 +125,7 @@ void		validate_wildcard(t_minishell *s);
 char		*remove_enclosed_quotes(t_minishell *s, char *str);
 int			maybe_wildcard(char *str);
 int			maybe_expand(char *str);
+char		*expand(t_minishell *s, char *var, char *dollar, char *end);
+char		*expand_var(t_minishell *s, char *var, int quotes);
 
 #endif

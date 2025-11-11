@@ -6,13 +6,13 @@
 /*   By: dasimoes <dasimoes@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/07 17:11:19 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/11/11 16:37:51 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/11/11 18:41:10 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static char	*expand(t_minishell *s, char *var, char *dollar, char *end)
+char	*expand(t_minishell *s, char *var, char *dollar, char *end)
 {
 	char	*expand;
 	char	*preffix;
@@ -63,7 +63,7 @@ static char	**get_sub(t_minishell *s, char *var)
 	return (res);
 }
 
-char	*expand_var(t_minishell *s, char *var)
+char	*expand_var(t_minishell *s, char *var, int quotes)
 {
 	char	*dollar;
 	char	**res;
@@ -73,7 +73,8 @@ char	*expand_var(t_minishell *s, char *var)
 	i = -1;
 	if (!maybe_expand(var))
 		return (remove_quotes(s, var));
-	var = remove_quotes(s, var);
+	if (quotes)
+		var = remove_quotes(s, var);
 	res = get_sub(s, var);
 	while (res[++i])
 	{

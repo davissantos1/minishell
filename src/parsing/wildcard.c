@@ -6,11 +6,7 @@
 /*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/08 16:33:19 by vitosant          #+#    #+#             */
-<<<<<<< Updated upstream
-/*   Updated: 2025/11/11 18:11:08 by dasimoes         ###   ########.fr       */
-=======
-/*   Updated: 2025/11/11 17:03:35 by vitosant         ###   ########.fr       */
->>>>>>> Stashed changes
+/*   Updated: 2025/11/11 18:49:27 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
