@@ -6,7 +6,7 @@
 /*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 19:13:40 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/11/08 16:36:33 by vitosant         ###   ########.fr       */
+/*   Updated: 2025/11/11 11:48:36 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,7 @@ t_ast	*node_handler(t_minishell *s, t_token *start, t_token *end)
 	if (start->type >= TOKEN_WORD && start->type <= TOKEN_VAR)
 		node = cmd_node(s, start, end);
 	else if (start->type == TOKEN_LPAREN)
-	{
-		if (end->type != TOKEN_RPAREN)
-		{
-			s->error = "<newline>";
-			error_code(s, 2);
-			return (NULL);
-		}
 		node = subshell_node(s, start, end);
-	}
 	else if (start->type == TOKEN_EOL || start->type == TOKEN_RPAREN)
 		node = NULL;
 	else
