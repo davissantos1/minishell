@@ -6,7 +6,7 @@
 /*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/30 08:30:36 by vitosant          #+#    #+#             */
-/*   Updated: 2025/10/27 09:48:09 by vitosant         ###   ########.fr       */
+/*   Updated: 2025/11/11 07:57:19 by vitosant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,9 @@ static void	set_cmd_node(t_minishell *shell, t_ast *node, int *fd, char flag)
 {
 	t_cmd	*cmd;
 
-	if (node->type == NODE_CMD)
+	if (!node)
+		return ;
+	if (node->type == NODE_CMD || node->type == NODE_SUBSHELL)
 	{
 		cmd = node->data;
 		if (flag == STDIN_FD && !is_redir(cmd, flag))

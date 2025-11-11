@@ -6,7 +6,7 @@
 /*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/18 19:31:10 by vitosant          #+#    #+#             */
-/*   Updated: 2025/11/07 12:54:19 by vitosant         ###   ########.fr       */
+/*   Updated: 2025/11/11 08:42:30 by vitosant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ static int	only_nums(char *str)
 
 static void	credirs(t_minishell *shell, t_ast *node)
 {
-	if (node->type == NODE_CMD)
+	if (node->type == NODE_CMD || node->type == NODE_SUBSHELL)
 		close_redir(shell, node->data);
 	if (node->left)
 		credirs(shell, node->left);
