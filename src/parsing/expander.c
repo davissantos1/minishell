@@ -6,11 +6,31 @@
 /*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 21:32:55 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/11/11 14:52:20 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/11/11 16:32:38 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static char	*treat_special(t_minishell *s, char *str)
+{
+	char	*solved;
+	int		i;
+	int		j;
+
+	j = -1;
+	i = -1;
+	solved = gc_calloc(ft_strlen(str) + 1, s->gc, GC_TOKEN);
+	if (!solved)
+		exit_code(s, EXIT_FAILURE);
+	while (str[++i])
+	{
+		if (str[i] == '$' && (str[i + 1] == '\'' || str[i + 1] == '\"'))
+			i++;
+		solved[++j] = str[i];
+	}
+	return (solved);
+}
 
 char	*expand_quotes(t_minishell *s, char *str)
 {
@@ -20,8 +40,9 @@ char	*expand_quotes(t_minishell *s, char *str)
 
 	index = -1;
 	exp = NULL;
-	if (expand_check_quotes(str))
+	if (!maybe_expand(str))
 		return (remove_quotes(s, str));
+	str = treat_special(s, str);
 	if (str[0] == '\"')
 		spl = ft_split(str, ' ');
 	else

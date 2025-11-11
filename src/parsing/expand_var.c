@@ -6,7 +6,7 @@
 /*   By: dasimoes <dasimoes@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/07 17:11:19 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/11/11 14:46:44 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/11/11 16:37:51 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static char	*expand(t_minishell *s, char *var, char *dollar, char *end)
 	char	*temp;
 
 	preffix = ft_substr(var, 0, dollar - var);
-	if (!*end)
+	if (!end || !*end)
 		suffix = ft_strdup("");
 	else
 	{
@@ -72,15 +72,15 @@ char	*expand_var(t_minishell *s, char *var)
 
 	i = -1;
 	if (!maybe_expand(var))
-		return (var);
+		return (remove_quotes(s, var));
 	var = remove_quotes(s, var);
 	res = get_sub(s, var);
 	while (res[++i])
 	{
 		dollar = ft_strchr(res[i], '$');
-		if (var[0] == '\'' && var[ft_strlen(var) - 1] == '\'')
+		if (var[0] == '\'' && var[ft_strlen(var) - 1] == '\'' && dollar)
 			res[i] = expand(s, res[i], dollar, ft_strchr(res[i] + 1, '\''));
-		else
+		else if (dollar)
 			res[i] = expand(s, res[i], res[i], find_meta(res[i]));
 		if (!gc_addptr(res[i], s->gc, GC_AST))
 			exit_code(s, EXIT_FAILURE);

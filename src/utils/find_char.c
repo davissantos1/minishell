@@ -6,11 +6,24 @@
 /*   By: vitosant <vitosant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/28 20:31:06 by dasimoes          #+#    #+#             */
-/*   Updated: 2025/11/09 18:39:39 by dasimoes         ###   ########.fr       */
+/*   Updated: 2025/11/11 16:09:44 by dasimoes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static char	*find_last_quote(char *str)
+{
+	int	index;
+
+	index = -1;
+	while (str[++index])
+	{
+		if (str[index] != '\'' && str[index] != '\"')
+			return (&str[index - 1]);
+	}
+	return (&str[index]);
+}
 
 char	*find_break(char *str)
 {
@@ -19,8 +32,8 @@ char	*find_break(char *str)
 	i = 0;
 	if (!*str)
 		return (str);
-	if (str[0] == '\'')
-		return (ft_strchr(str + 1, '\'') + 1);
+	if (str[0] == '\'' || str[0] == '\"')
+		return (find_last_quote(str));
 	while (str[i])
 	{
 		if (str[i] == '$' && str[i + 1])
@@ -30,7 +43,7 @@ char	*find_break(char *str)
 			if (str[i + 1] == '$')
 				return (&str[i + 2]);
 		}
-		if (str[i] == '\'')
+		if (str[i] == '\'' || str[i] == '\"')
 			return (&str[i - 1]);
 		if (str[i + 1] == '$')
 			return (&str[i]);
