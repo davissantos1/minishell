@@ -17,7 +17,6 @@ SRC= \
 	src/utils/expander.c \
 	src/utils/check_expander.c \
 	src/utils/ast.c \
-	src/utils/print.c \
 	src/utils/redirect.c \
 	src/utils/string.c \
 	src/utils/error.c \
